@@ -12,5 +12,4 @@ testing/ipython_notebooks/.ipynb_checkpoints/
 team_process_map/
 feature_engine/utils/__pycache__/
 .idea/
-feature_engine/features/lexicons_dict.pkl
 *.py[cod]
