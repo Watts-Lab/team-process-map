@@ -55,25 +55,25 @@ class ChatLevelFeaturesCalculator:
         self.lexical_features()
 
         # Other lexical features
-        self.other_lexical_features()
+        # self.other_lexical_features()
 
         # Word Mimicry
-        self.calculate_word_mimicry()
+        # self.calculate_word_mimicry()
 
         # Hedge Features
-        self.calculate_hedge_features()
+        # self.calculate_hedge_features()
 
         # TextBlob Sentiment features
-        self.calculate_textblob_sentiment()
+        # self.calculate_textblob_sentiment()
 
         # Info Exchange Feature
-        self.info_exchange()
+        # self.info_exchange()
         
         # Positivity Z-Score
-        self.positivity_zscore()
+        # self.positivity_zscore()
 
         # Dale-Chall readability features
-        self.get_dale_chall_score_and_classfication()
+        # self.get_dale_chall_score_and_classfication()
 
         # Return the input dataset with the chat level features appended (as columns)
         return self.chat_data
