@@ -19,6 +19,8 @@ from features.lexical_features_v2 import *
 from features.other_LIWC_features import *
 from features.word_mimicry import *
 from features.hedge import *
+from features.hedge_advanced import *
+from features.hedge import *
 from features.textblob_sentiment_analysis import *
 from features.readability import *
 from features.positivity_zscore import *
@@ -37,9 +39,14 @@ class ChatLevelFeaturesCalculator:
             @param chat_data (pd.DataFrame): This is a pandas dataframe of the chat level features read in from the input dataset.
         """
         self.chat_data = chat_data
-        self.easy_dale_chall_words = get_dale_chall_easy_words() # load easy Dale-Chall words exactly once.
-        self.function_words = get_function_words() # load function words exactly once
-        self.question_words = get_question_words() # load question words exactly once
+
+        # Load in lexicons exactly once, rather than once per application of the function.
+        self.easy_dale_chall_words = get_dale_chall_easy_words()
+        self.function_words = get_function_words()
+        self.question_words = get_question_words()
+        self.discourse_markers = get_discourse_markers()
+        self.booster_words = get_booster_words()
+        self.advanced_hedge_words = get_advanced_hedge_words()
         
     def calculate_chat_level_features(self) -> pd.DataFrame:
         """
@@ -134,6 +141,9 @@ class ChatLevelFeaturesCalculator:
         """
         # Naive hedge (contains the word or not)
         self.chat_data["hedge_naive"] = self.chat_data["hedge_words"].apply(is_hedged_sentence_1)
+
+        #Advanced hedge (applies an algorithm that accounts for grammatical features / parts of speech)
+        self.chat_data = is_hedged_sentence2(self.chat_data, "message", discourse_markers=self.discourse_markers, booster_words=self.booster_words, hedge_words=self.advanced_hedge_words)
 
 
     def calculate_textblob_sentiment(self) -> None:
