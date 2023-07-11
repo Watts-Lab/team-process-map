@@ -23,13 +23,14 @@ from features.textblob_sentiment_analysis import *
 from features.readability import *
 from features.positivity_zscore import *
 from features.question_num import *
+from features.temporal_features import *
 
 # Importing utils
 from utils.preload_word_lists import *
 from utils.zscore_chats_and_conversation import get_zscore_across_all_chats, get_zscore_across_all_conversations
 
 class ChatLevelFeaturesCalculator:
-    def __init__(self, chat_data: pd.DataFrame) -> None:
+    def __init__(self, chat_data: pd.DataFrame, bert_sentiment_data: pd.DataFrame) -> None:
         """
             This function is used to initialize variables and objects that can be used by all functions of this class.
 
@@ -37,6 +38,7 @@ class ChatLevelFeaturesCalculator:
             @param chat_data (pd.DataFrame): This is a pandas dataframe of the chat level features read in from the input dataset.
         """
         self.chat_data = chat_data
+        self.bert_sentiment_data = bert_sentiment_data # Load BERT 
         self.easy_dale_chall_words = get_dale_chall_easy_words() # load easy Dale-Chall words exactly once.
         self.function_words = get_function_words() # load function words exactly once
         self.question_words = get_question_words() # load question words exactly once
@@ -49,6 +51,10 @@ class ChatLevelFeaturesCalculator:
             (pd.DataFrame): The chat level dataset given to this class during initialization along with 
                             new columns for each chat level feature.
         """
+
+        # Concat sentiment BERT markers (done through preprocessing)
+        self.concat_bert_features()
+        
         # Text-Based Basic Features
         self.text_based_features()
 
@@ -75,6 +81,9 @@ class ChatLevelFeaturesCalculator:
 
         # Dale-Chall readability features
         self.get_dale_chall_score_and_classfication()
+        
+         # Tempora; features
+        self.get_temporal_features()
 
         # Politeness (ConvoKit)
         self.calculate_politeness_sentiment()
@@ -82,6 +91,10 @@ class ChatLevelFeaturesCalculator:
         # Return the input dataset with the chat level features appended (as columns)
         return self.chat_data
         
+    def concat_bert_features(self) -> None:
+        # concat bert features
+        self.chat_data = pd.concat([self.chat_data, self.bert_sentiment_data], axis = 1)
+
     def text_based_features(self) -> None:
         """
             This function is used to implement the common text based featuers.
@@ -158,8 +171,11 @@ class ChatLevelFeaturesCalculator:
             (see features/other_LIWC_features.py to learn more about how these features are calculated)
         """
         # Get the number of questions in each message
+        # naive: Number of Question Marks
         self.chat_data["num_question_naive"] = self.chat_data["message_lower_with_punc"].apply(lambda x: calculate_num_question_naive(x, question_words = self.question_words))
-        
+        # nltk: Using POS-tagging; commented out because Convokit/Politeness has a similar feature, and it's not clear this has an advantage?
+        #self.chat_data["num_question_nltk"] = self.chat_data["message_lower_with_punc"].apply(lambda x: calculate_num_question_nltk(x))
+
         # Classify whether the message contains clarification questions
         self.chat_data["NTRI"] = self.chat_data["message_lower_with_punc"].apply(classify_NTRI)
         
@@ -195,6 +211,14 @@ class ChatLevelFeaturesCalculator:
         # Drop the function / content word columns -- we don't need them in the output
         self.chat_data = self.chat_data.drop(columns=['function_words', 'content_words', 'function_word_mimicry', 'content_word_mimicry'])
 
+    def get_temporal_features(self) -> None:
+        """
+        Calculates features relevant to the timestamps of each chat.
+
+        - time diff: The difference between messages sent.
+        """
+        if {'timestamp'}.issubset(self.chat_data.columns):
+            self.chat_data["time_diff"] =  get_time_diff(self.chat_data,"timestamp") 
 
     def calculate_politeness_sentiment(self) -> None:
         """
@@ -205,6 +229,3 @@ class ChatLevelFeaturesCalculator:
 
         # Concatenate the transformed dataframe with the original dataframe
         self.chat_data = pd.concat([self.chat_data, transformed_df], axis=1)
-
-
-

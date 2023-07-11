@@ -1,0 +1,25 @@
+﻿conversation_num,speaker_nickname,timestamp,message,majority_pct,num_flipped,flipped_pct,num_votes
+1,A,2020-04-20T18:27:20.125Z,"Hey, folks! What a sunny day, huh?",1,1,0.333333333,3
+1,B,2020-04-20T18:27:23.764Z,"Totally! The weather's awesome. Perfect for a chat, right?",1,1,0.333333333,3
+1,C,2020-04-20T18:27:27.724Z,Absolutely! The sun's warmth lifts my spirits. We're lucky to enjoy it!,1,1,0.333333333,3
+1,A,2020-04-20T18:27:30.410Z,"Your enthusiasm is contagious. We're like a synchronized trio, dancing to the same beat.",1,1,0.333333333,3
+1,B,2020-04-20T18:27:35.506Z,"Exactly! Our thoughts harmonize effortlessly, connected by a rhythmic cadence.",1,1,0.333333333,3
+1,C,2020-04-20T18:28:09.451Z,"Well said! Our words sway together, a testament to our shared understanding.",1,1,0.333333333,3
+1,A,2020-04-20T18:28:20.136Z,Your eloquence is inspiring! We're instruments playing a melodic symphony.,1,1,0.333333333,3
+1,B,2020-04-20T18:28:20.136Z,"Beautifully put! Our conversation is a masterpiece, notes resonating in harmony.",1,1,0.333333333,3
+2,A,2020-04-20T18:27:20.125Z,"Salutations, esteemed companions! Have you ever delved into the enigmatic depths of quantum mechanics? The subatomic realm weaves a tapestry of complexity, captivating our minds, does it not?",1,1,0.333333333,3
+2,B,2020-04-20T18:27:23.764Z,"Yo, folks! Guess what? Last night's game was insane! The team made an epic comeback and crushed the competition. It was wild, man!",1,1,0.333333333,3
+2,C,2020-04-20T18:27:27.724Z,"Hey, everyone! Let's embark on a culinary adventure, shall we? Have any of you experienced the divine pleasure of a meticulously crafted dish? The flavors intertwine like poetry, enchanting our senses.",1,1,0.333333333,3
+2,A,2020-04-20T18:27:30.410Z,"The wonders of quantum mechanics never cease to amaze, with particles entangled in a cosmic dance, challenging our perception of reality itself.",1,1,0.333333333,3
+2,B,2020-04-20T18:27:35.506Z,"Dude, that game was off the charts! The team pulled off some mind-blowing plays, and the energy in the stadium was electric. We were all on our feet, cheering like crazy!",1,1,0.333333333,3
+2,C,2020-04-20T18:28:09.451Z,"Ah, the world of gastronomy! A realm where culinary artists compose masterpieces on plates, infusing flavors and textures to create an unforgettable symphony of taste.",1,1,0.333333333,3
+2,A,2020-04-20T18:28:20.136Z,"Quantum mechanics unravels the mysteries of the universe, peering into the fabric of time and space, revealing the fundamental forces that shape our very existence.",1,1,0.333333333,3
+2,B,2020-04-20T18:28:20.136Z,"Man, sports bring people together! The energy in the crowd, the adrenaline rush of victory, it's an experience like no other. Last night's game was pure excitement!",1,1,0.333333333,3
+3,A,2020-04-20T18:27:20.125Z,Hello! This is a test sentence in which we all say exactly the same thing.,1,1,0.333333333,3
+3,B,2020-04-20T18:27:23.764Z,Hello! This is a test sentence in which we all say exactly the same thing.,1,1,0.333333333,3
+3,C,2020-04-20T18:27:27.724Z,Hello! This is a test sentence in which we all say exactly the same thing.,1,1,0.333333333,3
+3,A,2020-04-20T18:27:30.410Z,Hello! This is a test sentence in which we all say exactly the same thing.,1,1,0.333333333,3
+3,B,2020-04-20T18:27:35.506Z,Hello! This is a test sentence in which we all say exactly the same thing.,1,1,0.333333333,3
+3,C,2020-04-20T18:28:09.451Z,Hello! This is a test sentence in which we all say exactly the same thing.,1,1,0.333333333,3
+3,A,2020-04-20T18:28:20.136Z,Hello! This is a test sentence in which we all say exactly the same thing.,1,1,0.333333333,3
+3,B,2020-04-20T18:28:20.136Z,Hello! This is a test sentence in which we all say exactly the same thing.,1,1,0.333333333,3

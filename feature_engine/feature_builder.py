@@ -14,6 +14,7 @@ The intention behind this class is to use these modules and:
 
 # 3rd Party Imports
 import pandas as pd
+import re
 
 # Imports from feature files and classes
 from utils.summarize_chat_level_features import *
@@ -44,19 +45,28 @@ class FeatureBuilder:
         self.output_file_path_chat_level = output_file_path_chat_level
         self.output_file_path_conv_level = output_file_path_conv_level
 
+        # Set word embedding path
+        self.word_embedding_path = re.sub('../feature_engine/data/raw_data', './embeddings/', self.input_file_path)
+        self.vect_data = pd.read_csv(self.word_embedding_path, encoding='mac_roman')
+
+        # Set bert sentiment path
+        self.bert_sentiment_path = re.sub('../feature_engine/data/raw_data', './sentiment_bert/', self.input_file_path)
+        self.bert_sentiment_data = pd.read_csv(self.bert_sentiment_path, encoding='mac_roman').drop('Unnamed: 0', axis=1)
+
         # Reading chat level data (this is available in the input file path directly).
         self.chat_data = pd.read_csv(self.input_file_path, encoding='mac_roman')
         # Preprocess chat data
         self.preprocess_chat_data(col="message")
 
         self.input_columns = self.chat_data.columns
+
+        
         
         # Deriving the base conversation level dataframe.
         # This is the number of unique conversations (and, in conversations with multiple levels, the number of
         # unique rows across "batch_num", and "round_num".)
         # Assume that "conversation_num" is the primary key for this table.
-        self.conv_data = self.chat_data.groupby('conversation_num').nth(0).reset_index(drop = True)[['conversation_num']]
-
+        self.conv_data = self.chat_data[['conversation_num']].drop_duplicates()
 
     def set_self_conv_data(self) -> None:
         """
@@ -64,8 +74,7 @@ class FeatureBuilder:
         Set Conversation Data around `conversation_num` once preprocessing completes.
         We need to select the first TWO columns, as column 1 is the 'index' and column 2 is 'conversation_num'
         """        
-        self.conv_data = self.chat_data.groupby('conversation_num').nth(0).reset_index(drop = True)[['conversation_num']]
-
+        self.conv_data = self.chat_data[['conversation_num']].drop_duplicates()
 
     def merge_conv_data_with_original(self) -> None:
         # Here, drop the message and speaker nickname (which do not matter at conversation level)
@@ -80,8 +89,9 @@ class FeatureBuilder:
 
         self.conv_data = final_conv_output
 
-        # drop index column
-        self.conv_data = self.conv_data.drop(columns=['index'])
+        # drop index column, if present
+        if {'index'}.issubset(self.conv_data.columns):
+            self.conv_data = self.conv_data.drop(columns=['index'])
 
     def featurize(self, col: str="message") -> None:
         """
@@ -132,7 +142,8 @@ class FeatureBuilder:
         """
         # Instantiating.
         chat_feature_builder = ChatLevelFeaturesCalculator(
-            chat_data = self.chat_data
+            chat_data = self.chat_data,
+            bert_sentiment_data = self.bert_sentiment_data
         )
         # Calling the driver inside this class to create the features.
         self.chat_data = chat_feature_builder.calculate_chat_level_features()
@@ -147,6 +158,7 @@ class FeatureBuilder:
         conv_feature_builder = ConversationLevelFeaturesCalculator(
             chat_data = self.chat_data, 
             conv_data = self.conv_data,
+            vect_data= self.vect_data,
             input_columns = self.input_columns
         )
         # Calling the driver inside this class to create the features.

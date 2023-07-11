@@ -1,0 +1,59 @@
+{
+    "becker": {
+        "filename": "beckerestimation_output_conversation_level.csv",
+        "cols_to_ignore": [
+            "conversation_num", "mean_pre_discussion_error", "mean_post_discussion_error", 
+            "mean_pre_discussion_error_pct", "mean_post_discussion_error_pct", "question", "chatrooms", "trial_indx"
+        ]
+    },
+    "csop": {
+        "filename": "csop_output_conversation_level.csv",
+        "cols_to_ignore": [
+            "conversation_num", "batch_num", "round_num", "round_index", "task_index", "complexity", "type", 
+            "social_perceptiveness", "skill", "normalized_score", "zscore_score", "zscore_round_duration", "zscore_efficiency"
+        ]
+    },
+    "csopII": {
+        "filename": "csopII_output_conversation_level.csv",
+        "cols_to_ignore": [
+            "conversation_num", "batch_num", "vis_img", "int_verb", "ort_img", "rep_man", 
+            "soc_pers", "team_size", "difficulty", "score", "duration", "efficiency", "timestamp"
+        ]
+    },
+    "dat": {
+        "filename": "DAT_output_conversation_level.csv",
+        "cols_to_ignore": [
+            "conversation_num", "batch_num", "vis_img", "int_verb", "ort_img", "rep_man", 
+            "soc_pers", "team_size", "score", "duration", "efficiency", "timestamp"
+        ]
+    },
+    "gurcay": {
+        "filename": "gurcay2015estimation_output_conversation_level.csv",
+        "cols_to_ignore": [
+            "conversation_num", "mean_pre_discussion_error", "mean_post_discussion_error", 
+            "mean_pre_discussion_error_pct", "mean_post_discussion_error_pct", "question"
+        ]
+    },
+    "juries": {
+        "filename": "jury_output_conversation_level.csv",
+        "cols_to_ignore": [
+            "conversation_num", "batch_num", "round_num", "speaker_hash", "timestamp", 
+            "majority_pct", "num_flipped", "flipped_pct", "num_votes"
+        ]
+    },
+    "pgg": {
+        "filename": "pgg_output_conversation_level.csv",
+        "cols_to_ignore": [
+            "conversation_num", "treatmentName", "punishmentCost", "punishmentMagnitude", "total_costs", "total_penalties", 
+            "total_rewards", "multiplier", "punishmentExists", "rewardExists", "playerCount", "numRounds", "timestamp", "score"
+        ]
+    },
+    "task_mapping_keys": {
+        "juries": "Mock jury", 
+        "csop": "Room assignment task",
+        "csopII": "Room assignment task",
+        "dat": "Divergent Association Task",
+        "becker": "Estimating Factual Quantities"
+    },
+    "task_names": ["Mock jury", "Room assignment task", "Room assignment task", "Divergent Association Task", "Estimating Factual Quantities"] 
+}

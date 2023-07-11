@@ -9,9 +9,11 @@ The intention behind this class is to use these modules and define any and all c
 from features.gini_coefficient import *
 from features.basic_features import *
 from utils.summarize_chat_level_features import *
+from features.get_all_DD_features import *
+
 
 class ConversationLevelFeaturesCalculator:
-    def __init__(self, chat_data: pd.DataFrame, conv_data: pd.DataFrame, input_columns:list) -> None:
+    def __init__(self, chat_data: pd.DataFrame, conv_data: pd.DataFrame, vect_data: pd.DataFrame, input_columns:list) -> None:
         """
             This function is used to initialize variables and objects that can be used by all functions of this class.
 
@@ -25,6 +27,7 @@ class ConversationLevelFeaturesCalculator:
         # Initializing variables
         self.chat_data = chat_data
         self.conv_data = conv_data
+        self.vect_data = vect_data
         # Denotes the columns that can be summarized from the chat level, onto the conversation level.
         self.input_columns = list(input_columns)
         self.input_columns.append('conversation_num')
@@ -43,6 +46,8 @@ class ConversationLevelFeaturesCalculator:
         self.get_gini_features()
         # Get summary statistics by aggregating chat level features
         self.get_conversation_level_summary_statistics_features()
+        # Get 4 discursive features (discursive diversity, variance in DD, incongruent modulation, within-person discursive range)
+        self.get_discursive_diversity_features()
 
         return self.conv_data
 
@@ -58,6 +63,7 @@ class ConversationLevelFeaturesCalculator:
             on=['conversation_num'],
             how="inner"
         )
+
         # Gini for #Characters
         self.conv_data = pd.merge(
             left=self.conv_data,
@@ -105,3 +111,15 @@ class ConversationLevelFeaturesCalculator:
                 on=['conversation_num'],
                 how="inner"
             )
+    
+    def get_discursive_diversity_features(self) -> None:
+        """
+            This function is used to calculate the discursive diversity for each conversation 
+            based on the word embeddings (SBERT) and chat level information.
+        """
+        self.conv_data = pd.merge(
+            left=self.conv_data,
+            right=get_DD_features(self.chat_data, self.vect_data),
+            on=['conversation_num'],
+            how="inner"
+        )
