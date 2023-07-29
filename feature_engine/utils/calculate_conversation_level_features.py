@@ -10,6 +10,7 @@ from features.gini_coefficient import *
 from features.basic_features import *
 from utils.summarize_chat_level_features import *
 from features.get_all_DD_features import *
+from features.group_affective_balance import *
 
 
 class ConversationLevelFeaturesCalculator:
@@ -48,6 +49,9 @@ class ConversationLevelFeaturesCalculator:
         self.get_conversation_level_summary_statistics_features()
         # Get 4 discursive features (discursive diversity, variance in DD, incongruent modulation, within-person discursive range)
         self.get_discursive_diversity_features()
+
+        #GAB
+        # self.gab()
 
         return self.conv_data
 
@@ -123,3 +127,15 @@ class ConversationLevelFeaturesCalculator:
             on=['conversation_num'],
             how="inner"
         )
+
+    # def gab(self) -> None:
+    #     """
+    #         This function is used to calculate the discursive diversity for each conversation 
+    #         based on the word embeddings (SBERT) and chat level information.
+    #     """
+    #     self.conv_data = pd.merge(
+    #         left=self.conv_data,
+    #         right=group_affective_balance(self.chat_data),
+    #         on=['conversation_num'],
+    #         how="inner"
+    #     )

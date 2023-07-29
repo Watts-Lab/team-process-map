@@ -88,6 +88,9 @@ class ChatLevelFeaturesCalculator:
         # Politeness (ConvoKit)
         self.calculate_politeness_sentiment()
 
+        #GAB
+        self.gab()
+
         # Return the input dataset with the chat level features appended (as columns)
         return self.chat_data
         
@@ -233,3 +236,7 @@ class ChatLevelFeaturesCalculator:
 
         # Concatenate the transformed dataframe with the original dataframe
         self.chat_data = pd.concat([self.chat_data, transformed_df], axis=1)
+
+    def gab(self) -> None:
+
+        self.chat_data['gab'] = self.chat_data['positive_bert'] - self.chat_data['negative_bert']
