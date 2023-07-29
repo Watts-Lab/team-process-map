@@ -1,7 +1,7 @@
 import pandas as pd
 
 """
-Conversation Level Feature
+Conversation Level Feature:
 
 Feature that returns the difference of overall positivity - negativity at the conversation level to assess how potential conflict affects the group discussion, as well as the general balance between positivity and negativity.
 
