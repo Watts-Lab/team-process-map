@@ -51,12 +51,12 @@ def get_top_topics(topic_model,n):
     @param  
     model: The BERTopic model
     n:the number of topics we want (This is excluding topic -1)
+
+    @return list of top n topics
+
     '''
-    return_list = []
-    for i in range(0, n): 
-        topic_list = topic_model.get_topic(i)
-        return_list.append(topic_list)  
-    return return_list  
+    return [topic_model.get_topic(i) for i in range(n)]
+
 
 
 def reduce_chunks(num_rows, max_num_chunks):
@@ -66,6 +66,9 @@ def reduce_chunks(num_rows, max_num_chunks):
     @param
     num_rows: The total number of rows in the dataset
     max_num_chunks: The number of chunks to be created
+
+    @return
+    maximum number of chunks possible
     '''
 
     if (num_rows < max_num_chunks * 2):
@@ -82,6 +85,9 @@ def assign_chunk_nums(chat_data, num_chunks):
     @param
     chat_data: The chat dataframe
     max_num_chunks: The number of chunks to be created
+
+    @return
+    conversation df with a column for chat numbers
     '''
 
     # Calculate the total number of rows per conversation
@@ -167,6 +173,9 @@ def extract_embeddings(model,df):
     @param
     model: The BERTopic model
     df: The conversation dataframe
+
+    @return
+    embeddings used by the BERTopic model
     '''
 
     embeddings_matrix = model._extract_embeddings(df['message'].tolist())
@@ -180,6 +189,9 @@ def get_rep_docs(model,topic_num):
     @param
     model: The BERTopic model
     topic_num: the number of topics we desire to extract
+
+    @return 
+    representative documents for each topic
     '''
     data = model.get_representative_docs(topic_num)
     df = pd.DataFrame(data,columns=['rep_docs'])
@@ -213,22 +225,20 @@ def get_embeddings_top_topics(top_topics,model):
 
     top_topics: The top n topics produced by the BERTopic model
     model: the BERTopic model
+
+    @return
+    list of embeddings per topic
     '''
-    
-    embeddings_for_top_topics = []
-    
-    #for each topic
-    for j in range(0,len(top_topics)):
-        
-        #get the representative documents 
-        rep_docs_df = get_rep_docs(model,j)
 
-        #create embeddings of the representative documents for each topic
-        topic_embeddings = create_bert_vectors(rep_docs_df,'rep_docs')
+    #create embeddings of the representative documents for each topic
+    process_topic = lambda topic_index: create_bert_vectors(get_rep_docs(model, topic_index), 'rep_docs')
 
-        embeddings_for_top_topics.append(topic_embeddings) 
-        
+    # Use a list comprehension to apply the lambda function to each topic
+    embeddings_for_top_topics = [process_topic(j) for j in range(len(top_topics))]
+
+    # Return the list of embeddings_for_top_topics
     return embeddings_for_top_topics
+
 
 
 def get_embeddings_per_chunk(df,num_chunks):
@@ -238,23 +248,21 @@ def get_embeddings_per_chunk(df,num_chunks):
     @param
     df: the conversation dataframe
     num_chunks: the number of chunks
+
+    @return
+    list of embeddings per chunk
     '''
 
-    chunk_embeddings_list = []
+    # Define a lambda function to process each chunk and return embeddings
+    #if the df is empty, i.e there is a pause, create a pseudo 384-dimension embeddings with all values as 0
+    process_chunk = lambda i: np.zeros((1, 384)) if df[df['chunk'] == i].empty else create_bert_vectors(df[df['chunk'] == i], 'message')
 
-    for i in range(0,num_chunks):
-        convo = df[df['chunk'] == i]
+    # Use a list comprehension to apply the lambda function to each chunk
+    chunk_embeddings_list = [process_chunk(i) for i in range(num_chunks)]
 
-        #if the df is empty, i.e there is a pause, create a pseudo 384-dimension embeddings with all values as 0
-        if convo.empty:            
-            #create n arrays of length 384 (number of dimensions)
-            chunk_embeddings = np.zeros((1, 384))
-
-        else:
-            chunk_embeddings = create_bert_vectors(convo,'message')
-        chunk_embeddings_list.append(chunk_embeddings)
-    
+    # Return the list of chunk_embeddings_list
     return chunk_embeddings_list
+
 
 def get_embeddings_per_convo(df):
 
@@ -263,26 +271,25 @@ def get_embeddings_per_convo(df):
 
     @param
     df: the conversation dataframe
+
+    @return
+    list of embeddings per conversation
     '''
 
     convo_max_embeddings_list = []
     min_chat = df['conversation_num'].min()
     max_chat = df['conversation_num'].max() + 1
 
-    for i in range(min_chat,max_chat):
-        convo = df[df['conversation_num'] == i]
+    # Define a lambda function to process each conversation number and return embeddings
+    #if the df is empty, i.e there is a pause, create a pseudo 384-dimension embeddings with all values as 0
+    process_conversation = lambda i: np.zeros((1, 384)) if df[df['conversation_num'] == i].empty else create_bert_vectors(df[df['conversation_num'] == i], 'message')
 
-        #if the df is empty, i.e there is a pause, create a pseudo 384-dimension embeddings with all values as 0
-        if convo.empty:            
-            #create n arrays of length 384 (number of dimensions)
-            chunk_embeddings = np.zeros((1, 384))
+    # Use a list comprehension to apply the lambda function to each conversation number
+    convo_max_embeddings_list = [process_conversation(i) for i in range(min_chat, max_chat)]
 
-        else:
-            chunk_embeddings = create_bert_vectors(convo,'message')
-
-        convo_max_embeddings_list.append(chunk_embeddings)
-    
+    # Return the list of convo_max_embeddings_list
     return convo_max_embeddings_list
+
 
 def get_similarity(embeddings_per_chunk,embeddings_top_topics):
 
@@ -293,7 +300,8 @@ def get_similarity(embeddings_per_chunk,embeddings_top_topics):
     embeddings_per_chunk: embeddings for each chunk of the conversation
     embeddings_top_topics: embeddings of the documents from which the top topics are derived
 
-    Output format: rows - every chunk, cols - topics 
+    @return 
+    cosine similarity between the average embeddings of each chunk and each topic where rows - every chunk, cols - topics 
     '''
 
     topics_per_chunk = []
@@ -329,12 +337,18 @@ def create_topics_without_stopwords(top_topics):
 
     @param
     top_topics: The top topics without stopwords
-    '''
-    cols = []
-    for i in range(0,len(top_topics)):
-        filtered_words = [word[0] for word in top_topics[i] if word[0].lower() not in stopwords]
-        cols.append(filtered_words)
 
+    @return data without stopwords
+
+    '''
+
+    # filter stopwords
+    filter_stopwords = lambda topic: [word[0] for word in topic if word[0].lower() not in stopwords]
+
+    # apply it to all columns
+    cols = [filter_stopwords(top_topics[i]) for i in range(len(top_topics))]
+
+    # Now, cols will contain the filtered words for each topic
     topic_list = []
     for i in range(0,len(cols)):
         topic = ""
@@ -344,4 +358,368 @@ def create_topics_without_stopwords(top_topics):
         topic_list.append(topic)
     
     return topic_list
+
+
+def plot_topics_over_time(df,num_chunks,num_topics,seed_topic_list,approach_type):
+
+    '''
+    Calculates the cosine similarities between the average embeddings of each chunk and each conversation-topic
+
+    @param
+    df: conversation dataframe
+    num_chunks: number of chunks to divide each conversation into
+    num_topics: number of topics
+    seed_topic_list: list of seed topics (used only in case of guided topic modeling)
+    approach_type: guided/unguided
+
+    @return: df of cosine similarities, where rows are the chunks, columns are Convo-Topics
+    '''
+
+    #get the total number of conversations. +1 as the range in python is 0 to n, exclusive of n
+    total_convos = df['conversation_num'].max() + 1
+    min_convo = df['conversation_num'].min()
+
+    model = None
+
+    if approach_type == 'guided':
+        #fit the model
+        model = fit_model_guided(df['message'].tolist(),seed_topic_list)
+    else:
+        model = fit_model_unguided(df['message'].tolist())
+
+    #reduce the topics. We reduce to num_topics + 1 as there will always be a topic -1 with irrelevant topics
+    model.reduce_topics(df['message'].tolist(),num_topics+1)
+
+    #get the topics after reduction
+    top_topics = get_top_topics(model,num_topics)
+
+    #get the embeddings for the top topics
+    embeddings_top_topics = get_embeddings_top_topics(top_topics,model)
+
+    #remove the stopwords from the topics and recreate the topics without the stopwords
+    topic_list = create_topics_without_stopwords(top_topics)
+
+    #create an empty df. We will append columns for each Convo-Topic 
+    df_for_plotting = None
+
+    #iterate through all the conversations (e.g. 347 in Juries)
+    for i in range (min_convo,total_convos):
+
+        print("Convo Number " +str(i))
+
+        #filter the df for a specific conversation number
+        df_convo = df[df['conversation_num'] == i]
+
+        #create chunks by dividing the conversation into equal units of time
+        create_chunks(df_convo,num_chunks)
+
+        #get the embeddings for each chunk
+        embeddings_per_chunk = get_embeddings_per_chunk(df_convo,num_chunks)
+
+        #get the similarity between the topic embeddings and the chunk embeddings
+        topics_per_chunk = get_similarity(embeddings_per_chunk,embeddings_top_topics)
+
+        #convert the similarity matrix to a dataframe
+        topics_df = pd.DataFrame(topics_per_chunk)
+
+        new_column_headings = []
+
+        #column heading for the current conversation. For e.g. 
+        # if it is conversation 131 and we have 2 topics, the headings will be Convo 131 Topic 0, Convo 131 Topic 1
+        new_column_headings = [f"Convo {i} Topic {j}" for j in range(len(topic_list))]
+
+        # Now, new_column_headings will contain the desired column headings
+        if i == min_convo:#if its the first conversation, we don't need to append the df to an existing df
+            df_for_plotting = topics_df
+            df_for_plotting.columns = new_column_headings
+        else:
+            topics_df.columns = new_column_headings
+            df_for_plotting = df_for_plotting.join(topics_df)
+
+    #print the top topics
+    for i in range(0,len(topic_list)):
+        print("Topic " +str(i)+": "+topic_list[i])
+    
+    #return the df: rows are the chunks, columns are Convo-Topics
+    return df_for_plotting
+
+
+#unpivot the data
+def unpivot_data(df,bucket_df):
+    '''
+    @param
+    df: The conversation dataframe
+    bucket_df: Pivot data after calculated cosine similarity
+
+    @return:
+    unpivoted data frame with cosine similarities
+    '''
+
+    # Add 'chunk' column with values 0, 1, 2, ...
+    df['chunk'] = df.index
+
+    # Reset the index to have a numeric range index
+    df.reset_index(drop=True, inplace=True)
+
+    # Unpivot the DataFrame to melt the data
+    df_unpivoted = pd.melt(df, id_vars=['chunk'], var_name='convo_topic', value_name='cosine_similarity')
+
+    # Split 'convo_topic' into 'Convo' and 'Topic', and convert them into numbers
+    df_unpivoted[['convo', 'topic']] = df_unpivoted['convo_topic'].str.extract(r'Convo (\d+) Topic (\d+)')
+    df_unpivoted['convo'] = df_unpivoted['convo'].astype('int')
+    df_unpivoted['topic'] = df_unpivoted['topic'].astype('int')
+
+    # Drop the original 'convo_topic' column
+    df_unpivoted.drop(columns=['convo_topic'], inplace=True)
+
+    # Reorder the columns so that 'Cosine Similarity' is the first column
+    df_unpivoted = df_unpivoted[['cosine_similarity', 'chunk', 'convo', 'topic']]
+
+    # Perform the VLOOKUP-like operation using merge
+    result_df = pd.merge(df_unpivoted, bucket_df, left_on='convo',right_index=True, how='left')
+
+    return result_df
+
+
+def normalize(x):
+    '''
+    Normalization function around the mean
+    '''
+    return (x - x.mean()) / x.std()
+
+
+def get_normalized_buckets(df,performance_metric):
+    '''
+    Adds the label "Below Mean
+
+    @param
+    df:conversation datafram
+    performance_metric: performance metric for the respective task
+
+    @return
+    df with the label based on the normalized performance metric
+    '''
+
+    #filter to extract the performance metric
+    df = df[[performance_metric]]
+
+    #normalize the performance score
+    df['normalized_performance_score'] = df[performance_metric].transform(normalize)
+
+    #get the mean aftet normalization
+    mean = df['normalized_performance_score'].mean()
+
+    # Define a lambda function to label rows based on the mean
+    label_rows = lambda value: 'Below Mean' if value < mean else 'Above Mean'
+
+    # Apply the lambda function to create the 'normalized_label' column
+    df['normalized_label'] = df['normalized_performance_score'].apply(label_rows)
+
+    return df
+
+# Define the function to calculate the mean from a bootstrap sample
+def bootstrap_mean(data, n_bootstraps=1000):
+    '''
+    @param
+    data:
+    n_bootstraps : number of bootstraps, default is 1000
+    '''
+    valid_data = data.dropna()  # Remove NaN values after normalization
+    if len(valid_data) > 1:  # Check if the valid_data has more than one value
+        means = []
+        for _ in range(n_bootstraps):
+
+            #get an array of random samples
+            sample = np.random.choice(valid_data, size=len(valid_data), replace=True)
+
+            #append the mean of random sample to output. 
+            means.append(sample.mean())
+        # the len will be 1000 due to 1000 bootstraps and each element will be the mean of n random samples (n being the population size)
+        return means 
+    else: #we cannot bootstrap in this case, as we have only 1 value.
+        return np.nan
+
+
+def normalize_cosine_similarity(df,confidence_interval):
+    '''
+    @param
+    df: the conversation dataframe
+    confidence_interval: The % for confidence intervals (must be a whole number)
+
+    @return: A df containing the normalized cosine similarities for each bucket-topic-chunk.
+    '''
+
+    # Group the DataFrame by 'chunk', 'topic', and 'label_2_buckets'
+    grouped = df.groupby(['chunk', 'topic', 'normalized_label'])['cosine_similarity']
+
+    lower_bound = (100 - confidence_interval) / 2
+    upper_bound = 100 - lower_bound
+
+    # Calculate the bootstrap confidence intervals for the mean of 'normalized_cosine_similarity' - This will give us the CIs for each chunk-topic-label
+    #basically, we will take the 1000 values from above, create a distribution, and get the upper and lower bound based on the confidence interval specified
+    confidence_intervals = grouped.apply(bootstrap_mean).dropna().apply(lambda x: np.percentile(x, [lower_bound, upper_bound]))
+
+    #get the aggregated DF. 
+    average_df = df.groupby(['chunk', 'topic', 'normalized_label'], as_index=False).agg(cosine_similarity_mean=('cosine_similarity', 'mean'))
+
+    # Create a new DataFrame to store the confidence intervals 
+    confidence_intervals_df = pd.DataFrame(confidence_intervals.tolist(), columns=['Lower CI', 'Upper CI'])
+
+    # Concatenate the confidence intervals DataFrame with the original DataFrame
+    result_df = pd.concat([average_df, confidence_intervals_df], axis=1)
+
+    #add the boostrapped results to all the other convos
+    return result_df
+
+def convert_convo_nums(df):
+    '''
+    Use factorize to replace alphanumeric strings with conversation numbers
+    '''
+
+    df['conversation_num'] = pd.factorize(df['conversation_num'])[0]
+
+
+def plot3(df,approach_type):
+    '''
+    plot the Topics over Time graph
+
+    @param
+    df: conversation dataframe
+    approach_type: guided or unguided
+    '''
+
+    # Define line styles based on 'normalized_label'
+    line_dash_map = {
+        ('Above Mean',): 'solid',
+        ('Below Mean',): 'dot'
+    }
+
+    # Create a color map for different topics
+    topic_color_map = {
+        topic: f'hsl({360 * topic / df["topic"].nunique()}, 50%, 50%)'
+        for topic in df['topic'].unique()
+    }
+
+    # Create the figure and subplots
+    fig = go.Figure()
+
+    # Iterate over unique topics
+    for topic in df['topic'].unique():
+        topic_df = df[df['topic'] == topic]
+
+        # Get the color for the current topic
+        color = topic_color_map[topic]
+
+        # Iterate over unique normalized_labels for each topic
+        for label in topic_df['normalized_label'].unique():
+            label_df = topic_df[topic_df['normalized_label'] == label]
+
+            # Create line trace for each topic-chunk-normalized_label combination
+            fig.add_trace(go.Scatter(
+                x=label_df['chunk'],
+                y=label_df['cosine_similarity_mean'],
+                mode='lines',
+                name=f'Topic {topic} ({label})',
+                line=dict(color=color, dash=line_dash_map[(label,)]),
+            ))
+
+            # Create vertical bars for confidence intervals at each chunk position
+            for i in label_df.index:
+                fig.add_shape(
+                    go.layout.Shape(
+                        type='line',
+                        x0=label_df.loc[i, 'chunk'],
+                        x1=label_df.loc[i, 'chunk'],
+                        y0=label_df.loc[i, 'Lower CI'],
+                        y1=label_df.loc[i, 'Upper CI'],
+                        line=dict(color=color, dash=line_dash_map[(label,)], width=2),
+                    )
+                )
+
+        # Calculate the average for the topic-chunk combination
+        avg_cosine_similarity = topic_df.groupby('chunk')['cosine_similarity_mean'].mean()
+
+        # Create a thick line trace for the average values
+        fig.add_trace(go.Scatter(
+            x=avg_cosine_similarity.index,
+            y=avg_cosine_similarity,
+            mode='lines',
+            name=f'Topic {topic} (Average)',
+            line=dict(color=color, width=3),
+        ))
+
+    if approach_type == 'unguided':
+        # Customize layout
+        fig.update_layout(
+            title='Topics Over Time - Unguided',
+            xaxis_title='Chunk',
+            yaxis_title='Cosine Similarity Mean',
+            legend_title='Topic and Label',
+            legend=dict(yanchor='top', y=1.03, xanchor='left', x=1.03),
+            xaxis=dict(type='category', tickmode='linear'),
+            margin=dict(l=80, r=80, t=100, b=80),  # Adjust the margin around the plot
+        )
+    else:
+        # Customize layout
+        fig.update_layout(
+            title='Topics Over Time - Guided',
+            xaxis_title='Chunk',
+            yaxis_title='Cosine Similarity Mean',
+            legend_title='Topic and Label',
+            legend=dict(yanchor='top', y=1.03, xanchor='left', x=1.03),
+            xaxis=dict(type='category', tickmode='linear'),
+            margin=dict(l=80, r=80, t=100, b=80),  # Adjust the margin around the plot
+        )
+        
+    # Show the plot
+    fig.show()
+
+
+def plot_after_normalization(df_for_plotting,df,performance_metric,confidence_interval,approach_type):
+    '''
+
+    @param
+    df_for_plotting: df of cosine similarties where rows are the chunk numbers, columns are Convo-Topics
+    df: The conversation dataframe
+    performance_metric: The performance metric for the respective task
+    confidence_interval:The % for confidence intervals (must be a whole number)
+    approach_type: guided or unguided
+    '''
+
+    bucket_df = get_normalized_buckets(df,performance_metric)
+    
+    #
+    output = unpivot_data(df_for_plotting,bucket_df,performance_metric)
+
+    #bootstrap confidence intervals for c
+    bootstrapped = normalize_cosine_similarity(output,confidence_interval)
+
+    #plot the data with bootstrapped confidence intervals
+    plot3(bootstrapped,approach_type)
+
+
+def train_and_plot(chat_df,seed_topic_list,num_topics,num_chunks,performance_metric,confidence_interval,approach_type):
+    '''
+    Ulimate function where everything comes together
+    @param
+
+    chat_df: The conversation dataframe
+    seed_topic_list: The list of seed topics for guided topic modeling
+    num_topics: The number of topics
+    num_chunks: The number of chunks
+    performance_metric: The performance metric for the respective task
+    confidence_interval: The % for confidence intervals (must be a whole number)
+    approach_type: guided or unguided
+
+    '''
+
+    #if the conversation IDs are not numbers, convert them to numbers
+    if pd.api.types.is_string_dtype(chat_df['conversation_num']):
+        convert_convo_nums(chat_df)
+
+    #generate the dataframe for plotting
+    df_for_plotting = plot_topics_over_time(chat_df,num_chunks,num_topics,seed_topic_list,approach_type)
+
+    #normalize the performance metric, bootstrap confidence intervals and plot them
+    plot_after_normalization(df_for_plotting,chat_df,performance_metric,confidence_interval,approach_type)
     
