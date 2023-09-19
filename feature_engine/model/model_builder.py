@@ -1,6 +1,7 @@
 # 3rd Party Imports
 import pandas as pd
 import numpy as np
+import numpy.ma as ma
 import matplotlib.pyplot as plt
 import seaborn as sns
 import json
@@ -27,7 +28,8 @@ class ModelBuilder():
             test_dataset_names: list=None,
             standardize_within = False,
             low_corr_thresh = 0.1,
-            feature_downselect = True
+            feature_downselect = True,
+            min_num_chats = 0
         ) -> None:
         """Initializes the various objects and variables used throughout the `ModelBuilder` class.
 
@@ -42,6 +44,7 @@ class ModelBuilder():
             standardize_within (bool, optional): A boolean that determines whether features are standardized *within* tasks /individual datasets (if True), or *across* tasks (if False). Defaults to False.
             low_corr_thresh (float, optional): a threshold for dropping features that have a correlation with the target lower than this level. Defaults to 0.1.
             feature_downselect(bool, optional): a boolean to determine whether we down-select features automatically (drop any invariant columns, and remove columns with low correlation w/ the DV in the training data). Defaults to True.
+            min_num_chats (number, optional): The min number of chats required in a conversation in order for it to be analyzed. Defaults to 0, which means it analyzes every conversation.
         Returns:
             (None)
         """
@@ -62,6 +65,7 @@ class ModelBuilder():
             self.standardize_within = standardize_within
             self.low_corr_thresh = low_corr_thresh
             self.feature_downselect = feature_downselect
+            self.min_num_chats = min_num_chats
 
         # If the user has specified a test set(s), then we need to build it seperately
         if self.test_dataset_names != None: 
@@ -113,6 +117,9 @@ class ModelBuilder():
             # Handling the case when the dataset names is not found in the config files
             except KeyError:
                 print("Are you sure that your dataset name is correct?")
+            
+            # Drop any teams that had fewer than n chats
+            conv_complete = conv_complete[conv_complete['sum_num_messages'] >= self.min_num_chats].reset_index(drop=True)
             # Dropping redundant columns as specified in the config file    
             conv = conv_complete.drop(self.config[dataset_names[0]]["cols_to_ignore"], axis=1)
             # Standardizing Features
@@ -127,6 +134,10 @@ class ModelBuilder():
                 # Try reading in the dataset
                 try:
                     full_dataset = pd.read_csv(self.output_dir + self.config[dataset_name]["filename"])
+                    
+                    # Drop any teams that had fewer than n chats
+                    full_dataset = full_dataset[full_dataset['sum_num_messages'] >= self.min_num_chats].reset_index(drop=True)
+
                     convs_complete.append(full_dataset)
                 # Handling the case when the dataset names is not found in the config files
                 except KeyError:
@@ -144,7 +155,7 @@ class ModelBuilder():
 
                 # Add a column with the dataset name --- This is helpful for adding in task related featured in the pipeline later on.
                 df_extra_columns_dropped = df_extra_columns_dropped.assign(dataset_name = dataset_name)
-  
+                
                 # merge with self.conv
                 if conv is None: conv = df_extra_columns_dropped
                 else: conv = pd.concat([conv, df_extra_columns_dropped])
@@ -184,6 +195,7 @@ class ModelBuilder():
         
         # Calling this function to add in task related features to the combined datasets created above.
         self.integrate_task_level_features(is_test_datasets=is_test_datasets)
+
 
     def get_columns_with_low_signal(self, df, target, CORR_THRESH=0.1) -> None:
         """
@@ -250,6 +262,7 @@ class ModelBuilder():
         """
         task_proportions = df['task_name'].value_counts()/len(df['task_name'])
         df['inverse_task_weight'] = df['task_name'].apply(lambda task: 1 / task_proportions[task])
+
         return(df)
 
     def integrate_task_level_features(self, is_test_datasets: bool=False) -> None:
@@ -298,7 +311,8 @@ class ModelBuilder():
             if(isinstance(target, list)): target = target[0]
             # The raw target is stored in `target_raw`, and the stadardized target is stored in `target_std`.
             conversation_clean["target_raw"] = conversation_complete[target]
-            conversation_clean["target_std"] = (conversation_clean["target_raw"] - conversation_clean["target_raw"].mean()) / conversation_clean["target_raw"].std()
+            scaler = StandardScaler()
+            conversation_clean["target_std"] = scaler.fit_transform(conversation_complete[target].to_numpy().reshape(-1, 1)).flatten()
         # In case we are combining multiple datasets and targets
         else: 
             target_raw_list, target_std_list = [], []
@@ -439,14 +453,11 @@ class ModelBuilder():
         Clean up columns: (1) Drop anything that is invariant; and 
         (2) Preemptively remove anything with a low correlation with the target
         """
-
         # Determine the drops based on the training set
         self.X_train = self.drop_invariant_columns(self.X_train)
         self.X_train = self.X_train.drop(self.get_columns_with_low_signal(self.X_train, self.y_train, self.low_corr_thresh), axis = 1)
-
         # Set the test and val sets to have the same columns as the training set
         self.X_val = self.X_val[self.X_val.columns.intersection(self.X_train.columns)]
-
         if self.has_test_set:
             self.X_test = self.X_test[self.X_test.columns.intersection(self.X_train.columns)]
 
@@ -660,9 +671,8 @@ class ModelBuilder():
                 self.print_lasso_coefs(model)
                 self.plot_lasso_residuals(model)
             explainer = shap.LinearExplainer(model, self.X_val)
-            
+        
         shap_values = explainer.shap_values(self.X_val)
-
         # how does the shap value correlate with the feature value?
         # positive correlation suggests that higher levels of the feature tend to boost performance
         # negative correlation suggests that higher levels of the feature tend to decrease performance
@@ -671,9 +681,10 @@ class ModelBuilder():
             feature_values = self.X_val[feature_name]
             feature_index = self.X_val.columns.get_loc(feature_name)  # Get the index of the feature
             shapley_values = shap_values[:, feature_index]
-            correlation_coefficient = np.corrcoef(feature_values, shapley_values)[0, 1]
+            # Create a DataFrame with the two columns and calculate the correlation
+            df = pd.DataFrame({'feature_values': feature_values, 'shapley_values': shapley_values})
+            correlation_coefficient = df.corr(method='pearson').iloc[0, 1]   
             shap_feature_correlation.append(correlation_coefficient)
-
         shap_mean_abs = np.mean(np.abs(shap_values), axis = 0)
         shap_df = pd.DataFrame({
             'feature': self.X_val.columns,
