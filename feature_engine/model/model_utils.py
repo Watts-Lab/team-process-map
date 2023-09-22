@@ -113,6 +113,10 @@ def plot_important_features_over_time(merged_df, color_palette, title="Top Featu
 	plt.show()
 
 def plot_r2_and_mse_over_time(metrics, title):
+	"""
+
+	"""
+
 	# Transpose the data for plotting
 	transposed_data = metrics.T
 	fig, ax1 = plt.subplots()
@@ -146,7 +150,15 @@ def plot_r2_and_mse_over_time(metrics, title):
 
 
 def check_na_rows_cols(df):
-	# Check for NaN values in columns
+	"""
+	Check for NaN values in columns.
+
+	@param df: the dataframe being checked.
+
+	Returns: Tuple of (nan_columns, nan_rows)
+	- List of columns that contain NA
+	- List of rows that contain NA
+	"""
 	nan_columns = df.columns[df.isna().any()].tolist()
 
 	# Check for NaN values in rows
@@ -196,6 +208,20 @@ def drop_non_common_columns(dfs):
 
 	return new_data_frames
 
+def get_users_in_nonempty_conversations(dfs):
+    """
+    Return the set of users who talked in non-empty conversations.
+    - Checks the `user_list` column in the user-level dataframe
+    - Filters out if the list of other users is empty (the user didn't have a true conversation)
+    - Note that currently, the `user_list` is a list, cast as a string, so we use this format.
+
+    @param dfs: list of dataframes (expecting User level!)
+    """
+    processed_dfs = []
+    for df in dfs:
+        processed_dfs.append(df[df['user_list'] != '[]'])
+    return(processed_dfs)
+
 def get_convs_with_min_value(dfs, col, min_value):
 	"""
 	Filters dataframes so that only conversations with a min value in a certain
@@ -231,7 +257,7 @@ def get_pca_of_dataframes(dfs, n_components=None):
 	return(pca)
 
 
-def plot_pca_of_dataframes(*dfs, labels):
+def plot_pca_of_dataframes(*dfs, labels, title = "PCA Scatter Plot of DataFrames"):
 	"""
 	Plot data from multiple DataFrames on the same 2D PCA plot, coloring by labels.
 
@@ -270,7 +296,7 @@ def plot_pca_of_dataframes(*dfs, labels):
 		label_data = reduced_data[stacked_data['task_name'] == label]
 		plt.scatter(label_data[:, 0], label_data[:, 1], label=label, color=colors[i], alpha=0.6)
 
-	plt.title("PCA Plot of DataFrames")
+	plt.title(title)
 	plt.xlabel("Principal Component 1")
 	plt.ylabel("Principal Component 2")
 	plt.legend(loc='best', title='Task')
@@ -373,7 +399,7 @@ def get_gaussian_mixture_clustering(data, use_aic = True):
 	return(cluster_labels)
 
 
-def generate_interactive_feature_plot(pca_df):
+def generate_interactive_feature_plot(pca_df, title = "PCA Scatter Plot"):
 	"""
 	Generate a plot of the PCA's, in which a hovertool allows the user to look at the
 	different features within each cluster
@@ -388,7 +414,7 @@ def generate_interactive_feature_plot(pca_df):
 
 	# Create a Bokeh figure
 	output_file("pca_scatter_plot.html")  # Output file name
-	p = figure(title='PCA Scatter Plot')
+	p = figure(title=title)
 
 	# Scatter plot with colored clusters
 	scatter = p.circle('PC1', 'PC2', source=source, size=10, color=color_mapper, legend_field='cluster')
@@ -403,7 +429,7 @@ def generate_interactive_feature_plot(pca_df):
 	show(p)
 
 
-def visualize_feature_clusters(dfs, use_aic = True):
+def visualize_feature_clusters(dfs, use_aic = True, title = "PCA Scatter Plot"):
 	"""
 	A function that takes in the list of dataframes and visualizes how the different features
 	clusters together.
@@ -436,5 +462,5 @@ def visualize_feature_clusters(dfs, use_aic = True):
 	pca_df = pd.DataFrame(data=pca_data_transposed, columns=["PC1", "PC2"], index=normalized_data_transposed.index)
 	pca_df["cluster"] = cluster_labels
 
-	generate_interactive_feature_plot(pca_df)
+	generate_interactive_feature_plot(pca_df, title)
 
