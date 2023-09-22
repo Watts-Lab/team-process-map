@@ -10,7 +10,7 @@
         "filename": "csop_output_conversation_level.csv",
         "cols_to_ignore": [
             "conversation_num", "batch_num", "round_num", "round_index", "task_index", "complexity", "type", 
-            "social_perceptiveness", "skill", "normalized_score", "score", "duration", "efficiency"
+            "social_perceptiveness", "skill", "cogStyleDiversity", "cogStyleSpeed", "normalized_score", "score", "duration", "efficiency"
         ]
     },
     "csopII": {
