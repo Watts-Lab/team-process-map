@@ -212,6 +212,24 @@ def get_convs_with_min_value(dfs, col, min_value):
 		new_dfs.append(df[df[col]>min_value])
 	return new_dfs
 
+def get_pca_of_dataframes(dfs, n_components=None):
+	"""
+	Wrapper function for calling PCA on a list of dataframes.
+
+	@param dfs: input DataFrames.
+	@n_components: the number of components for the PCA
+
+	Returns: the PCA object.
+	"""
+	# Stack and Normalize the Data
+	stacked_data = pd.concat(get_numeric_cols(dfs), join = 'inner', ignore_index = True).transform(lambda x: (x - x.mean()) / x.std())
+	# Remove Coluimns with NA
+	stacked_data = stacked_data.dropna(axis=1)
+	# Run PCA and return object
+	pca = PCA(n_components=n_components)
+	pca.fit_transform(stacked_data)
+	return(pca)
+
 
 def plot_pca_of_dataframes(*dfs, labels):
 	"""
@@ -228,7 +246,7 @@ def plot_pca_of_dataframes(*dfs, labels):
 		df['task_name'] = labels[i]
 	
 	# Concatenate the DataFrames into a single DataFrame
-	stacked_data = pd.concat([df.assign(task_name=labels[i]) for i, df in enumerate(dfs)], axis=0)
+	stacked_data = pd.concat([df.assign(task_name=labels[i]) for i, df in enumerate(get_numeric_cols(dfs))], axis=0)
 
 	# Normalize Columns Across All Tasks
 	# This ensures that features with large numeric values don't skew the PCA
@@ -385,7 +403,15 @@ def generate_interactive_feature_plot(pca_df):
 	show(p)
 
 
-def visualize_feature_clusters(dfs):
+def visualize_feature_clusters(dfs, use_aic = True):
+	"""
+	A function that takes in the list of dataframes and visualizes how the different features
+	clusters together.
+
+	@param dfs: list of dataframes
+	@param use_aic: a boolean to indicate whether we cluster with the optimal number of clusters
+	using AIC or BIC
+	"""
 	all_data = pd.concat(dfs, join = 'inner', ignore_index = True)
 
 	# Normalize (Across all tasks)
@@ -400,7 +426,7 @@ def visualize_feature_clusters(dfs):
 	normalized_data_transposed = normalized_df.drop(["task_name"], axis=1).T
 
 	# Get Clusters (using GMM) for the data, on the full-dimensional dataset.
-	cluster_labels = get_gaussian_mixture_clustering(normalized_data_transposed)
+	cluster_labels = get_gaussian_mixture_clustering(normalized_data_transposed, use_aic)
 
 	# Perform PCA for dimensionality reduction (2 components for 2D)
 	pca = PCA(n_components=2)

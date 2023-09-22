@@ -19,13 +19,13 @@ if __name__ == "__main__":
 
 	# TINY Test sets --- just two conversations each
 	# Tiny Juries
-	feature_builder = FeatureBuilder(
-		input_file_path = "../feature_engine/data/raw_data/juries_tiny_for_testing.csv",
-		output_file_path_chat_level = "../feature_engine/output/jury_TINY_output_chat_level.csv",
-		output_file_path_user_level = "../feature_engine/output/jury_TINY_output_user_level.csv",
-		output_file_path_conv_level = "../feature_engine/output/jury_TINY_output_conversation_level.csv",
-	)
-	feature_builder.featurize(col="message")
+	# feature_builder = FeatureBuilder(
+	# 	input_file_path = "../feature_engine/data/raw_data/juries_tiny_for_testing.csv",
+	# 	output_file_path_chat_level = "../feature_engine/output/jury_TINY_output_chat_level.csv",
+	# 	output_file_path_user_level = "../feature_engine/output/jury_TINY_output_user_level.csv",
+	# 	output_file_path_conv_level = "../feature_engine/output/jury_TINY_output_conversation_level.csv",
+	# )
+	# feature_builder.featurize(col="message")
 
 	# Tiny CSOP
 	# tiny_csop_feature_builder = FeatureBuilder(
@@ -111,50 +111,50 @@ if __name__ == "__main__":
 
 	# CSOP (Abdullah)
 
-	# csop_feature_builder_first25pct = FeatureBuilder(
-	# 	input_file_path = "../feature_engine/data/raw_data/csop_conversations_withblanks.csv",
-	# 	output_file_path_chat_level = "../feature_engine/output/first_25/csop_output_chat_level.csv",
-	# 	output_file_path_user_level = "../feature_engine/output/first_25/csop_output_user_level.csv",
-	# 	output_file_path_conv_level = "../feature_engine/output/first_25/csop_output_conversation_level.csv",
-	# 	analyze_first_pct = 0.25
-	# )
-	# csop_feature_builder_first25pct.featurize(col="message")
+	csop_feature_builder_first25pct = FeatureBuilder(
+		input_file_path = "../feature_engine/data/raw_data/csop_conversations_withblanks.csv",
+		output_file_path_chat_level = "../feature_engine/output/first_25/csop_output_chat_level.csv",
+		output_file_path_user_level = "../feature_engine/output/first_25/csop_output_user_level.csv",
+		output_file_path_conv_level = "../feature_engine/output/first_25/csop_output_conversation_level.csv",
+		analyze_first_pct = 0.25
+	)
+	csop_feature_builder_first25pct.featurize(col="message")
 
-	# csop_feature_builder_first50pct = FeatureBuilder(
-	# 	input_file_path = "../feature_engine/data/raw_data/csop_conversations_withblanks.csv",
-	# 	output_file_path_chat_level = "../feature_engine/output/first_50/csop_output_chat_level.csv",
-	# 	output_file_path_user_level = "../feature_engine/output/first_50/csop_output_user_level.csv",
-	# 	output_file_path_conv_level = "../feature_engine/output/first_50/csop_output_conversation_level.csv",
-	# 	analyze_first_pct = 0.5
-	# )
-	# csop_feature_builder_first50pct.featurize(col="message")
+	csop_feature_builder_first50pct = FeatureBuilder(
+		input_file_path = "../feature_engine/data/raw_data/csop_conversations_withblanks.csv",
+		output_file_path_chat_level = "../feature_engine/output/first_50/csop_output_chat_level.csv",
+		output_file_path_user_level = "../feature_engine/output/first_50/csop_output_user_level.csv",
+		output_file_path_conv_level = "../feature_engine/output/first_50/csop_output_conversation_level.csv",
+		analyze_first_pct = 0.5
+	)
+	csop_feature_builder_first50pct.featurize(col="message")
 
-	# csop_feature_builder_first75pct = FeatureBuilder(
-	# 	input_file_path = "../feature_engine/data/raw_data/csop_conversations_withblanks.csv",
-	# 	output_file_path_chat_level = "../feature_engine/output/first_75/csop_output_chat_level.csv",
-	# 	output_file_path_user_level = "../feature_engine/output/first_75/csop_output_user_level.csv",
-	# 	output_file_path_conv_level = "../feature_engine/output/first_75/csop_output_conversation_level.csv",
-	# 	analyze_first_pct = 0.75
-	# )
-	# csop_feature_builder_first75pct.featurize(col="message")
+	csop_feature_builder_first75pct = FeatureBuilder(
+		input_file_path = "../feature_engine/data/raw_data/csop_conversations_withblanks.csv",
+		output_file_path_chat_level = "../feature_engine/output/first_75/csop_output_chat_level.csv",
+		output_file_path_user_level = "../feature_engine/output/first_75/csop_output_user_level.csv",
+		output_file_path_conv_level = "../feature_engine/output/first_75/csop_output_conversation_level.csv",
+		analyze_first_pct = 0.75
+	)
+	csop_feature_builder_first75pct.featurize(col="message")
 
-	# csop_feature_builder_first80pct = FeatureBuilder(
-	# 	input_file_path = "../feature_engine/data/raw_data/csop_conversations_withblanks.csv",
-	# 	output_file_path_chat_level = "../feature_engine/output/first_80/csop_output_chat_level.csv",
-	#	output_file_path_user_level = "../feature_engine/output/first_80/csop_output_user_level.csv",
-	# 	output_file_path_conv_level = "../feature_engine/output/first_80/csop_output_conversation_level.csv",
-	# 	analyze_first_pct = 0.8
-	# )
-	# csop_feature_builder_first80pct.featurize(col="message")
+	csop_feature_builder_first80pct = FeatureBuilder(
+		input_file_path = "../feature_engine/data/raw_data/csop_conversations_withblanks.csv",
+		output_file_path_chat_level = "../feature_engine/output/first_80/csop_output_chat_level.csv",
+		output_file_path_user_level = "../feature_engine/output/first_80/csop_output_user_level.csv",
+		output_file_path_conv_level = "../feature_engine/output/first_80/csop_output_conversation_level.csv",
+		analyze_first_pct = 0.8
+	)
+	csop_feature_builder_first80pct.featurize(col="message")
 
-	# csop_feature_builder = FeatureBuilder(
-	# 	input_file_path = "../feature_engine/data/raw_data/csop_conversations_withblanks.csv",
-	# 	output_file_path_chat_level = "../feature_engine/output/csop_output_chat_level.csv",
-	# 	output_file_path_user_level = "../feature_engine/output/csop_output_user_level.csv",
-	# 	output_file_path_conv_level = "../feature_engine/output/csop_output_conversation_level.csv"
-	# )
+	csop_feature_builder = FeatureBuilder(
+		input_file_path = "../feature_engine/data/raw_data/csop_conversations_withblanks.csv",
+		output_file_path_chat_level = "../feature_engine/output/csop_output_chat_level.csv",
+		output_file_path_user_level = "../feature_engine/output/csop_output_user_level.csv",
+		output_file_path_conv_level = "../feature_engine/output/csop_output_conversation_level.csv"
+	)
 
-	# csop_feature_builder.featurize(col="message")
+	csop_feature_builder.featurize(col="message")
 
 	
 
