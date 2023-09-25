@@ -1,0 +1,13 @@
+,model,model_type,features_included,alpha,r2,rmse
+8,Lasso(alpha=0.017879918321882012),Lasso,Task Complexity + Communication,0.0179,0.4587,0.7658
+10,Lasso(alpha=0.01735658343764668),Lasso,All Features,0.0174,0.4545,0.7687
+3,Lasso(alpha=0.0003687229747749683),Lasso,Task Complexity,0.0004,0.292,0.8758
+2,Ridge(alpha=0.0003687229747749683),Ridge,Task Complexity,0.0004,0.2919,0.8758
+5,Lasso(alpha=0.0008223089789029883),Lasso,Team Composition + Task Complexity,0.0008,0.2688,0.89
+4,Ridge(alpha=0.0008223089789029883),Ridge,Team Composition + Task Complexity,0.0008,0.2683,0.8903
+6,Lasso(alpha=0.0445969568109222),Lasso,Communication,0.0446,0.2148,0.9223
+1,Lasso(alpha=0.00013636379668891346),Lasso,Team Composition,0.0001,-0.0449,1.0639
+0,Ridge(alpha=0.00013636379668891346),Ridge,Team Composition,0.0001,-0.045,1.064
+9,Ridge(alpha=0.017879918321882012),Ridge,Task Complexity + Communication,0.0179,-4.5342,2.4485
+7,Ridge(alpha=0.0445969568109222),Ridge,Communication,0.0446,-5.6619,2.6864
+11,Ridge(alpha=0.01735658343764668),Ridge,All Features,0.0174,-6.1807,2.7891
