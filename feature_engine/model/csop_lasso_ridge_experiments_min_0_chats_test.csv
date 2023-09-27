@@ -1,4 +1,4 @@
 ,model,features_included,r2,rmse
-2,Lasso(alpha=0.0445969568109222),Communication,0.1363,0.9294
-1,Lasso(alpha=0.017879918321882012),Task Complexity + Communication,0.0101,0.9949
-0,Lasso(alpha=0.0003687229747749683),Task Complexity,-0.2201,1.1046
+2,Lasso(alpha=0.0445969568109222),Communication,0.249,0.8666
+1,Lasso(alpha=0.017879918321882012),Task Complexity + Communication,0.1355,0.9298
+0,Lasso(alpha=0.0003687229747749683),Task Complexity,-0.1941,1.0927
