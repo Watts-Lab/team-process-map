@@ -5,7 +5,7 @@ feature_engine/features/lexicons_dict.pkl
 feature_engine/features/lexicons/liwc_lexicons/
 feature_engine/features/lexicons/liwc_lexicons_small_test/
 feature_engine/modules/
-feature_engine/embeddings/
+feature_engine/output/
 feature_engine/__pycache__/
 feature_engine/features/__pycache__/
 feature_engine/ipython_notebooks/.ipynb_checkpoints/
@@ -15,3 +15,5 @@ feature_engine/utils/__pycache__/
 .idea/
 feature_engine/features/lexicons_dict.pkl
 *.py[cod]
+feature_engine/data/vectors/sentence
+feature_engine/data/vectors/sentiment

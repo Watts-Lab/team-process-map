@@ -36,6 +36,8 @@ class ChatLevelFeaturesCalculator:
         PARAMETERS:
             @param chat_data (pd.DataFrame): This is a pandas dataframe of the chat level features read in from the input dataset.
         """
+        # print(f'this is the length{len(chat_data)}')
+        # print(chat_data.tail(1))
         self.chat_data = chat_data
         self.bert_sentiment_data = bert_sentiment_data # Load BERT 
         self.easy_dale_chall_words = get_dale_chall_easy_words() # load easy Dale-Chall words exactly once.
@@ -82,7 +84,7 @@ class ChatLevelFeaturesCalculator:
         # Dale-Chall readability features
         self.get_dale_chall_score_and_classfication()
         
-         # Tempora; features
+        # Temporal features
         self.get_temporal_features()
 
         # Politeness (ConvoKit)
@@ -226,6 +228,8 @@ class ChatLevelFeaturesCalculator:
         """
         if {'timestamp'}.issubset(self.chat_data.columns):
             self.chat_data["time_diff"] =  get_time_diff(self.chat_data,"timestamp") 
+        elif {'timestamp_start', 'timestamp_end'}.issubset(self.chat_data.columns):
+            self.chat_data["time_diff"] =  get_time_diff_startend(self.chat_data)
 
     def calculate_politeness_sentiment(self) -> None:
         """

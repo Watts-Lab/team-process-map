@@ -19,3 +19,13 @@ def get_time_diff(df,on_column):
             df.loc[i, "time_diff"] = (df.loc[i, on_column] - df.loc[(i-1), on_column]) / pd.Timedelta(seconds=1)
 
     return df['time_diff']
+
+def get_time_diff_startend(df):
+    # set and zero time_diff column
+    df["time_diff"] = np.zeros(len(df))
+
+    for i in range(1, len(df)):
+        if df.loc[i, "conversation_num"] == df.loc[i-1, "conversation_num"]: # only do this if they're in the same conversation
+            df.loc[i, "time_diff"] = (df.loc[i, "timestamp_start"] - df.loc[(i-1), "timestamp_end"])
+
+    return df['time_diff']

@@ -1,0 +1,11 @@
+,feature,r2,mae,mse,rmse
+148,stdev_inhibition,-0.0563,0.3307,0.6227,0.7891
+1142,average_user_avg_haspositive,-0.072025,0.296375,0.409925,0.633375
+442,average_user_sum_inclusive,-0.0758,0.3087,0.47934999999999994,0.6838500000000001
+945,max_user_avg_money,-0.07685,0.29415,0.4919,0.69425
+863,stdev_user_avg_health,-0.0821,0.3309,0.6379,0.7987
+710,average_user_sum_factuality,-0.0826,0.3322,0.6383,0.7989
+1047,stdev_user_avg_content_word_accommodation,-0.0832,0.31055,0.49615,0.6968000000000001
+328,stdev_deference,-0.0856,0.2971,0.3308,0.5752
+1046,average_user_avg_content_word_accommodation,-0.0858,0.2726,0.3539,0.5949
+50,max_conjunction,-0.0888,0.262,0.3549,0.5957

@@ -25,7 +25,9 @@ class ModelBuilder():
             task_map_path: str='../utils/task_map.csv', 
             dataset_names: list=["csop"], 
             test_dataset_names: list=None,
-            standardize_within = False
+            standardize_within = False,
+            low_corr_thresh = 0.1,
+            feature_downselect = True
         ) -> None:
         """Initializes the various objects and variables used throughout the `ModelBuilder` class.
 
@@ -38,8 +40,8 @@ class ModelBuilder():
                                                  Ideally this value would be set to `["csopII"]` when `dataset_names` is set to `["csop"]`. Otherwise it is wise to keep it None.
                                                  Defaults to `None`.
             standardize_within (bool, optional): A boolean that determines whether features are standardized *within* tasks /individual datasets (if True), or *across* tasks (if False). Defaults to False.
-
-        
+            low_corr_thresh (float, optional): a threshold for dropping features that have a correlation with the target lower than this level. Defaults to 0.1.
+            feature_downselect(bool, optional): a boolean to determine whether we down-select features automatically (drop any invariant columns, and remove columns with low correlation w/ the DV in the training data). Defaults to True.
         Returns:
             (None)
         """
@@ -58,6 +60,9 @@ class ModelBuilder():
             self.task_maps = pd.read_csv(task_map_path)
             self.task_maps = self.task_maps[self.task_maps['task'].isin(self.config['task_names'])]
             self.standardize_within = standardize_within
+            self.low_corr_thresh = low_corr_thresh
+            self.feature_downselect = feature_downselect
+
         # If the user has specified a test set(s), then we need to build it seperately
         if self.test_dataset_names != None: 
             self.create_datasets(is_test_datasets=True)
@@ -67,6 +72,7 @@ class ModelBuilder():
         # Defining placeholders for the features, targets and the baseline model
         self.X, self.y = None, None
         self.baseline_model = None
+
         # TODO - Will work on model optimization in a subsequent PR
         # self.optimized_model = None
 
@@ -100,7 +106,7 @@ class ModelBuilder():
         if(not isinstance(dataset_names, list)):
             raise TypeError("Please provide the dataset names as a list!")
 
-        # If we have only one dataset then there is not need to combine datasets. Just remove the redundant columns from the dataset needed, and we have the required dataset.
+        # If we have only one dataset then there is no need to combine datasets. Just remove the redundant columns from the dataset needed, and we have the required dataset.
         if(len(dataset_names)==1): 
             try:
                 conv_complete = pd.read_csv(self.output_dir + self.config[dataset_names[0]]["filename"])
@@ -108,7 +114,7 @@ class ModelBuilder():
             except KeyError:
                 print("Are you sure that your dataset name is correct?")
             # Dropping redundant columns as specified in the config file    
-            conv = conv_complete.drop(self.config[dataset_names[0]]["cols_to_ignore"], axis=1).dropna()
+            conv = conv_complete.drop(self.config[dataset_names[0]]["cols_to_ignore"], axis=1)
             # Standardizing Features
             conv = pd.DataFrame(StandardScaler().fit_transform(conv),columns = conv.columns)
             # We store the dataset name to make it easy to join task related features later on in the pipeline.
@@ -120,19 +126,19 @@ class ModelBuilder():
             for dataset_name in dataset_names:
                 # Try reading in the dataset
                 try:
-                    full_dataset = pd.read_csv(self.output_dir + self.config[dataset_name]["filename"]).dropna()
+                    full_dataset = pd.read_csv(self.output_dir + self.config[dataset_name]["filename"])
                     convs_complete.append(full_dataset)
                 # Handling the case when the dataset names is not found in the config files
                 except KeyError:
                     print("Are you sure that your dataset name is correct?")
                 
                 # Remove redundant columns from the current dataset
-                df_extra_columns_dropped = full_dataset.drop(self.config[dataset_name]["cols_to_ignore"], axis=1).dropna()
+                df_extra_columns_dropped = full_dataset.drop(self.config[dataset_name]["cols_to_ignore"], axis=1)
                 
                 # check if timestamp is present
                 has_timestamp.append("timestamp" in self.config[dataset_name]["cols_to_ignore"])
 
-                #Standard Features WIHIN each task
+                #Standard Features WIHIN each task (TODO, this is actually within dataset)
                 if self.standardize_within:
                     df_extra_columns_dropped = pd.DataFrame(StandardScaler().fit_transform(df_extra_columns_dropped),columns = df_extra_columns_dropped.columns)
 
@@ -148,7 +154,11 @@ class ModelBuilder():
             # standardize only numeric cols
             numeric = conv[conv.select_dtypes(include='number').columns]
             scaled_numeric = pd.DataFrame(StandardScaler().fit_transform(numeric), columns=numeric.columns)
-            conv[numeric.columns] = scaled_numeric.values
+            conv.update(scaled_numeric)
+
+        # IMPUTATION -- TODO, make this better! Imputing with zero is imperfect because 0 has a meaning here
+        # but this happens after standardization, so we're effectively setting it to the mean
+        conv = conv.fillna(0)
 
         # Remove timestamp if not present in all datasets being concatenated
         if(not all(has_timestamp)):
@@ -175,6 +185,73 @@ class ModelBuilder():
         # Calling this function to add in task related features to the combined datasets created above.
         self.integrate_task_level_features(is_test_datasets=is_test_datasets)
 
+    def get_columns_with_low_signal(self, df, target, CORR_THRESH=0.1) -> None:
+        """
+        This function compares the columns in a dataframe (that is passed in by the user)
+        with a target (provided by the user).
+
+        Since we may generate a large number of features, this function works with the
+        low_corr_thresh and feature_downselect parameters of the ModelBuilder to reduce the numbers
+        of features that we pass in the model.
+
+        Specifically, after the train-test split takes place, we filter out features
+        that have a low correlation with the target (as they are least likely to contain useful signal).
+
+        @param df: the dataframe containing the features. (We assume no targets in this df/this shoudl be X!)
+        @param target: a column containing the target
+        @param CORR_THRESTH: the correlation threshold below which we drop columns.
+            - This defaults to the same value (0.1) as low_corr_thresh
+            - If it is set to 0, no columns are dropped; as abs(correlation) should always be >= 0.
+        """
+        
+        # Exclude task columns
+        task_exclusions = self.task_maps.columns
+
+        # Calculate correlations
+        correlation_list = []
+        for column in df.columns:
+            if column not in task_exclusions: # ensure we don't drop the task map columns!
+                correlation = np.corrcoef(df[column], target)[0][1]
+                correlation_list.append((column, correlation))
+
+        # Sort the list based on correlation values
+        correlation_list.sort(key=lambda x: abs(x[1]), reverse=True)
+
+        # Filter out columns with absolute correlation < THRESH
+        # If the threshold is set to 0, there are no filters
+        filtered_correlation_list = [(column, correlation) for column, correlation in correlation_list if abs(correlation) < CORR_THRESH]
+
+        # Sort the filtered list based on correlation values
+        filtered_correlation_list.sort(key=lambda x: abs(x[1]), reverse=True)
+
+        return([col for col, correlation in filtered_correlation_list])
+
+    def drop_invariant_columns(self, df) -> None:
+        """
+        Certain features are invariant throughout the training data (e.g., the entire column is 0 throughout).
+
+        These feature obviously won't be very useful predictors, so we drop them after train-test split.
+
+        This function works by identifying columns that only have 1 unique value throughout the entire column,
+        and then dropping them.
+
+        @df: the dataframe containing the features (this should be X).
+        """
+        nunique = df.nunique()
+        cols_to_drop = nunique[nunique == 1].index
+        return(df.drop(cols_to_drop, axis=1))
+
+    def get_sample_weighting(self, df) -> None:
+        """
+        Since we have an imbalance in the number of samples we have from different tasks, we need to inversely
+        weight the data based on the task.
+
+        @param df: the dataframe for which we are performing the inverse weighting.
+        """
+        task_proportions = df['task_name'].value_counts()/len(df['task_name'])
+        df['inverse_task_weight'] = df['task_name'].apply(lambda task: 1 / task_proportions[task])
+        return(df)
+
     def integrate_task_level_features(self, is_test_datasets: bool=False) -> None:
         """This function takes in the datasets created by `create_datasets()` function and adds in the task related features to it.
 
@@ -190,6 +267,9 @@ class ModelBuilder():
             self.test_conv.drop(['dataset_name', 'task_name', 'task'], axis=1, inplace=True)
         else:
             self.conv['task_name'] = self.conv['dataset_name'].map(self.config['task_mapping_keys'])
+            # Training dataset needs to be inversely weighted so that the model does not overfit to 
+            # task datasets that are over-represented
+            self.conv = self.get_sample_weighting(self.conv)
             self.conv = pd.merge(left=self.conv, right=self.task_maps, left_on=['task_name'], right_on=['task'], how='left')
             self.conv.drop(['dataset_name', 'task_name', 'task'], axis=1, inplace=True)
 
@@ -230,6 +310,9 @@ class ModelBuilder():
             # Add in the combined raw and standardized targets
             conversation_clean["target_raw"] = target_raw_list
             conversation_clean["target_std"] = target_std_list
+
+        # If the DV is null, then there is nothing to predict, so it's safe to throw out the row
+        conversation_clean = conversation_clean.dropna(subset=['target_std'])
 
         # Set everything in global variables of the class
         if(not is_test):
@@ -284,23 +367,24 @@ class ModelBuilder():
         ax[1].axis("off")
 
     
-    def define_model(self, model_type: str="xgb") -> None:
+    def define_model(self, model_type: str="xgb", random_state: int=42) -> None:
         """Instantiates a model based on the keyword specified by the user.
 
         Args:
             model_type (str, optional): A string keyword that allows us to define a model object of the type desired by the user. 
                                         Current model types supported are: `['xgb', 'lasso', 'linear', 'rf']`
                                         Defaults to "xgb".
+            random_state (int, optional): A number used to set the random seed.
         """
         self.model_type = model_type
         if model_type == 'xgb':
-            self.baseline_model = XGBRegressor(random_state=42)
+            self.baseline_model = XGBRegressor(random_state=random_state)
         elif model_type == 'lasso':
             self.baseline_model = LassoCV(alphas = [0.01, 0.05, .1, 0.25, 0.5, 0.75, 1])
         elif model_type == 'linear':
             self.baseline_model = LinearRegression()
         elif model_type == 'rf':
-            self.baseline_model = RandomForestRegressor(random_state=42)
+            self.baseline_model = RandomForestRegressor(random_state=random_state)
 
     def define_dataset_for_model(self, is_test: bool=False, fit_on_raw: bool=False) -> list:
         """This function stores the features and targets defined in the various global variables into the standard notations - `X`, and `y`. 
@@ -326,13 +410,104 @@ class ModelBuilder():
         else:
             if fit_on_raw: X, y = self.conv.drop(["target_raw", "target_std"], axis=1), self.conv["target_raw"]
             else: X, y = self.conv.drop(["target_raw", "target_std"], axis=1), self.conv["target_std"]
+
         # TODO - This might be redundant now that the dataset names are replaced by task level features
         # Get one hot encodings of any object column
         X = pd.get_dummies(X)
 
         return X, y
 
-    def evaluate_model(self, model, val_size: float=0.1, test_size: float=0.1) -> None:
+    def set_datasets(self, X_train = None, X_val = None, X_test = None, y_train = None, y_val = None, y_test = None) -> None:
+        '''
+        This method allows the user to set any of the datasets (X_train, X_val, X_test, y_train, y_val, y_test) 
+        to any particular dataset of their choosing.
+        '''
+        if(X_train is not None and y_train is not None) and (len(X_train) == len(y_train)):
+            self.X_train = X_train
+            self.y_train = y_train
+        if(X_val is not None and y_val is not None) and (len(X_val) == len(y_val)):
+            self.X_val = X_val
+            self.y_val = y_val
+        if(X_test is not None and y_test is not None) and (len(X_test) == len(y_test)):
+            self.X_test = X_test
+            self.y_test = y_test
+        else:
+            pass
+
+    def clean_up_columns(self) -> None:
+        """
+        Clean up columns: (1) Drop anything that is invariant; and 
+        (2) Preemptively remove anything with a low correlation with the target
+        """
+
+        # Determine the drops based on the training set
+        self.X_train = self.drop_invariant_columns(self.X_train)
+        self.X_train = self.X_train.drop(self.get_columns_with_low_signal(self.X_train, self.y_train, self.low_corr_thresh), axis = 1)
+
+        # Set the test and val sets to have the same columns as the training set
+        self.X_val = self.X_val[self.X_val.columns.intersection(self.X_train.columns)]
+
+        if self.has_test_set:
+            self.X_test = self.X_test[self.X_test.columns.intersection(self.X_train.columns)]
+
+    def get_split_datasets(self, model, val_size: float=0.1, test_size: float=0.1, random_state: int=42) -> None:
+        """
+        This function takes the entire dataset and splits it into train/test/val.
+
+        Before returning, it also uses the training set to filter down the features
+        into a smaller set, using clean_up_column.
+
+        @param val_size: the validation set size (for splitting the datasets) Defaults to 0.1
+        @param test_size: the test dataset size. Defaults to 0.1.
+        @param random_state: the random seed, used for reproducibility (and creating different random splits).
+        """
+        print('Checking Holdout Sets', end='...')
+        if self.test_dataset_names == None:
+            print('Creating Holdout Sets...')
+            self.create_holdout_sets(val_size=val_size, test_size=test_size, random_state=random_state)
+        else:
+            self.create_holdout_sets(val_size=val_size, random_state=random_state)
+
+        # Clean up columns based on correlations in the TRAINING set
+        print("Cleaning Up Columns...")
+        if self.feature_downselect:
+            self.clean_up_columns()
+
+        print('Done')
+
+    def train_simple_model(self, model, feature_subset=None) -> None:
+        """
+        This function trains the model and returns the metrics without SHAP diagnostics.
+
+        @param feature_subset (default = None) is a parameter that allows the user to specify
+        a model that is trained on a far smaller number of features. An example use case
+        is creating baselines using only one feature at a time. In this case, the user can pass
+        in the list of feature(s) they want the model to be trained on, and the model will be fit
+        using only the specified feature.
+        """
+        if feature_subset is not None: # filter down to only the feature subset
+            self.filter_down_features(feature_subset)
+
+        print('Training Model', end='...')
+        model = model.fit(self.X_train, self.y_train, self.sample_weight)
+        print('Done')
+
+        return(self.summarize_model_metrics(model, visualize_model = False))
+
+
+    def filter_down_features(self, feature_subset) -> None:
+        """
+        This function filters the X's down to a specified subset.
+
+        @param feature_subset: the list of columns that we are reducing the X's to.
+        """
+        self.X_train = self.X_train[feature_subset]
+        self.X_val = self.X_val[feature_subset]
+        if self.has_test_set:
+            self.X_test = self.X_test[feature_subset]
+
+
+    def evaluate_model(self, model, feature_subset=None, val_size: float=0.1, test_size: float=0.1, random_state: int=42, visualize_model:bool = True) -> None:
         """This is a driver function that calls a bunch of different functions for the following tasks:
            - Train-Val-Test splits
            - Model Training
@@ -341,28 +516,37 @@ class ModelBuilder():
 
         Args:
             model (sklearn/xgboost model): This is the model object defined by `define_model()` function
+            feature_subset (list, optional): This allows the user to input a custom list of feature names for use in training the model
             val_size (float, optional): This controls the validation data size. Defaults to 0.1.
             test_size (float, optional): This control the test data size (used when there was no explicit dataset designated for testing). Defaults to 0.1.
+            random_state (int, optional): This controls the random seed for randomization. Defaults to 42, but user can provide it.
+            visualize_model (bool, optional): This controls whether we want to print the visualization of the model's SHAP values or not
         """
-        print('Checking Holdout Sets', end='...')
-        if self.test_dataset_names == None:
-            print('Creating Holdout Sets...')
-            self.create_holdout_sets(val_size=val_size, test_size=test_size)
-        else:
-            self.create_holdout_sets(val_size=val_size)
-        print('Done')
-        print('Training Model', end='...')
-        model = model.fit(self.X_train, self.y_train)
-        print('Done')
-        self.summarize_model_metrics(model)
-        self.model_diagnostics(model)
+        self.get_split_datasets(model, val_size, test_size, random_state)
 
-    def create_holdout_sets(self, val_size: float=0.1, test_size: float=None) -> None:
+        if feature_subset is not None: # filter down to only the feature subset
+            self.filter_down_features(feature_subset)
+
+        print('Training Model', end='...')
+
+        # in cases where we have multiple datasets, we weight the loss function inversely based on 
+        # the sample size of the dataset!
+        model = model.fit(self.X_train, self.y_train, self.sample_weight)
+        print('Done')
+
+        # Calculates SHAP values
+        self.model_diagnostics(model, visualize_model=visualize_model)
+
+        # Returns the model metrics as a saveable variable
+        return(self.summarize_model_metrics(model, visualize_model = visualize_model))
+
+    def create_holdout_sets(self, val_size: float=0.1, test_size: float=None, random_state: int=42) -> None:
         """This function splits the data into train-val-test sets if no test set is designated, and splits into train-val only if we already have a designated test set.
 
         Args:
             val_size (float, optional): This controls the percentage of rows out of the train set that need to be held out for validation. Defaults to 0.1.
             test_size (float, optional): This controls the percentage of rows out of the entire dataset that need to be held out for testing. Defaults to None.
+            random state (int, optional): an argument passed in that seeds randomization. Defaults to 42.
         """
         # Calls the `define_dataset_for_model()` function to get the `X`s and the `y`s
         self.X, self.y = self.define_dataset_for_model()
@@ -375,51 +559,73 @@ class ModelBuilder():
             
             # Split test set only if specified
             if test_size: 
-                X_train_val, X_test, y_train_val, y_test = train_test_split(self.X, self.y, random_state=42, test_size=test_size)
+                X_train_val, X_test, y_train_val, y_test = train_test_split(self.X, self.y, random_state=random_state, test_size=test_size)
                 self.has_test_set = True
 
             # Spit train and val set in a `(1-val_size)-val_size` split (here split sizes refers to the percentages after the split done above)
-            X_train, X_val, y_train, y_val = train_test_split(X_train_val, y_train_val, random_state=42, test_size=val_size)
+            X_train, X_val, y_train, y_val = train_test_split(X_train_val, y_train_val, random_state=random_state, test_size=val_size)
            
             # Set the train val and test sets in global variables to be used by all classes
             self.X_train, self.y_train = X_train, y_train
             self.X_val, self.y_val = X_val, y_val
             
             # Set self.has_test_set to False if test_size is not specified
-            if test_size: self.X_test, self.y_test = X_test, y_test
-            else: self.has_test_set = False
+            if test_size: 
+                self.X_test, self.y_test = X_test, y_test
+                # drop the task weights
+                self.X_test = self.X_test.drop(["inverse_task_weight"], axis = 1)
+            else: 
+                self.has_test_set = False
+
         # If we have a designated test set
         else:
             self.has_test_set = True
             # Spit train and val set in a `(1-val_size)-val_size` split (here split sizes refers to the percentages after the split done above)
-            X_train, X_val, y_train, y_val = train_test_split(self.X, self.y, random_state=42, test_size=val_size)
+            X_train, X_val, y_train, y_val = train_test_split(self.X, self.y, random_state=random_state, test_size=val_size)
             # Set the train val and test sets in global variables to be used by all classes
             self.X_train, self.y_train = X_train, y_train
             self.X_val, self.y_val = X_val, y_val
+
             # Set the test set by preprocessing the `test_conv` global variable in the `define_dataset_for_model()` function.
             self.X_test, self.y_test = self.define_dataset_for_model(is_test=True)
 
-    def summarize_model_metrics(self, model) -> None:
+        # assign weighting and remove weights from the X's
+        self.X = self.X.drop(["inverse_task_weight"], axis = 1)
+        self.X_train, self.sample_weight = self.X_train.drop(["inverse_task_weight"], axis = 1), self.X_train["inverse_task_weight"]
+        self.X_val = self.X_val.drop(["inverse_task_weight"], axis = 1)
+
+    def summarize_model_metrics(self, model, visualize_model:bool = True) -> None:
         """Prints out model metrics for each of the datasets - train, val and test
+
+        Returns: the metrics as a dictionary. This allows the user to store the metrics in addition
+        to viewing them printed out.
 
         Args:
             model (sklearn/xgboost model): The fitted model.
+            visualize_model: Print all the verbose model details. (Defaults to True)
         """
         train_metrics = self.calculate_model_metrics(model=model, dataset=(self.X_train, self.y_train))
         val_metrics = self.calculate_model_metrics(model=model, dataset=(self.X_val, self.y_val))
         
         if(self.has_test_set): test_metrics = self.calculate_model_metrics(model=model, dataset=(self.X_test, self.y_test))
         
-        print("MODEL METRICS")
-        print('Train Set:', end='\t')
-        print('R2: {}\tMAE: {}\tMSE: {}\tRMSE: {}'.format(train_metrics['r2'], train_metrics['mae'], train_metrics['mse'], train_metrics['rmse']))
-        
-        print('Validation Set:', end='\t')
-        print('R2: {}\tMAE: {}\tMSE: {}\tRMSE: {}'.format(val_metrics['r2'], val_metrics['mae'], val_metrics['mse'], val_metrics['rmse']))
+        if visualize_model:
+            print("MODEL METRICS")
+            print('Train Set:', end='\t')
+            print('R2: {}\tMAE: {}\tMSE: {}\tRMSE: {}'.format(train_metrics['r2'], train_metrics['mae'], train_metrics['mse'], train_metrics['rmse']))
+            
+            print('Validation Set:', end='\t')
+            print('R2: {}\tMAE: {}\tMSE: {}\tRMSE: {}'.format(val_metrics['r2'], val_metrics['mae'], val_metrics['mse'], val_metrics['rmse']))
 
+            if(self.has_test_set):
+                print('Test Set:', end='\t')
+                print('R2: {}\tMAE: {}\tMSE: {}\tRMSE: {}'.format(test_metrics['r2'], test_metrics['mae'], test_metrics['mse'], test_metrics['rmse']))
+
+        # return these values to the user as a dictionary, so they can be analyzed as part of CV
         if(self.has_test_set):
-            print('Test Set:', end='\t')
-            print('R2: {}\tMAE: {}\tMSE: {}\tRMSE: {}'.format(test_metrics['r2'], test_metrics['mae'], test_metrics['mse'], test_metrics['rmse']))
+            return({"train": train_metrics, "val": val_metrics, "test": test_metrics})
+        else:
+            return({"train": train_metrics, "val": val_metrics})
 
     def calculate_model_metrics(self, model, dataset: list) -> dict:
         """Returns a dictionary with the model metrics to be printed out by the summarize_model_metrics() function.
@@ -438,11 +644,12 @@ class ModelBuilder():
         rmse = np.sqrt(mse).round(4)
         return {'r2': r2, 'mae': mae, 'mse': mse, 'rmse': rmse}
 
-    def model_diagnostics(self, model) -> None:
+    def model_diagnostics(self, model, visualize_model:bool = True) -> None:
         """Plots the feature importances and the SHAP summary scores for the top features for the fitted model.
 
         Args:
             model (sklearn/xgboost model): Fitted model
+            visualize_model: Visualize the shapley values for the models using SHAP
         """
         # Model diagnostics for tree based models
         if self.model_type in ['xgb', 'rf']:
@@ -455,8 +662,34 @@ class ModelBuilder():
             explainer = shap.LinearExplainer(model, self.X_val)
             
         shap_values = explainer.shap_values(self.X_val)
-        shap.summary_plot(shap_values, self.X_val, feature_names=self.X.columns, plot_type="bar")
-        shap.summary_plot(shap_values, self.X_val, feature_names=self.X.columns)
+
+        # how does the shap value correlate with the feature value?
+        # positive correlation suggests that higher levels of the feature tend to boost performance
+        # negative correlation suggests that higher levels of the feature tend to decrease performance
+        shap_feature_correlation = []
+        for feature_name in self.X_val.columns:
+            feature_values = self.X_val[feature_name]
+            feature_index = self.X_val.columns.get_loc(feature_name)  # Get the index of the feature
+            shapley_values = shap_values[:, feature_index]
+            correlation_coefficient = np.corrcoef(feature_values, shapley_values)[0, 1]
+            shap_feature_correlation.append(correlation_coefficient)
+
+        shap_mean_abs = np.mean(np.abs(shap_values), axis = 0)
+        shap_df = pd.DataFrame({
+            'feature': self.X_val.columns,
+            'shap': shap_mean_abs,
+            'correlation_btw_shap_and_feature_value': shap_feature_correlation
+        })
+
+        # Object that summarizes SHAP values for the model
+        # By examining the shap_summary attribute of the model object, users can look at
+        # the shap features and analyze them in detail.
+        self.shap_summary = shap_df
+
+        # Visualize the SHAP summary
+        if visualize_model:
+            shap.summary_plot(shap_values, self.X_val, feature_names=self.X_val.columns, plot_type="bar")
+            shap.summary_plot(shap_values, self.X_val, feature_names=self.X_val.columns)
 
     def print_lasso_coefs(self, model):
 

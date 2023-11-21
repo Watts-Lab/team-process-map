@@ -1,0 +1,11 @@
+,feature,r2,mae,mse,rmse
+663,stdev_user_sum_content_word_accommodation,-0.0126,0.7385,1.7852,1.3361
+1083,stdev_user_avg_hashedge,-0.017,0.7466,1.7929,1.339
+34,max_info_exchange_zscore_conversation,-0.0179,0.7595,1.7945,1.3396
+403,stdev_user_sum_num_words,-0.0208,0.7499,1.7997,1.3415
+3,average_positive_bert,-0.02145,0.75645,1.8909,1.3746
+410,average_user_sum_num_messages,-0.022,0.7733,1.8017,1.3423
+650,average_user_sum_word_TTR,-0.0223,0.7754,1.8022,1.3425
+42,max_hear,-0.0238,0.7773,1.805,1.3435
+629,max_user_sum_positive_words,-0.0244,0.7359,1.806,1.3439
+622,average_user_sum_second_person,-0.0255,0.7646,1.8079,1.3446

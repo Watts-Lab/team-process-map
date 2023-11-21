@@ -2,15 +2,15 @@
     "becker": {
         "filename": "beckerestimation_output_conversation_level.csv",
         "cols_to_ignore": [
-            "conversation_num", "mean_pre_discussion_error", "mean_post_discussion_error", 
-            "mean_pre_discussion_error_pct", "mean_post_discussion_error_pct", "question", "chatrooms", "trial_indx"
+            "conversation_num", "mean_pre_discussion_error", "mean_post_discussion_error", "median_pre_discussion_error", "median_post_discussion_error", 
+            "median_pre_discussion_error_pct", "median_post_discussion_error_pct", "mean_pre_discussion_error_pct", "mean_post_discussion_error_pct", "reverse_mean_post_discussion_error_pct", "reverse_median_post_discussion_error_pct", "question", "chatrooms", "trial_indx"
         ]
     },
     "csop": {
         "filename": "csop_output_conversation_level.csv",
         "cols_to_ignore": [
             "conversation_num", "batch_num", "round_num", "round_index", "task_index", "complexity", "type", 
-            "social_perceptiveness", "skill", "normalized_score", "zscore_score", "zscore_round_duration", "zscore_efficiency"
+            "social_perceptiveness", "skill", "normalized_score", "score", "duration", "efficiency"
         ]
     },
     "csopII": {
@@ -30,14 +30,14 @@
     "gurcay": {
         "filename": "gurcay2015estimation_output_conversation_level.csv",
         "cols_to_ignore": [
-            "conversation_num", "mean_pre_discussion_error", "mean_post_discussion_error", 
-            "mean_pre_discussion_error_pct", "mean_post_discussion_error_pct", "question"
+            "conversation_num", "mean_pre_discussion_error", "mean_post_discussion_error", "median_pre_discussion_error", "median_post_discussion_error", 
+            "median_pre_discussion_error_pct", "median_post_discussion_error_pct", "mean_pre_discussion_error_pct", "mean_post_discussion_error_pct", "reverse_mean_post_discussion_error_pct", "reverse_median_post_discussion_error_pct", "question"
         ]
     },
     "juries": {
         "filename": "jury_output_conversation_level.csv",
         "cols_to_ignore": [
-            "conversation_num", "batch_num", "round_num", "speaker_hash", "timestamp", 
+            "conversation_num", "batch_num", "round_num", "timestamp", 
             "majority_pct", "num_flipped", "flipped_pct", "num_votes"
         ]
     },
