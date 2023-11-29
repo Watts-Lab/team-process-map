@@ -46,15 +46,15 @@ if __name__ == "__main__":
 	# feature_builder.featurize(col="message")
 
 	# Tiny CSOP
-	# tiny_csop_feature_builder = FeatureBuilder(
-	# 	input_file_path = "../feature_engine/data/raw_data/csop_conversations_TINY.csv",
-	# 	output_file_path_chat_level = "../feature_engine/output/chat/csop_TINY_output_chat_level.csv",
-	# 	output_file_path_user_level = "../feature_engine/output/user/csop_TINY_output_user_level.csv",
-	# 	output_file_path_conv_level = "../feature_engine/output/conv/csop_TINY_output_conversation_level.csv",
-	# 	turns = True,
-	# 	analyze_first_pct = [0.25, 0.5, 0.75, 1]
-	# )
-	# tiny_csop_feature_builder.featurize(col="message")
+	tiny_csop_feature_builder = FeatureBuilder(
+		input_file_path = "../feature_engine/data/raw_data/csop_conversations_TINY.csv",
+		output_file_path_chat_level = "../feature_engine/output/chat/csop_TINY_output_chat_level.csv",
+		output_file_path_user_level = "../feature_engine/output/user/csop_TINY_output_user_level.csv",
+		output_file_path_conv_level = "../feature_engine/output/conv/csop_TINY_output_conversation_level.csv",
+		turns = True,
+		analyze_first_pct = [0.25, 0.5, 0.75, 1]
+	)
+	tiny_csop_feature_builder.featurize(col="message")
 
 	#####
 
@@ -86,7 +86,7 @@ if __name__ == "__main__":
 	jury_feature_builder.featurize(col="message")
 
 
-	# # CSOP (Abdullah)
+	# CSOP (Abdullah)
 	# csop_feature_builder = FeatureBuilder(
 	# 	input_file_path = "../feature_engine/data/raw_data/csop_conversations_withblanks.csv",
 	# 	output_file_path_chat_level = "../feature_engine/output/chat/csop_output_chat_level.csv",
@@ -108,7 +108,7 @@ if __name__ == "__main__":
 
 	
 
-	# # DAT - Divergent Association Task
+	# DAT - Divergent Association Task
 	# dat_feature_builder = FeatureBuilder(
 	# 	input_file_path = "../feature_engine/data/raw_data/DAT_conversations_withblanks.csv",
 	# 	output_file_path_chat_level = "../feature_engine/output/chat/DAT_output_chat_level.csv",
@@ -120,17 +120,17 @@ if __name__ == "__main__":
 	# dat_feature_builder.featurize(col="message")
 
 
-	# # PGG (Small)
-	# # pgg_feature_builder = FeatureBuilder(
-	# # 	input_file_path = "../feature_engine/data/raw_data/pgg_conversations_withblanks.csv",
-	# # 	output_file_path_chat_level = "../feature_engine/output/chat/pgg_output_chat_level.csv",
-	# #	output_file_path_user_level = "../feature_engine/output/user/pgg_output_user_level.csv",
-	# # 	output_file_path_conv_level = "../feature_engine/output/conv/pgg_output_conversation_level.csv"
-	# # )
-	# # pgg_feature_builder.featurize(col="message")
+	# PGG (Small)
+	# pgg_feature_builder = FeatureBuilder(
+	# 	input_file_path = "../feature_engine/data/raw_data/pgg_conversations_withblanks.csv",
+	# 	output_file_path_chat_level = "../feature_engine/output/chat/pgg_output_chat_level.csv",
+	#	output_file_path_user_level = "../feature_engine/output/user/pgg_output_user_level.csv",
+	# 	output_file_path_conv_level = "../feature_engine/output/conv/pgg_output_conversation_level.csv"
+	# )
+	# pgg_feature_builder.featurize(col="message")
 
 
-	# # Estimation (Gurcay)
+	# Estimation (Gurcay)
 	# gurcay_estimation_feature_builder = FeatureBuilder(
 	# 	input_file_path = "../feature_engine/data/raw_data/gurcay2015_group_estimation.csv",
 	# 	output_file_path_chat_level = "../feature_engine/output/chat/gurcay2015estimation_output_chat_level.csv",
@@ -141,7 +141,7 @@ if __name__ == "__main__":
 	# )
 	# gurcay_estimation_feature_builder.featurize(col="message")
 
- 	# # Estimation (Becker)
+ 	# Estimation (Becker)
 	# becker_estimation_feature_builder = FeatureBuilder(
 	# 	input_file_path = "../feature_engine/data/raw_data/becker_group_estimation.csv",
 	# 	output_file_path_chat_level = "../feature_engine/output/chat/beckerestimation_output_chat_level.csv",
