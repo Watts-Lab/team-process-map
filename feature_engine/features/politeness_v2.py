@@ -19,10 +19,10 @@ def get_politeness_v2(df,on_column):
         The dataframe after adding the politness v2 features
     """
 
-    #extract the column headers by running the script for a random text
+    #extract the column headers by running the script for a random text. We sort the names of the features in alphabetical order
     column_headers = fe.feat_counts("hahaha",kw).sort_values(by='Features')['Features'].tolist()
     
-    # Apply the function to each row in 'text_column' and store the result in a new column 'output_column'
+    # Apply the function to each row in 'text_column' and store the result in a new column 'output_column'. We sort the names of the features in alphabetical order
     df_output = df[on_column].apply(lambda x: fe.feat_counts(x,kw).sort_values(by='Features')['Counts'])
 
     #add the column headers
