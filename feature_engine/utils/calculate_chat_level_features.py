@@ -25,6 +25,7 @@ from features.question_num import *
 from features.temporal_features import *
 from features.fflow import *
 from features.certainty import *
+from features.reddit_tags import *
 
 # Importing utils
 from utils.preload_word_lists import *
@@ -96,6 +97,9 @@ class ChatLevelFeaturesCalculator:
         # Forward Flow
         self.get_forward_flow()
         self.get_certainty_score()
+
+        # Reddit / online communication features
+        self.get_reddit_features()
 
         # Return the input dataset with the chat level features appended (as columns)
         return self.chat_data
@@ -261,3 +265,32 @@ class ChatLevelFeaturesCalculator:
         Source: https://journals.sagepub.com/doi/pdf/10.1177/00222437221134802
         """
         self.chat_data["certainty_rocklage"] = self.chat_data["message_lower_with_punc"].apply(get_certainty)
+
+    def get_reddit_features(self) -> None:
+        """
+        This function calculates a suite of features common in online communication:
+        - All caps
+        - Use of links
+        - User references (Reddit format)
+        - Emphasis (bold, italics)
+        - Bullet points
+        - Numbering
+        - Line breaks
+        - Quotes
+        - Responses to someone else (using ">")
+        - Ellipses
+        - Parentheses
+        """
+
+        self.chat_data["num_all_caps"] = self.chat_data["message_original"].apply(count_all_caps)
+        self.chat_data["num_links"] = self.chat_data["message_lower_with_punc"].apply(count_links)
+        self.chat_data["num_reddit_users"] = self.chat_data["message_lower_with_punc"].apply(count_user_references)
+        self.chat_data["num_emphasis"] = self.chat_data["message_lower_with_punc"].apply(count_emphasis)
+        self.chat_data["num_bullet_points"] = self.chat_data["message_lower_with_punc"].apply(count_bullet_points)
+        self.chat_data["num_numbered_points"] = self.chat_data["message_lower_with_punc"].apply(count_numbering)
+        self.chat_data["num_line_breaks"] = self.chat_data["message_lower_with_punc"].apply(count_line_breaks)
+        self.chat_data["num_quotes"] = self.chat_data["message_lower_with_punc"].apply(count_quotes)
+        self.chat_data["num_block_quote_responses"] = self.chat_data["message_lower_with_punc"].apply(count_responding_to_someone)
+        self.chat_data["num_ellipses"] = self.chat_data["message_lower_with_punc"].apply(count_ellipses)
+        self.chat_data["num_parentheses"] = self.chat_data["message_lower_with_punc"].apply(count_parentheses)
+        self.chat_data["num_emoji"] = self.chat_data["message_lower_with_punc"].apply(count_emojis)

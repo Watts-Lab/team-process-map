@@ -218,6 +218,9 @@ class FeatureBuilder:
         self.chat_data = preprocess_conversation_columns(self.chat_data, conversation_id, cumulative_grouping, within_task)
         assert_key_columns_present(self.chat_data)
 
+        # save original column with no preprocessing
+        self.chat_data[col + "_original"] = self.chat_data[col]
+
         # create new column that retains punctuation
         self.chat_data["message_lower_with_punc"] = self.chat_data[col].astype(str).apply(preprocess_text_lowercase_but_retain_punctuation)
     
