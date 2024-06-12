@@ -50,7 +50,7 @@ class ChatLevelFeaturesCalculator:
         self.question_words = get_question_words() # load question words exactly once
         self.first_person = get_first_person_words() # load first person words exactly once
         
-    def calculate_chat_level_features(self) -> pd.DataFrame:
+    def calculate_chat_level_features(self, features_to_calculate: list, feature_methods: dict) -> pd.DataFrame:
         """
             This is the main driver function for this class.
 
@@ -59,51 +59,55 @@ class ChatLevelFeaturesCalculator:
                             new columns for each chat level feature.
         """
 
-        # Concat sentiment BERT markers (done through preprocessing)
-        self.concat_bert_features()
+        for feature in features_to_calculate:
+            if feature in feature_methods:
+                feature_methods[feature](self)
+
+        # # Concat sentiment BERT markers (done through preprocessing)
+        # self.concat_bert_features()
         
-        # Text-Based Basic Features
-        self.text_based_features()
+        # # Text-Based Basic Features
+        # self.text_based_features()
 
-        # "Basic" Info Exchange Feature -- z-scores of content minus first pronouns
-        self.info_exchange()
+        # # "Basic" Info Exchange Feature -- z-scores of content minus first pronouns
+        # self.info_exchange()
 
-        # lexical features
-        self.lexical_features()
+        # # lexical features
+        # self.lexical_features()
 
-        # Other lexical features
-        self.other_lexical_features()
+        # # Other lexical features
+        # self.other_lexical_features()
 
-        # Word Mimicry
-        self.calculate_word_mimicry()
+        # # Word Mimicry
+        # self.calculate_word_mimicry()
 
-        # Hedge Features
-        self.calculate_hedge_features()
+        # # Hedge Features
+        # self.calculate_hedge_features()
 
-        # TextBlob Sentiment features
-        self.calculate_textblob_sentiment()
+        # # TextBlob Sentiment features
+        # self.calculate_textblob_sentiment()
         
-        # Positivity Z-Score
-        self.positivity_zscore()
+        # # Positivity Z-Score
+        # self.positivity_zscore()
 
-        # Dale-Chall readability features
-        self.get_dale_chall_score_and_classfication()
+        # # Dale-Chall readability features
+        # self.get_dale_chall_score_and_classfication()
         
-        # Temporal features
-        self.get_temporal_features()
+        # # Temporal features
+        # self.get_temporal_features()
 
-        # Politeness (ConvoKit)
-        self.calculate_politeness_sentiment()
+        # # Politeness (ConvoKit)
+        # self.calculate_politeness_sentiment()
 
-        # Politeness (Yeomans/Bevis)
-        self.calculate_politeness_v2()
+        # # Politeness (Yeomans/Bevis)
+        # self.calculate_politeness_v2()
 
-        # Forward Flow
-        self.get_forward_flow()
-        self.get_certainty_score()
+        # # Forward Flow
+        # self.get_forward_flow()
+        # self.get_certainty_score()
 
-        # Reddit / online communication features
-        self.get_reddit_features()
+        # # Reddit / online communication features
+        # self.get_reddit_features()
 
         # Return the input dataset with the chat level features appended (as columns)
         return self.chat_data

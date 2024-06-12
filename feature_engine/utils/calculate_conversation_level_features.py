@@ -52,7 +52,7 @@ class ConversationLevelFeaturesCalculator:
                                      if (column not in self.input_columns) and pd.api.types.is_numeric_dtype(self.chat_data[column])]
         self.summable_columns = ["num_words", "num_chars", "num_messages"]
         
-    def calculate_conversation_level_features(self) -> pd.DataFrame:
+    def calculate_conversation_level_features(self, features_to_calculate: list, feature_methods: dict) -> pd.DataFrame:
         """
 			This is the main driver function for this class.
 
@@ -62,30 +62,34 @@ class ConversationLevelFeaturesCalculator:
 
         """
 
-        # Get turn taking index by aggregating chat level totals, pass in CHAT LEVEL FEATURES
-        self.get_turn_taking_features()
-        print("Generated turn taking index.")
+        for feature in features_to_calculate:
+            if feature in feature_methods:
+                feature_methods[feature](self)
 
-        # Get gini based features by aggregating user-level totals, pass in USER LEVEL FEATURES
-        self.get_gini_features()
-        print("Generated gini features.")
+        # # Get turn taking index by aggregating chat level totals, pass in CHAT LEVEL FEATURES
+        # self.get_turn_taking_features()
+        # print("Generated turn taking index.")
 
-        # Get summary statistics by aggregating chat level features, pass in CHAT LEVEL FEATURES
-        self.get_conversation_level_aggregates()
-        print("Generated chat aggregates.")
+        # # Get gini based features by aggregating user-level totals, pass in USER LEVEL FEATURES
+        # self.get_gini_features()
+        # print("Generated gini features.")
 
-        # Get summary statistics by aggregating user level features, pass in USER LEVEL FEATURES 
-        self.get_user_level_aggregates()
-        print("Generated user aggregates.")
+        # # Get summary statistics by aggregating chat level features, pass in CHAT LEVEL FEATURES
+        # self.get_conversation_level_aggregates()
+        # print("Generated chat aggregates.")
+
+        # # Get summary statistics by aggregating user level features, pass in USER LEVEL FEATURES 
+        # self.get_user_level_aggregates()
+        # print("Generated user aggregates.")
         
-        # Get 4 discursive features (discursive diversity, variance in DD, incongruent modulation, within-person discursive range)
-        self.get_discursive_diversity_features()
+        # # Get 4 discursive features (discursive diversity, variance in DD, incongruent modulation, within-person discursive range)
+        # self.get_discursive_diversity_features()
 
-        # Get team burstiness coefficient using chat level temporal features
-        self.calculate_team_burstiness()
+        # # Get team burstiness coefficient using chat level temporal features
+        # self.calculate_team_burstiness()
 
-        # Get team's information diversity score
-        self.calculate_info_diversity()
+        # # Get team's information diversity score
+        # self.calculate_info_diversity()
 
         return self.conv_data
 

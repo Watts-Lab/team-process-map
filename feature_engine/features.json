@@ -1,0 +1,48 @@
+{
+  "features": [
+    {
+      "name": "Positivity (BERT)",
+      "columns": ["positive_bert", "negative_bert", "neutral_bert"],
+      "file": "",
+      "level": "chat",
+      "semantic_grouping": ["Emotion"],
+      "dependencies": {
+        "features": [""],
+        "packages": [],
+        "vector_data": false
+      },
+      "wiki_link": "https://github.com/Watts-Lab/team-process-map/wiki/BERT-Sentiment-Analysis-Feature"
+    },
+    {
+      "name": "Proportion of First-Person Pronouns",
+      "file": "other_lexical_features.py",
+      "columns": ["first_person_pronouns"],
+      "level": "conversation",
+      "semantic_groupings": ["content"],
+      "dependencies": {
+        "features": ["num_words"],
+        "packages": [],
+        "vector_data": false
+      },
+      "wiki_link": "https://github.com/Watts-Lab/team-process-map/wiki/C.13-Word-Type-Token-Ratio,-Proportion-of-First-Person-Pronouns"
+    },
+    {
+      "name": "Discursive Diversity",
+      "file": "discursive_features.py",
+      "columns": [
+        "discursive_diversity",
+        "variance_in_DD",
+        "incongruent_modulation",
+        "within_person_disc_range"
+      ],
+      "level": "conversation",
+      "semantic_grouping": ["variance"],
+      "dependencies": {
+        "features": [],
+        "packages": ["spacy"],
+        "vector_data": true
+      },
+      "wiki_link": "https://github.com/Watts-Lab/team-process-map/wiki/E.-25-Discursive-Diversity-Metrics"
+    }
+  ]
+}

@@ -36,6 +36,7 @@ class FeatureBuilder:
             output_file_path_chat_level: str, 
             output_file_path_user_level: str,
             output_file_path_conv_level: str,
+            additional_features: list = None,
             analyze_first_pct: list = [1.0], 
             turns: bool=True,
             conversation_id = None,
@@ -57,6 +58,7 @@ class FeatureBuilder:
                 the later stages. Thus, researchers may wish to analyze only the first X% of the conversation data
                 and compare the performance with using the full dataset.
                 This defaults to a single list containing the full dataset.
+            @param additional_features (list): List of additional features to calculate.
             @param conversation_id: A string representing the column name that should be selected as the conversation ID.
                 This defaults to None.
             @param cumulative_grouping: If true, uses a cumulative way of grouping chats (not just looking within a single ID, 
@@ -71,6 +73,58 @@ class FeatureBuilder:
         print("Initializing Featurization...")
         self.output_file_path_conv_level = output_file_path_conv_level
         self.output_file_path_user_level = output_file_path_user_level
+
+        # Set features to generate
+        self.default_features = [
+            "Positivity (BERT)",
+            "Message Length",
+            "Message Quantity",
+            "Questions",
+            "Conversational Repair",
+            "Word Type-Token Ratio",
+            "Proportion of First-Person Pronouns"
+        ]
+        self.additional_features = additional_features or []
+        self.features_to_calculate = list(set(self.default_features + self.additional_features))
+
+        # Define feature methods
+        # TODO: Check features below
+        self.feature_methods_chat = {
+            "Positivity (BERT)": ChatLevelFeaturesCalculator.concat_bert_features,
+            "Message Length": ChatLevelFeaturesCalculator.text_based_features,
+            "Message Quantity": ChatLevelFeaturesCalculator.text_based_features,
+            "Information Exchange": ChatLevelFeaturesCalculator.info_exchange,
+            "LIWC and Other Lexicons": ChatLevelFeaturesCalculator.lexical_features,
+            "Questions": ChatLevelFeaturesCalculator.other_lexical_features,
+            "Conversational Repair": ChatLevelFeaturesCalculator.other_lexical_features,
+            "Word Type-Token Ratio": ChatLevelFeaturesCalculator.other_lexical_features,
+            "Proportion of First-Person Pronouns": ChatLevelFeaturesCalculator.other_lexical_features,
+            "Function Word Accommodation": ChatLevelFeaturesCalculator.calculate_word_mimicry,
+            "Content Word Accommodation": ChatLevelFeaturesCalculator.calculate_word_mimicry,
+            "(BERT) Mimicry": ChatLevelFeaturesCalculator.calculate_word_mimicry,
+            "Moving Mimicry": ChatLevelFeaturesCalculator.calculate_word_mimicry,
+            "Hedge": ChatLevelFeaturesCalculator.calculate_hedge_features,
+            "TextBlob Subjectivity": ChatLevelFeaturesCalculator.calculate_textblob_sentiment,
+            "TextBlob Polarity": ChatLevelFeaturesCalculator.calculate_textblob_sentiment,
+            "Positivity Z-Score": ChatLevelFeaturesCalculator.positivity_zscore,
+            "Dale-Chall Score": ChatLevelFeaturesCalculator.get_dale_chall_score_and_classfication,
+            "Time Difference": ChatLevelFeaturesCalculator.get_temporal_features,
+            "Politeness Strategies": ChatLevelFeaturesCalculator.calculate_politeness_sentiment,
+            "Politeness / Receptiveness Markers": ChatLevelFeaturesCalculator.calculate_politeness_v2,
+            "Forward Flow": ChatLevelFeaturesCalculator.get_forward_flow,
+            "Certainty": ChatLevelFeaturesCalculator.get_certainty_score,
+            "Online Discussion Tags": ChatLevelFeaturesCalculator.get_reddit_features
+        }
+
+        self.feature_methods_conv = {
+            "Turn-Taking Index": ConversationLevelFeaturesCalculator.get_turn_taking_features,
+            "Gini Coefficient": ConversationLevelFeaturesCalculator.get_gini_features,
+            "Conversation Level Aggregates": ConversationLevelFeaturesCalculator.get_conversation_level_aggregates,
+            "User Level Aggregates": ConversationLevelFeaturesCalculator.get_user_level_aggregates,
+            "Discursive Diversity": ConversationLevelFeaturesCalculator.get_discursive_diversity_features,
+            "Team Burstiness": ConversationLevelFeaturesCalculator.calculate_team_burstiness,
+            "Information Diversity": ConversationLevelFeaturesCalculator.calculate_info_diversity
+        }
 
         # Set first pct of conversation you want to analyze
         assert(all(0 <= x <= 1 for x in analyze_first_pct)) # first, type check that this is a list of numbers between 0 and 1
@@ -247,7 +301,7 @@ class FeatureBuilder:
             bert_sentiment_data = self.bert_sentiment_data
         )
         # Calling the driver inside this class to create the features.
-        self.chat_data = chat_feature_builder.calculate_chat_level_features()
+        self.chat_data = chat_feature_builder.calculate_chat_level_features(self.features_to_calculate, self.feature_methods_chat)
         # Remove special characters in column names
         self.chat_data.columns = ["".join(c for c in col if c.isalnum() or c == '_') for col in self.chat_data.columns]
 
@@ -298,7 +352,7 @@ class FeatureBuilder:
             input_columns = self.input_columns
         )
         # Calling the driver inside this class to create the features.
-        self.conv_data = conv_feature_builder.calculate_conversation_level_features()
+        self.conv_data = conv_feature_builder.calculate_conversation_level_features(self.features_to_calculate, self.feature_methods_conv)
 
     def save_features(self) -> None:
         """
