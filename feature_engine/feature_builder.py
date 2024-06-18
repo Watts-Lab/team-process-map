@@ -75,56 +75,63 @@ class FeatureBuilder:
         self.output_file_path_user_level = output_file_path_user_level
 
         # Set features to generate
+        # TODO --- think through more carefully which ones we want to exclude and why
         self.default_features = [
             "Positivity (BERT)",
             "Message Length",
             "Message Quantity",
+            "Information Exchange",
+            "LIWC and Other Lexicons",
             "Questions",
-            "Conversational Repair",
-            "Word Type-Token Ratio",
-            "Proportion of First-Person Pronouns"
+            # TODO -- the below 3 functions are redundant because they share a function
+            # in calculate_chat_level_features. We need to split them up and have fewer
+            # such "double-whammy's."
+
+            # "Conversational Repair",
+            # "Word Type-Token Ratio",
+            # "Proportion of First-Person Pronouns",
+            "Function Word Accommodation",
+            "Content Word Accommodation",
+            "(BERT) Mimicry",
+            "Moving Mimicry",
+            "Hedge",
+            "TextBlob Subjectivity",
+            "TextBlob Polarity",
+            "Positivity Z-Score",
+            "Dale-Chall Score",
+            "Time Difference",
+            "Politeness Strategies",
+            "Politeness / Receptiveness Markers",
+            "Forward Flow",
+            "Certainty",
+            "Turn-Taking Index",
+            "Team Burstiness",
+            # TODO --- the aggregates are missing entries in the dictionary!
+            # "Conversation Level Aggregates",
+            # "User Level Aggregates"
         ]
+
         self.additional_features = additional_features or []
-        self.features_to_calculate = list(set(self.default_features + self.additional_features))
+        # TODO -- add features the user would want to exclude! (e.g., things in the default that user doesn't want)
 
-        # Define feature methods
-        # TODO: Check features below
-        self.feature_methods_chat = {
-            "Positivity (BERT)": ChatLevelFeaturesCalculator.concat_bert_features,
-            "Message Length": ChatLevelFeaturesCalculator.text_based_features,
-            "Message Quantity": ChatLevelFeaturesCalculator.text_based_features,
-            "Information Exchange": ChatLevelFeaturesCalculator.info_exchange,
-            "LIWC and Other Lexicons": ChatLevelFeaturesCalculator.lexical_features,
-            "Questions": ChatLevelFeaturesCalculator.other_lexical_features,
-            "Conversational Repair": ChatLevelFeaturesCalculator.other_lexical_features,
-            "Word Type-Token Ratio": ChatLevelFeaturesCalculator.other_lexical_features,
-            "Proportion of First-Person Pronouns": ChatLevelFeaturesCalculator.other_lexical_features,
-            "Function Word Accommodation": ChatLevelFeaturesCalculator.calculate_word_mimicry,
-            "Content Word Accommodation": ChatLevelFeaturesCalculator.calculate_word_mimicry,
-            "(BERT) Mimicry": ChatLevelFeaturesCalculator.calculate_word_mimicry,
-            "Moving Mimicry": ChatLevelFeaturesCalculator.calculate_word_mimicry,
-            "Hedge": ChatLevelFeaturesCalculator.calculate_hedge_features,
-            "TextBlob Subjectivity": ChatLevelFeaturesCalculator.calculate_textblob_sentiment,
-            "TextBlob Polarity": ChatLevelFeaturesCalculator.calculate_textblob_sentiment,
-            "Positivity Z-Score": ChatLevelFeaturesCalculator.positivity_zscore,
-            "Dale-Chall Score": ChatLevelFeaturesCalculator.get_dale_chall_score_and_classfication,
-            "Time Difference": ChatLevelFeaturesCalculator.get_temporal_features,
-            "Politeness Strategies": ChatLevelFeaturesCalculator.calculate_politeness_sentiment,
-            "Politeness / Receptiveness Markers": ChatLevelFeaturesCalculator.calculate_politeness_v2,
-            "Forward Flow": ChatLevelFeaturesCalculator.get_forward_flow,
-            "Certainty": ChatLevelFeaturesCalculator.get_certainty_score,
-            "Online Discussion Tags": ChatLevelFeaturesCalculator.get_reddit_features
-        }
+        # TODO -- the featurizer breaks after we convert the list into a set because
+        # some of the features need to be calcualted first; for example, the "Information Exchange"
+        # feature depends on the "Message Length" feature, because information excahnge divides
+        # the number of non-first-person-pronoun words by the total number of words. If the total
+        # number of words doesn't exist, it will break.  
 
-        self.feature_methods_conv = {
-            "Turn-Taking Index": ConversationLevelFeaturesCalculator.get_turn_taking_features,
-            "Gini Coefficient": ConversationLevelFeaturesCalculator.get_gini_features,
-            "Conversation Level Aggregates": ConversationLevelFeaturesCalculator.get_conversation_level_aggregates,
-            "User Level Aggregates": ConversationLevelFeaturesCalculator.get_user_level_aggregates,
-            "Discursive Diversity": ConversationLevelFeaturesCalculator.get_discursive_diversity_features,
-            "Team Burstiness": ConversationLevelFeaturesCalculator.calculate_team_burstiness,
-            "Information Diversity": ConversationLevelFeaturesCalculator.calculate_info_diversity
-        }
+        # temp fix: remove redundancies FIRST, rather than using the set
+        self.additional_features = [feature for feature in self.additional_features if feature not in self.default_features]
+
+        self.features_to_calculate = self.default_features + self.additional_features
+
+        # Read in the feature dictionary
+        with open('features.pkl', 'rb') as file:
+            feature_dictionary = pickle.load(file)
+
+        # set which chat / conversation feature methods we want to calculate
+        self.feature_methods_chat = {key: feature_dictionary[key]["function"] for key in self.features_to_calculate if  feature_dictionary[key]["level"] == "Chat"}
+        self.feature_methods_conv = {key: feature_dictionary[key]["function"] for key in self.features_to_calculate if  feature_dictionary[key]["level"] == "Conversation"}
 
         # Set first pct of conversation you want to analyze
         assert(all(0 <= x <= 1 for x in analyze_first_pct)) # first, type check that this is a list of numbers between 0 and 1
