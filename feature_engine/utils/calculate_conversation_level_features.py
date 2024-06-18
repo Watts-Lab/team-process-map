@@ -265,7 +265,7 @@ class ConversationLevelFeaturesCalculator:
         """
         self.conv_data = pd.merge(
             left=self.conv_data,
-            right=get_DD_features(self.chat_data, self.vect_data, self.vector_directory),
+            right=get_DD_features(self.chat_data, self.vect_data),
             on=['conversation_num'],
             how="inner"
         )

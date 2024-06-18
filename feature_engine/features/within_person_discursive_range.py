@@ -5,14 +5,16 @@ import os
 from pathlib import Path
 
 '''
-This is a conversation level feature, which computes the semantic modulation that individuals experience with respect to themselves across each chunk transition. Incongruent modulation measures the variance of the rates of shifting, while within person discursive range measures the average amount of shifting. 
+This is a conversation level feature, which computes the semantic modulation that 
+individuals experience with respect to themselves across each chunk transition. 
+Incongruent modulation measures the variance of the rates of shifting, 
+while within person discursive range measures the average amount of shifting. 
 
 '''
 
-def get_nan_vector(vector_directory):
+def get_nan_vector():
     current_script_directory = Path(__file__).resolve().parent
-    # TODO --- fix this file path once dataset cleaning is added!
-    nan_vector_file_path = current_script_directory.parent / vector_directory / "nan_vector.txt"
+    nan_vector_file_path = current_script_directory.parent / "../feature_engine/tpm-data/vector_data/" / "nan_vector.txt"
 
     f = open(nan_vector_file_path, "r")
     str_vec = f.read()
@@ -20,10 +22,10 @@ def get_nan_vector(vector_directory):
     return np.array(nan_vector_list)
 
 
-def get_within_person_disc_range(chat_data, num_chunks, vector_directory):
+def get_within_person_disc_range(chat_data, num_chunks):
 
     # Get nan vector 
-    nan_vector = get_nan_vector(vector_directory)
+    nan_vector = get_nan_vector()
 
     #calculate mean vector per speaker per chunk
     mean_vec_speaker_chunks = pd.DataFrame(chat_data.groupby(['conversation_num', 'speaker_nickname', 'chunk_num']).message_embedding.apply(np.mean)).unstack('chunk_num').rename(columns={'message_embedding': 'mean_chunk_vec'})

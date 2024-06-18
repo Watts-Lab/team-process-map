@@ -50,6 +50,7 @@ def read_in_lexicons(directory, lexicons_dict):
             lines = []
             for lexicon in lexicons:
                 # get rid of parentheses
+                lexicon = lexicon.strip()
                 lexicon = lexicon.replace('(', '')
                 lexicon = lexicon.replace(')', '')
                 if '*' not in lexicon:

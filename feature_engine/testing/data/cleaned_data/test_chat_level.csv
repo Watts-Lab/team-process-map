@@ -83,7 +83,7 @@ I respond to that too",num_block_quote_responses,2
 5,test3,After the edit he done it made it sound like he really loves his family,certainty_rocklage,6.175
 5,test1,"I don't think the guy is wrong in asking her to learn more english being that she lives in America, but he has to understand she is older and may not have the patience or capacity to learn a lot of english.",certainty_rocklage,5.472
 5,test2,"Learning a second language is easiest when you're a child for a reason. Your brain is wired differently then, which makes it easier.",certainty_rocklage,5.4
-5,test2,I think he tried to help her.Ê He gave her resources to use and she apparently didn't use them.,certainty_rocklage,4.32
+5,test2,I think he tried to help her.ï¿½ He gave her resources to use and she apparently didn't use them.,certainty_rocklage,4.32
 1,A,hello,Hello,1
 1,B,So how should we answer this,Token_count,6
 1,A,We can start here. What is the question?,YesNo_Questions,0
@@ -149,3 +149,533 @@ I respond to that too",num_block_quote_responses,2
 23,B,"Can you help me, can you please?",Can_You,2
 23,C,"Can you, will you, could you please be mine?",Could_You,1
 23,D,"This land is your land, this land is my land; this land was made for you and for me",For_You,1
+0,0,unneccessagf shoulds shouldve should'nt,discrepancies_lexical_per_100,0.04
+0,0,wouldnt unneedofek want must've should'nt,discrepancies_lexical_per_100,0.05
+0,0,hopes wish,discrepancies_lexical_per_100,0.02
+0,0,must'nt rather wouldn't ought'nt,discrepancies_lexical_per_100,0.04
+0,0,needn't unwantpotnw hopefulness oughta couldn't,discrepancies_lexical_per_100,0.05
+0,0,musilej,hear_lexical_per_100,0.01
+0,0,listens hearing listenerjp noisy,hear_lexical_per_100,0.04
+0,0,noises noisy harmongoc hearing audiblweds,hear_lexical_per_100,0.05
+0,0,ear yell listenerpvo,hear_lexical_per_100,0.03
+0,0,sang rang ear concertfuw,hear_lexical_per_100,0.04
+0,0,drapeulqv backyard loveseatjproz closet,home_lexical_per_100,0.04
+0,0,curtainqygkr drapekwvh,home_lexical_per_100,0.02
+0,0,bathae,home_lexical_per_100,0.01
+0,0,curtainbu loveseatntr family housing rooms,home_lexical_per_100,0.05
+0,0,bedroomxhpl furniture,home_lexical_per_100,0.02
+0,0,if,conjunction_lexical_per_100,0.01
+0,0,altho while though then how,conjunction_lexical_per_100,0.05
+0,0,when or,conjunction_lexical_per_100,0.02
+0,0,if,conjunction_lexical_per_100,0.01
+0,0,but however,conjunction_lexical_per_100,0.02
+0,0,undoubtni,certainty_lexical_per_100,0.01
+0,0,altogether truthzhf,certainty_lexical_per_100,0.02
+0,0,distinctue definitiveeol commitmentflk forever,certainty_lexical_per_100,0.04
+0,0,total essential,certainty_lexical_per_100,0.02
+0,0,fundamentals completes guarantidjp,certainty_lexical_per_100,0.03
+0,0,both add with,inclusive_lexical_per_100,0.03
+0,0,around we along,inclusive_lexical_per_100,0.03
+0,0,each with,inclusive_lexical_per_100,0.02
+0,0,with inclusg come came around,inclusive_lexical_per_100,0.05
+0,0,each around come,inclusive_lexical_per_100,0.03
+0,0,nausen sensation brunchkjz,bio_lexical_per_100,0.03
+0,0,butt saliverbwp,bio_lexical_per_100,0.02
+0,0,palms,bio_lexical_per_100,0.01
+0,0,liquoriole,bio_lexical_per_100,0.01
+0,0,xanax prescriqd hand sodauce,bio_lexical_per_100,0.04
+0,0,strivl master,achievement_lexical_per_100,0.02
+0,0,originattvf solutionmuyho elitlxoup proficiengiy quittd,achievement_lexical_per_100,0.05
+0,0,finalizuav best quitti capabfs,achievement_lexical_per_100,0.04
+0,0,masters plans,achievement_lexical_per_100,0.02
+0,0,strengthe successqfhs herovqw overconfidence,achievement_lexical_per_100,0.04
+0,0,apparently,adverbs_lexical_per_100,0.01
+0,0,so,adverbs_lexical_per_100,0.01
+0,0,immediately generally very well truly,adverbs_lexical_per_100,0.05
+0,0,rather instead here pushty,adverbs_lexical_per_100,0.04
+0,0,instead,adverbs_lexical_per_100,0.01
+0,0,phobii apprehensnmeyt,anxiety_lexical_per_100,0.02
+0,0,obsesstusbg anguishuiy terrorkm,anxiety_lexical_per_100,0.03
+0,0,restlesst tenseod feared overwhelmfvlxi,anxiety_lexical_per_100,0.04
+0,0,timidfzbh stressetd,anxiety_lexical_per_100,0.02
+0,0,apprehensrm dreadn,anxiety_lexical_per_100,0.02
+0,0,oneself shes he she'll herself,third_person_lexical_per_100,0.05
+0,0,shes he'd himself hes her,third_person_lexical_per_100,0.05
+0,0,she'll,third_person_lexical_per_100,0.01
+0,0,she'll her,third_person_lexical_per_100,0.02
+0,0,she'll him she's hes he,third_person_lexical_per_100,0.05
+0,0,havent haven't ought'nt wont,negation_lexical_per_100,0.04
+0,0,needn't hasn't,negation_lexical_per_100,0.02
+0,0,wouldnt,negation_lexical_per_100,0.01
+0,0,nobodashm hasn't didnt,negation_lexical_per_100,0.03
+0,0,hasn't never,negation_lexical_per_100,0.02
+0,0,titty fuckerusz bitchnsl goddamomde hell,swear_lexical_per_100,0.05
+0,0,sob fuckinoawys titty cuntq,swear_lexical_per_100,0.04
+0,0,cuntn pisstkzme dicks butts,swear_lexical_per_100,0.04
+0,0,fucks jeez sonofako crappy,swear_lexical_per_100,0.04
+0,0,fucks butt heck,swear_lexical_per_100,0.03
+0,0,urnj immortalwai,death_lexical_per_100,0.02
+0,0,od bury demise tombd urnnig,death_lexical_per_100,0.05
+0,0,demise,death_lexical_per_100,0.01
+0,0,immortalyjedn embalmfqydb hearsepdk,death_lexical_per_100,0.03
+0,0,ghostaw alive,death_lexical_per_100,0.02
+0,0,amputu,health_lexical_per_100,0.01
+0,0,nearsighted neurologhl toxv painly throbgvmhn,health_lexical_per_100,0.05
+0,0,wash doselndu mono,health_lexical_per_100,0.03
+0,0,ill,health_lexical_per_100,0.01
+0,0,checkupfli burpzxevw scabo living ICU,health_lexical_per_100,0.05
+0,0,orangemacis squaruei purplabnk,see_lexical_per_100,0.03
+0,0,colourxml roundxgijb sees seen colorht,see_lexical_per_100,0.05
+0,0,staring look yellowkyn triangqmpv,see_lexical_per_100,0.04
+0,0,shiny lookerutn scannv look,see_lexical_per_100,0.04
+0,0,scanni seen,see_lexical_per_100,0.02
+0,0,facialrqth foot lipslt toe titties,body_lexical_per_100,0.05
+0,0,toenailhtqe droolc,body_lexical_per_100,0.02
+0,0,hip dick boobvw,body_lexical_per_100,0.03
+0,0,slenderbmvq ass,body_lexical_per_100,0.02
+0,0,nudeytmcb stomachltbw wake breastqyp eyewut,body_lexical_per_100,0.05
+0,0,moms bro,family_lexical_per_100,0.02
+0,0,nephewz wifevxmlj mom's parentuph,family_lexical_per_100,0.04
+0,0,pa sons fatherhb,family_lexical_per_100,0.03
+0,0,aunte sons grandkidywgxb exes ex,family_lexical_per_100,0.05
+0,0,relatives husbandypoiz mommalqhxo,family_lexical_per_100,0.03
+0,0,sickengwxku,negative_affect_lexical_per_100,0.01
+0,0,hurtefdp lazieqxar impersonal,negative_affect_lexical_per_100,0.03
+0,0,egotisy destroygj,negative_affect_lexical_per_100,0.02
+0,0,unwelcomrfwd,negative_affect_lexical_per_100,0.01
+0,0,jealoustemf unkind,negative_affect_lexical_per_100,0.02
+0,0,significant else every section,quantifier_lexical_per_100,0.04
+0,0,ton lotta,quantifier_lexical_per_100,0.02
+0,0,either best greatest,quantifier_lexical_per_100,0.03
+0,0,best,quantifier_lexical_per_100,0.01
+0,0,singlufb rest fullmzf,quantifier_lexical_per_100,0.03
+0,0,glad great charmbrwsd wins,positive_affect_lexical_per_100,0.04
+0,0,generot helping sincerbucaj,positive_affect_lexical_per_100,0.03
+0,0,freedswu adventursfk gently deliciouseuxl assurm,positive_affect_lexical_per_100,0.05
+0,0,worshipstmjc soulmateeiya treat huggpo,positive_affect_lexical_per_100,0.04
+0,0,grin wealthlg thrillzbrqf casual proudrqu,positive_affect_lexical_per_100,0.05
+0,0,restructurucq,insight_lexical_per_100,0.01
+0,0,know decidux recallwz seems solutionlxh,insight_lexical_per_100,0.05
+0,0,wonder motivsc sensing secret,insight_lexical_per_100,0.04
+0,0,believes,insight_lexical_per_100,0.01
+0,0,suspectc infers,insight_lexical_per_100,0.02
+0,0,man,humans_lexical_per_100,0.01
+0,0,newbornl citizen'phtgi ladies,humans_lexical_per_100,0.03
+0,0,girl's babies persons chicks,humans_lexical_per_100,0.04
+0,0,infant,humans_lexical_per_100,0.01
+0,0,ladies ma'am citizen,humans_lexical_per_100,0.03
+0,0,hasn't makes describe believes I've,present_tense_lexical_per_100,0.05
+0,0,gets how's,present_tense_lexical_per_100,0.02
+0,0,has hopes admits,present_tense_lexical_per_100,0.03
+0,0,let's,present_tense_lexical_per_100,0.01
+0,0,suck wait aren't feels,present_tense_lexical_per_100,0.04
+0,0,wouldnt gonna,future_tense_lexical_per_100,0.02
+0,0,mustnt should shall,future_tense_lexical_per_100,0.03
+0,0,must've,future_tense_lexical_per_100,0.01
+0,0,must should it'll won't shall,future_tense_lexical_per_100,0.05
+0,0,shouldve mustnt,future_tense_lexical_per_100,0.02
+0,0,listened held loved cried changed,past_tense_lexical_per_100,0.05
+0,0,sent sensed tried taken shouldve,past_tense_lexical_per_100,0.05
+0,0,ate sucked tried,past_tense_lexical_per_100,0.03
+0,0,ran described,past_tense_lexical_per_100,0.02
+0,0,didn't,past_tense_lexical_per_100,0.01
+0,0,post distanpiy,relative_lexical_per_100,0.02
+0,0,go marchal updatmwi,relative_lexical_per_100,0.03
+0,0,walking growing gianthy age,relative_lexical_per_100,0.04
+0,0,initiatoxtwa follow,relative_lexical_per_100,0.02
+0,0,hall bending widthxikw,relative_lexical_per_100,0.03
+0,0,loverkfxo pornoiu,sexual_lexical_per_100,0.02
+0,0,virgindtrl humpysbwe prudishybiq,sexual_lexical_per_100,0.03
+0,0,virginc,sexual_lexical_per_100,0.01
+0,0,fucks pubic gay,sexual_lexical_per_100,0.03
+0,0,prostatijvda dick,sexual_lexical_per_100,0.02
+0,0,curbijh boundlby,inhibition_lexical_per_100,0.02
+0,0,deniaxi,inhibition_lexical_per_100,0.01
+0,0,prudishxc deniabxp,inhibition_lexical_per_100,0.02
+0,0,constrictimhr,inhibition_lexical_per_100,0.01
+0,0,withholdyzaqb stops,inhibition_lexical_per_100,0.02
+0,0,remorset ruinc grimwftle,sadness_lexical_per_100,0.03
+0,0,discouragnepqi tragict devastatu,sadness_lexical_per_100,0.03
+0,0,grief unimportant,sadness_lexical_per_100,0.02
+0,0,miss yearnlkw whining tragickh pitiulpnv,sadness_lexical_per_100,0.05
+0,0,miss regretzkbrc missed unhappj,sadness_lexical_per_100,0.04
+0,0,weve son's,social_lexical_per_100,0.02
+0,0,listenerqe girlfriendwsnya,social_lexical_per_100,0.02
+0,0,hers,social_lexical_per_100,0.01
+0,0,he'll sisterqjtfk,social_lexical_per_100,0.02
+0,0,coworkertbpf mates he's mailing interrupm,social_lexical_per_100,0.05
+0,0,somethingjmcpi noboda,indefinite_pronoun_lexical_per_100,0.02
+0,0,somebodp somewhere itll who'll,indefinite_pronoun_lexical_per_100,0.04
+0,0,that'd somethingosdqx,indefinite_pronoun_lexical_per_100,0.02
+0,0,somethingp thatll those which someonecrhbd,indefinite_pronoun_lexical_per_100,0.05
+0,0,it'll it'd,indefinite_pronoun_lexical_per_100,0.02
+0,0,sinnzkc kosher qur'anpy,religion_lexical_per_100,0.03
+0,0,mercy,religion_lexical_per_100,0.01
+0,0,templefydxz hinduejs muhammsla lutheranwv ministerlnfts,religion_lexical_per_100,0.05
+0,0,catholickd,religion_lexical_per_100,0.01
+0,0,sikhc judaprfd muhammehcml sin,religion_lexical_per_100,0.04
+0,0,laidoff tradejnx taxes freshmknd,work_lexical_per_100,0.04
+0,0,incorprhq negotiatjf presentationomwfa,work_lexical_per_100,0.03
+0,0,politics mda,work_lexical_per_100,0.02
+0,0,revieww classes,work_lexical_per_100,0.02
+0,0,masters,work_lexical_per_100,0.01
+0,0,owes cashk bankpsiar checks kronlwik,money_lexical_per_100,0.05
+0,0,dinarcsg businesszosw revenueocp costbjwta owe,money_lexical_per_100,0.05
+0,0,euro auditors store spending,money_lexical_per_100,0.04
+0,0,mortgpzvi overtime,money_lexical_per_100,0.02
+0,0,bucks wagerfv,money_lexical_per_100,0.02
+0,0,effectcaxgn,causation_lexical_per_100,0.01
+0,0,leadmbhfe infer depends creatend,causation_lexical_per_100,0.04
+0,0,depends,causation_lexical_per_100,0.01
+0,0,deducgulp outcomecli affected hows producnbu,causation_lexical_per_100,0.05
+0,0,solutionva launchvoap leadhbi provoku,causation_lexical_per_100,0.04
+0,0,threatxre offencefhcog ludicrouslf,anger_lexical_per_100,0.03
+0,0,enragoqusn,anger_lexical_per_100,0.01
+0,0,sucks brutals sucked threatd destroyj,anger_lexical_per_100,0.05
+0,0,sinister,anger_lexical_per_100,0.01
+0,0,raping battliz warfareid defensjazn molestgv,anger_lexical_per_100,0.05
+0,0,mine I've myself I'd I'll,first_person_singular_lexical_per_100,0.05
+0,0,I'll I've,first_person_singular_lexical_per_100,0.02
+0,0,myself my,first_person_singular_lexical_per_100,0.02
+0,0,ive I'd,first_person_singular_lexical_per_100,0.02
+0,0,myself I'm ive my I've,first_person_singular_lexical_per_100,0.05
+0,0,rub hard warmlvye,feel_lexical_per_100,0.03
+0,0,hardevtqef driegnk feels touchlzf,feel_lexical_per_100,0.04
+0,0,leatherjcf pressed squeezul silkjn,feel_lexical_per_100,0.04
+0,0,skin brushtasj rub colde caressi,feel_lexical_per_100,0.05
+0,0,hottjmuo,feel_lexical_per_100,0.01
+0,0,mysterp ambigun,tentativeness_lexical_per_100,0.02
+0,0,most wondered depend alot vary,tentativeness_lexical_per_100,0.05
+0,0,fairly lucks unresolvn hesitaq option,tentativeness_lexical_per_100,0.05
+0,0,fuzznaxg hypotheticoqwzy barely,tentativeness_lexical_per_100,0.03
+0,0,depend indetermingifjl randomitf hypotheticvzkg supposed,tentativeness_lexical_per_100,0.05
+0,0,exclujvy,exclusive_lexical_per_100,0.01
+0,0,either except if somethingfxdq sometime,exclusive_lexical_per_100,0.05
+0,0,versus,exclusive_lexical_per_100,0.01
+0,0,but exclusxklz except or,exclusive_lexical_per_100,0.04
+0,0,sometime,exclusive_lexical_per_100,0.01
+0,0,youre wished thank went,verbs_lexical_per_100,0.04
+0,0,meant hoped lost,verbs_lexical_per_100,0.03
+0,0,ran carry showed used,verbs_lexical_per_100,0.04
+0,0,theres care cannot made,verbs_lexical_per_100,0.04
+0,0,affected misses theyd kept thatd,verbs_lexical_per_100,0.05
+0,0,gfjgevb,friends_lexical_per_100,0.01
+0,0,exgirll,friends_lexical_per_100,0.01
+0,0,mates,friends_lexical_per_100,0.01
+0,0,mate loveru mates buddyv,friends_lexical_per_100,0.04
+0,0,neighbord partnerzcvdj roomatel girlfriendt gft,friends_lexical_per_100,0.05
+0,0,a an alot,article_lexical_per_100,0.03
+0,0,a an,article_lexical_per_100,0.02
+0,0,a an alot,article_lexical_per_100,0.03
+0,0,the an a alot,article_lexical_per_100,0.04
+0,0,alot,article_lexical_per_100,0.01
+0,0,oh yes I believe,argue_lexical_per_100,0.03
+0,0,u mean and really,argue_lexical_per_100,0.03
+0,0,cause no I know and,argue_lexical_per_100,0.04
+0,0,and I think actually yes well,argue_lexical_per_100,0.05
+0,0,so,argue_lexical_per_100,0.01
+0,0,wouldve whod you've mustn't,auxiliary_verbs_lexical_per_100,0.04
+0,0,let youve itd ought,auxiliary_verbs_lexical_per_100,0.04
+0,0,can don't theyre wasn't,auxiliary_verbs_lexical_per_100,0.04
+0,0,hes must'nt wont did mustn't,auxiliary_verbs_lexical_per_100,0.05
+0,0,shan't theyve oughtve becomes done,auxiliary_verbs_lexical_per_100,0.05
+0,0,meaningi all wanted determining,cognitive_mech_lexical_per_100,0.04
+0,0,appearing suppresshvw proof changes,cognitive_mech_lexical_per_100,0.04
+0,0,rearrangbqlg randomuer containn deducczr practically,cognitive_mech_lexical_per_100,0.05
+0,0,occasionalszxg hazy requirj,cognitive_mech_lexical_per_100,0.03
+0,0,repressydvml,cognitive_mech_lexical_per_100,0.01
+0,0,until,preposition_lexical_per_100,0.01
+0,0,along ahead,preposition_lexical_per_100,0.02
+0,0,below under thru,preposition_lexical_per_100,0.03
+0,0,except insides towardkhyrs between beside,preposition_lexical_per_100,0.05
+0,0,without out about,preposition_lexical_per_100,0.03
+0,0,let's,first_person_plural_lexical_per_100,0.01
+0,0,we'd let's lets,first_person_plural_lexical_per_100,0.03
+0,0,our lets,first_person_plural_lexical_per_100,0.02
+0,0,we've,first_person_plural_lexical_per_100,0.01
+0,0,ours we'd weve ourselves let's,first_person_plural_lexical_per_100,0.05
+0,0,drily,percept_lexical_per_100,0.01
+0,0,grabwktxr,percept_lexical_per_100,0.01
+0,0,savourzw redness,percept_lexical_per_100,0.02
+0,0,speaking,percept_lexical_per_100,0.01
+0,0,souriau tang,percept_lexical_per_100,0.02
+0,0,thine yall,second_person_lexical_per_100,0.02
+0,0,you're youd,second_person_lexical_per_100,0.02
+0,0,y'all you'd thine you're,second_person_lexical_per_100,0.04
+0,0,thee thine youre yours,second_person_lexical_per_100,0.04
+0,0,ye you,second_person_lexical_per_100,0.02
+0,0,mustnt hope mistakwzl hoping,discrepancies_lexical_per_100,0.04
+0,0,would've problemo need lacksuexg expectt,discrepancies_lexical_per_100,0.05
+0,0,couldnt hopeful should,discrepancies_lexical_per_100,0.03
+0,0,desirva,discrepancies_lexical_per_100,0.01
+0,0,wishes wishing must've need,discrepancies_lexical_per_100,0.04
+0,0,noises thundero,hear_lexical_per_100,0.02
+0,0,thunderq inaudibln sang hears,hear_lexical_per_100,0.04
+0,0,loudvh sang hushmqplh speak,hear_lexical_per_100,0.04
+0,0,heard speakertphv shoutiaem audiblbohi,hear_lexical_per_100,0.04
+0,0,sang whispervhxqk,hear_lexical_per_100,0.02
+0,0,lawnxdi doghousemilk residenlwfxa condo vacuumk,home_lexical_per_100,0.05
+0,0,lawnjr residencpbs neighboregax,home_lexical_per_100,0.03
+0,0,doghouseeastb roomiepuma,home_lexical_per_100,0.02
+0,0,porch cleanhwe condo,home_lexical_per_100,0.03
+0,0,maidqyldk bedroomox patioquf,home_lexical_per_100,0.03
+0,0,whether nor then,conjunction_lexical_per_100,0.03
+0,0,because if then so,conjunction_lexical_per_100,0.04
+0,0,whereas while,conjunction_lexical_per_100,0.02
+0,0,plus until,conjunction_lexical_per_100,0.02
+0,0,when how although though,conjunction_lexical_per_100,0.04
+0,0,defined essential undoubts completed,certainty_lexical_per_100,0.04
+0,0,wholly distinctcx unquestionj,certainty_lexical_per_100,0.03
+0,0,altogether precisjawd exactnqhfl,certainty_lexical_per_100,0.03
+0,0,exactofn invariabr unquestionqzj defined,certainty_lexical_per_100,0.04
+0,0,completes inevitabx undoubtgyzl,certainty_lexical_per_100,0.03
+0,0,came,inclusive_lexical_per_100,0.01
+0,0,around come open,inclusive_lexical_per_100,0.03
+0,0,come,inclusive_lexical_per_100,0.01
+0,0,add came come we,inclusive_lexical_per_100,0.04
+0,0,inside with both,inclusive_lexical_per_100,0.03
+0,0,fattsc faintdlseh,bio_lexical_per_100,0.02
+0,0,syndromeagxe,bio_lexical_per_100,0.01
+0,0,digestp musclephj skinnijsv healing,bio_lexical_per_100,0.04
+0,0,penisygbjp,bio_lexical_per_100,0.01
+0,0,veggiecla,bio_lexical_per_100,0.01
+0,0,unproducet importanmqdw resourcefulcamzd,achievement_lexical_per_100,0.03
+0,0,concludwo ranking masters lose strongm,achievement_lexical_per_100,0.05
+0,0,loserxc,achievement_lexical_per_100,0.01
+0,0,effortcxbe first triumphujryl masterfulvq irresponsiblet,achievement_lexical_per_100,0.05
+0,0,confident abilitbdz endeavafre defeatxjq determined,achievement_lexical_per_100,0.05
+0,0,mostly now whenever too primarily,adverbs_lexical_per_100,0.05
+0,0,probably back perhaps here mostly,adverbs_lexical_per_100,0.05
+0,0,somehow apparently how yet here,adverbs_lexical_per_100,0.05
+0,0,now eventually soon how completely,adverbs_lexical_per_100,0.05
+0,0,generally well such seriously here,adverbs_lexical_per_100,0.05
+0,0,overwhelmryjd strainf shakewm,anxiety_lexical_per_100,0.03
+0,0,uncertainve feared confusmb,anxiety_lexical_per_100,0.03
+0,0,franticivctu stuns shook uncertainu,anxiety_lexical_per_100,0.04
+0,0,shakiihxd frightixu shook stunned misersjne,anxiety_lexical_per_100,0.05
+0,0,alarmkzu tremblwzocs stuns,anxiety_lexical_per_100,0.03
+0,0,she'll he,third_person_lexical_per_100,0.02
+0,0,him her,third_person_lexical_per_100,0.02
+0,0,his,third_person_lexical_per_100,0.01
+0,0,her she's hers,third_person_lexical_per_100,0.03
+0,0,herself hes he's,third_person_lexical_per_100,0.03
+0,0,oughtn't don't wouldnt,negation_lexical_per_100,0.03
+0,0,shouldn't doesnt didnt nowhere should'nt,negation_lexical_per_100,0.05
+0,0,arent shouldnt isn't,negation_lexical_per_100,0.03
+0,0,nope,negation_lexical_per_100,0.01
+0,0,need'nt not negatlpji wouldn't,negation_lexical_per_100,0.04
+0,0,dang pussyah,swear_lexical_per_100,0.02
+0,0,hell dumbpbzvd bitchkvyuz butt homo,swear_lexical_per_100,0.05
+0,0,fuck shitq cock pisslkx,swear_lexical_per_100,0.04
+0,0,sob queersgm pussyeqru fucks,swear_lexical_per_100,0.04
+0,0,mofo prickyj dick niggerjvw,swear_lexical_per_100,0.04
+0,0,embalmjt oded gravevwhfi tombetp,death_lexical_per_100,0.04
+0,0,drownksti,death_lexical_per_100,0.01
+0,0,lynchxafto war,death_lexical_per_100,0.02
+0,0,dies bereavemfhcn,death_lexical_per_100,0.02
+0,0,genocidgjoau grief morticianbspv,death_lexical_per_100,0.03
+0,0,asthmanmc tumofwvj chokkohz physicianuqvwr,health_lexical_per_100,0.04
+0,0,nearsighted throbj anorexiky tinglliqf,health_lexical_per_100,0.04
+0,0,throbpqym woundzlkw gynobqovn,health_lexical_per_100,0.03
+0,0,therapdkzr healed OCD,health_lexical_per_100,0.03
+0,0,living coronard,health_lexical_per_100,0.02
+0,0,scannrq circle reddeyo glowx,see_lexical_per_100,0.04
+0,0,sunshingwv sees clickhbiyp scannmbgl eying,see_lexical_per_100,0.05
+0,0,eyeqblh rectangypwos triangdg seer looked,see_lexical_per_100,0.05
+0,0,columnxvs sightsue,see_lexical_per_100,0.02
+0,0,whitishk,see_lexical_per_100,0.01
+0,0,bone belly nervew,body_lexical_per_100,0.03
+0,0,skin palms breathdcafq,body_lexical_per_100,0.03
+0,0,brainz bones,body_lexical_per_100,0.02
+0,0,rashnut tit itchwght kneenjk,body_lexical_per_100,0.04
+0,0,lungr facialt slenderi spine,body_lexical_per_100,0.04
+0,0,husbandyabx,family_lexical_per_100,0.01
+0,0,marrieboagv brotherrhda,family_lexical_per_100,0.02
+0,0,exhusbanda granddaursubf,family_lexical_per_100,0.02
+0,0,familiesc,family_lexical_per_100,0.01
+0,0,cousinbzmwh marriexrzvf,family_lexical_per_100,0.02
+0,0,longingjhbn,negative_affect_lexical_per_100,0.01
+0,0,lamefpbv disadvantagenxtql,negative_affect_lexical_per_100,0.02
+0,0,insincermy remorseoeia,negative_affect_lexical_per_100,0.02
+0,0,difficultna jaded wars vanity,negative_affect_lexical_per_100,0.04
+0,0,difficultnmril warring vulnerabc shitzv,negative_affect_lexical_per_100,0.04
+0,0,tons greater simple,quantifier_lexical_per_100,0.03
+0,0,extent,quantifier_lexical_per_100,0.01
+0,0,mucho much section lotsa extremely,quantifier_lexical_per_100,0.05
+0,0,ton piecg page differenceb whole,quantifier_lexical_per_100,0.05
+0,0,else,quantifier_lexical_per_100,0.01
+0,0,alrightdo,positive_affect_lexical_per_100,0.01
+0,0,helperhnx sunny,positive_affect_lexical_per_100,0.02
+0,0,complimentjlbhe convincfthqs graces,positive_affect_lexical_per_100,0.03
+0,0,lucks romanczk praisyvpch safelmgx hehp,positive_affect_lexical_per_100,0.05
+0,0,talentv interestuthxn,positive_affect_lexical_per_100,0.02
+0,0,reasonpulei meaningidwf,insight_lexical_per_100,0.02
+0,0,seem questiontmyhc reorganitkgar,insight_lexical_per_100,0.03
+0,0,sense,insight_lexical_per_100,0.01
+0,0,wonders,insight_lexical_per_100,0.01
+0,0,explaining rationallpfg appreciate,insight_lexical_per_100,0.03
+0,0,man,humans_lexical_per_100,0.01
+0,0,girlshfsio adults,humans_lexical_per_100,0.02
+0,0,child,humans_lexical_per_100,0.01
+0,0,citizen,humans_lexical_per_100,0.01
+0,0,ma'am men'bldt self femalejlcvo babeae,humans_lexical_per_100,0.05
+0,0,hears,present_tense_lexical_per_100,0.01
+0,0,brings thats doesn't whats,present_tense_lexical_per_100,0.04
+0,0,goes start they're,present_tense_lexical_per_100,0.03
+0,0,describes havent dislikes,present_tense_lexical_per_100,0.03
+0,0,knows believe listens,present_tense_lexical_per_100,0.03
+0,0,mustnt must must'nt shouldnt you'll,future_tense_lexical_per_100,0.05
+0,0,ought'nt,future_tense_lexical_per_100,0.01
+0,0,thatll wouldve should'nt gonna,future_tense_lexical_per_100,0.04
+0,0,that'll won't I'll,future_tense_lexical_per_100,0.03
+0,0,who'll should'nt,future_tense_lexical_per_100,0.02
+0,0,hated went wondered appeared,past_tense_lexical_per_100,0.04
+0,0,ate,past_tense_lexical_per_100,0.01
+0,0,disliked lost described spent,past_tense_lexical_per_100,0.04
+0,0,ate,past_tense_lexical_per_100,0.01
+0,0,forgote cared believed,past_tense_lexical_per_100,0.03
+0,0,awhile immediately outerki,relative_lexical_per_100,0.03
+0,0,perpetualp internalltsem tiniest,relative_lexical_per_100,0.03
+0,0,right immediateness fademl finishykxwt,relative_lexical_per_100,0.04
+0,0,corners old over,relative_lexical_per_100,0.03
+0,0,fit approachjuzeb,relative_lexical_per_100,0.02
+0,0,erectile condom pornfzqh fucks,sexual_lexical_per_100,0.04
+0,0,fuckinc asses condom queerduvk,sexual_lexical_per_100,0.04
+0,0,pregnange erectionux,sexual_lexical_per_100,0.02
+0,0,orgasmt sexw chlamydia gay,sexual_lexical_per_100,0.04
+0,0,rapistph ovarsg tits,sexual_lexical_per_100,0.03
+0,0,withheld defencjtr,inhibition_lexical_per_100,0.02
+0,0,hesitaz tightq halthvc,inhibition_lexical_per_100,0.03
+0,0,protectab securulxeo interferhvrx deniaanhcy restraindrv,inhibition_lexical_per_100,0.05
+0,0,waits,inhibition_lexical_per_100,0.01
+0,0,controlx waited tidy,inhibition_lexical_per_100,0.03
+0,0,defeats,sadness_lexical_per_100,0.01
+0,0,hopelesspkm heartbrokekible cried loses resigne,sadness_lexical_per_100,0.05
+0,0,whining sadness cry cried disheartengzeaq,sadness_lexical_per_100,0.05
+0,0,sadly damagbntc pessimisrc,sadness_lexical_per_100,0.03
+0,0,hopelessa dissatisfcl fatigucuvjd disillusionqt isolatg,sadness_lexical_per_100,0.05
+0,0,assemblkd meet band guyawg kid,social_lexical_per_100,0.05
+0,0,help excusk peoplelnm organizho yall,social_lexical_per_100,0.05
+0,0,sons,social_lexical_per_100,0.01
+0,0,his participanteir,social_lexical_per_100,0.02
+0,0,grandpap whom mailerut,social_lexical_per_100,0.03
+0,0,this that it'd,indefinite_pronoun_lexical_per_100,0.03
+0,0,these anything thatll everybodhn it'll,indefinite_pronoun_lexical_per_100,0.05
+0,0,noboddup whats,indefinite_pronoun_lexical_per_100,0.02
+0,0,it's who'd thats it whats,indefinite_pronoun_lexical_per_100,0.05
+0,0,anything wholl these,indefinite_pronoun_lexical_per_100,0.03
+0,0,karma salvation orthodoxfdy rosaries sect,religion_lexical_per_100,0.05
+0,0,rosary jesuitgsabe hell,religion_lexical_per_100,0.03
+0,0,hell,religion_lexical_per_100,0.01
+0,0,christianwq muhammyprqh piety sects,religion_lexical_per_100,0.04
+0,0,sunni scripturvko templeme salvation,religion_lexical_per_100,0.04
+0,0,credentialrs com absentp,work_lexical_per_100,0.03
+0,0,mfg reportsuro commercsjezh collabw,work_lexical_per_100,0.04
+0,0,outsourcrfndl,work_lexical_per_100,0.01
+0,0,transfergdnu grad,work_lexical_per_100,0.02
+0,0,econgv goalg,work_lexical_per_100,0.02
+0,0,cashlf,money_lexical_per_100,0.01
+0,0,debti shop consumerzae inheritfkyv,money_lexical_per_100,0.04
+0,0,stocks,money_lexical_per_100,0.01
+0,0,taxaxv cheapi,money_lexical_per_100,0.02
+0,0,incomegfl bet auditing taxansjbf,money_lexical_per_100,0.04
+0,0,thereforrnsq,causation_lexical_per_100,0.01
+0,0,origins,causation_lexical_per_100,0.01
+0,0,motivnt launchvt,causation_lexical_per_100,0.02
+0,0,makes forcev using obedienwayd,causation_lexical_per_100,0.04
+0,0,compliance obedienlpijv pick,causation_lexical_per_100,0.03
+0,0,sucked arrogant ferocwv,anger_lexical_per_100,0.03
+0,0,punishx enragvbj contemptawb,anger_lexical_per_100,0.03
+0,0,maniacxo pissmygt rebelmp,anger_lexical_per_100,0.03
+0,0,stupidncwg hellish paranoilbock warring,anger_lexical_per_100,0.04
+0,0,naga angrwmnl tantrumsv,anger_lexical_per_100,0.03
+0,0,ive I've,first_person_singular_lexical_per_100,0.02
+0,0,Id,first_person_singular_lexical_per_100,0.01
+0,0,Id myself,first_person_singular_lexical_per_100,0.02
+0,0,I'd,first_person_singular_lexical_per_100,0.01
+0,0,i,first_person_singular_lexical_per_100,0.01
+0,0,weightliftd hand driemau drily,feel_lexical_per_100,0.04
+0,0,grippfipun feelingwkaf thinnajy,feel_lexical_per_100,0.03
+0,0,skin'men,feel_lexical_per_100,0.01
+0,0,weight press hot thin silkvr,feel_lexical_per_100,0.05
+0,0,skin'h,feel_lexical_per_100,0.01
+0,0,assumbvd seemed usually,tentativeness_lexical_per_100,0.03
+0,0,option,tentativeness_lexical_per_100,0.01
+0,0,someonesyc wonders theorhe,tentativeness_lexical_per_100,0.03
+0,0,spose hardly seemed alot,tentativeness_lexical_per_100,0.04
+0,0,often appearing,tentativeness_lexical_per_100,0.02
+0,0,either except sometime,exclusive_lexical_per_100,0.03
+0,0,without,exclusive_lexical_per_100,0.01
+0,0,really but whether,exclusive_lexical_per_100,0.03
+0,0,vs,exclusive_lexical_per_100,0.01
+0,0,if,exclusive_lexical_per_100,0.01
+0,0,begin supported,verbs_lexical_per_100,0.02
+0,0,begin held who's describe how's,verbs_lexical_per_100,0.05
+0,0,takes,verbs_lexical_per_100,0.01
+0,0,happened saw mustnt brings,verbs_lexical_per_100,0.04
+0,0,slept took waited,verbs_lexical_per_100,0.03
+0,0,pals bud amigodyzg mate's girlfriendur,friends_lexical_per_100,0.05
+0,0,mates,friends_lexical_per_100,0.01
+0,0,neighborwtey bftxuv comradq,friends_lexical_per_100,0.03
+0,0,colleaguejo buddiesef,friends_lexical_per_100,0.02
+0,0,bfbfi,friends_lexical_per_100,0.01
+0,0,an a alot the,article_lexical_per_100,0.04
+0,0,the,article_lexical_per_100,0.01
+0,0,an,article_lexical_per_100,0.01
+0,0,an the,article_lexical_per_100,0.02
+0,0,an,article_lexical_per_100,0.01
+0,0,u know no,argue_lexical_per_100,0.02
+0,0,really you know I think,argue_lexical_per_100,0.03
+0,0,really I believe,argue_lexical_per_100,0.02
+0,0,cause,argue_lexical_per_100,0.01
+0,0,I know,argue_lexical_per_100,0.01
+0,0,you'd could,auxiliary_verbs_lexical_per_100,0.02
+0,0,couldnt isn't,auxiliary_verbs_lexical_per_100,0.02
+0,0,oughta had be what's,auxiliary_verbs_lexical_per_100,0.04
+0,0,be shant itll,auxiliary_verbs_lexical_per_100,0.03
+0,0,ain't couldnt,auxiliary_verbs_lexical_per_100,0.02
+0,0,avertv,cognitive_mech_lexical_per_100,0.01
+0,0,yearnqgjth,cognitive_mech_lexical_per_100,0.01
+0,0,infer tentativwc wouldn't,cognitive_mech_lexical_per_100,0.03
+0,0,around commit banned fundamental,cognitive_mech_lexical_per_100,0.04
+0,0,obedienoki solutionhk,cognitive_mech_lexical_per_100,0.02
+0,0,around plus,preposition_lexical_per_100,0.02
+0,0,onto,preposition_lexical_per_100,0.01
+0,0,insides in behind out,preposition_lexical_per_100,0.04
+0,0,insides amongzekb unto by than,preposition_lexical_per_100,0.05
+0,0,across above about without,preposition_lexical_per_100,0.04
+0,0,we'd us our weve,first_person_plural_lexical_per_100,0.04
+0,0,we'd we've weve ourselves we,first_person_plural_lexical_per_100,0.05
+0,0,we've we're lets,first_person_plural_lexical_per_100,0.03
+0,0,ourselves,first_person_plural_lexical_per_100,0.01
+0,0,us our we'll let's,first_person_plural_lexical_per_100,0.04
+0,0,greyiyck delectabliktz,percept_lexical_per_100,0.02
+0,0,screen sand,percept_lexical_per_100,0.02
+0,0,sweetness drieqs deoders,percept_lexical_per_100,0.03
+0,0,coldedrm,percept_lexical_per_100,0.01
+0,0,hear caramelzjw wetly tonguel,percept_lexical_per_100,0.04
+0,0,y'all youd you're you'll,second_person_lexical_per_100,0.04
+0,0,u thine,second_person_lexical_per_100,0.02
+0,0,yall yours u your thoust,second_person_lexical_per_100,0.05
+0,0,yall you've youll thee,second_person_lexical_per_100,0.04
+0,0,thine you ye,second_person_lexical_per_100,0.03
+0,0,responsibly evocative faithfully valiantly illustrious,positive_words_lexical_per_100,0.05
+0,0,imaculate vivid likable enjoyable succeed,positive_words_lexical_per_100,0.05
+0,0,smitten sharpest rightfully unreal,positive_words_lexical_per_100,0.04
+0,0,reaffirmation joy goood speedy self-sufficient,positive_words_lexical_per_100,0.05
+0,0,tantalize energize gusto win,positive_words_lexical_per_100,0.04
+0,0,we our i me,first_person_lexical_per_100,0.04
+0,0,ourselves,first_person_lexical_per_100,0.01
+0,0,myself,first_person_lexical_per_100,0.01
+0,0,lets my i,first_person_lexical_per_100,0.03
+0,0,our,first_person_lexical_per_100,0.01
+0,0,but,nltk_english_stopwords_lexical_per_100,0.01
+0,0,were was your,nltk_english_stopwords_lexical_per_100,0.03
+0,0,any shan it is,nltk_english_stopwords_lexical_per_100,0.04
+0,0,our,nltk_english_stopwords_lexical_per_100,0.01
+0,0,because an after other,nltk_english_stopwords_lexical_per_100,0.04
+0,0,probably,hedge_words_lexical_per_100,0.01
+0,0,maybe I guess possibly sort of a little,hedge_words_lexical_per_100,0.05
+0,0,a little possibly I think sort of probably,hedge_words_lexical_per_100,0.05
+0,0,probably sort of,hedge_words_lexical_per_100,0.02
+0,0,I think,hedge_words_lexical_per_100,0.01

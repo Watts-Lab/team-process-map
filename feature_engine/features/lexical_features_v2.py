@@ -40,8 +40,8 @@ def liwc_features(chat_df: pd.DataFrame) -> pd.DataFrame:
 	# Return the lexical features stacked as columns
 	return pd.concat(
 		# Finding the # of occurrences of lexicons of each type for all the messages.
-		[pd.DataFrame(chat_df["message"].apply(lambda chat: get_liwc_rate(regex, chat)))\
-										.rename({"message": lexicon_type + "_lexical_per_100"}, axis=1)\
+		[pd.DataFrame(chat_df["message_original"].apply(lambda chat: get_liwc_rate(regex, chat)))\
+										.rename({"message_original": lexicon_type + "_lexical_per_100"}, axis=1)\
 			for lexicon_type, regex in lexicons_dict.items()], 
 		axis=1
 	)

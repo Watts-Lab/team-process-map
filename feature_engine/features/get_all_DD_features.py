@@ -19,7 +19,7 @@ def conv_to_float_arr(df):
             df['message_embedding'] = [np.array(e) for e in df['message_embedding']]
     return df
 
-def get_DD_features(chat_data, vect_data, vector_directory):
+def get_DD_features(chat_data, vect_data):
     
     chats = chat_data.copy()
 
@@ -40,7 +40,7 @@ def get_DD_features(chat_data, vect_data, vector_directory):
     var_disc_div = var_disc_div.replace(np.nan, 0)
 
     # Get within-person discursive range metrics
-    modulation_metrics = get_within_person_disc_range(chats_chunked, num_chunks, vector_directory)
+    modulation_metrics = get_within_person_disc_range(chats_chunked, num_chunks)
     modulation_metrics = modulation_metrics.replace(np.nan, 0)
 
     dd_features = [disc_div, var_disc_div, modulation_metrics]

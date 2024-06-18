@@ -24,7 +24,7 @@ def test_chat_unit_equality(row):
     expected = row[1]['expected_value']
     
     try:
-        assert round(actual, 3) == round(expected, 3)
+        assert round(float(actual), 3) == round(float(expected), 3)
     except AssertionError:
 
         with open('test.log', 'a') as file:

@@ -27,7 +27,9 @@ jobs:
           python import_nltk.py
 
       - name: Run featurizer
-        run: python3 featurize.py
+        run: |
+          cd testing
+          python3 run_tests.py
 
       - name: Run tests
         run: |
