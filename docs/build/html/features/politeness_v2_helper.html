@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>politeness_v2_helper module &mdash; Team Communication Toolkit 0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=837179f8"></script>
+        <script src="../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Team Communication Toolkit
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../feature_builder.html">feature_builder module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html">Features: Technical Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../features_conceptual/index.html">Features: Conceptual Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../utils/index.html">Utilities</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Team Communication Toolkit</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">politeness_v2_helper module</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/features/politeness_v2_helper.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-features.politeness_v2_helper">
+<span id="politeness-v2-helper-module"></span><h1>politeness_v2_helper module<a class="headerlink" href="#module-features.politeness_v2_helper" title="Link to this heading"></a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="features.politeness_v2_helper.Question">
+<span class="sig-prename descclassname"><span class="pre">features.politeness_v2_helper.</span></span><span class="sig-name descname"><span class="pre">Question</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doc</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#features.politeness_v2_helper.Question" title="Link to this definition"></a></dt>
+<dd><p>Counts number of prespecified question words</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="features.politeness_v2_helper.adverb_limiter">
+<span class="sig-prename descclassname"><span class="pre">features.politeness_v2_helper.</span></span><span class="sig-name descname"><span class="pre">adverb_limiter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">keywords</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">doc</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#features.politeness_v2_helper.adverb_limiter" title="Link to this definition"></a></dt>
+<dd><p>Search for tokens that are advmod and in the prespecifid list of words</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="features.politeness_v2_helper.bare_command">
+<span class="sig-prename descclassname"><span class="pre">features.politeness_v2_helper.</span></span><span class="sig-name descname"><span class="pre">bare_command</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doc</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#features.politeness_v2_helper.bare_command" title="Link to this definition"></a></dt>
+<dd><p>Check the first word of each sentence is a verb AND is contained in list of key words</p>
+<p>Output: Count of matches</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="features.politeness_v2_helper.clean_text">
+<span class="sig-prename descclassname"><span class="pre">features.politeness_v2_helper.</span></span><span class="sig-name descname"><span class="pre">clean_text</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#features.politeness_v2_helper.clean_text" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="features.politeness_v2_helper.commit_data">
+<span class="sig-prename descclassname"><span class="pre">features.politeness_v2_helper.</span></span><span class="sig-name descname"><span class="pre">commit_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path_in</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">folders</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">words_in_line</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#features.politeness_v2_helper.commit_data" title="Link to this definition"></a></dt>
+<dd><p>Loads data from .txt files, creates one dictionary per folder
+and outputs each folder as a dictionary in a pickle file</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="features.politeness_v2_helper.conjection_seperator">
+<span class="sig-prename descclassname"><span class="pre">features.politeness_v2_helper.</span></span><span class="sig-name descname"><span class="pre">conjection_seperator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#features.politeness_v2_helper.conjection_seperator" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="features.politeness_v2_helper.count_matches">
+<span class="sig-prename descclassname"><span class="pre">features.politeness_v2_helper.</span></span><span class="sig-name descname"><span class="pre">count_matches</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">keywords</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">doc</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#features.politeness_v2_helper.count_matches" title="Link to this definition"></a></dt>
+<dd><p>For a given piece of text, search for the number if keywords from a prespecified list</p>
+<dl class="simple">
+<dt>Inputs:</dt><dd><p>Prespecified list (keywords)
+text</p>
+</dd>
+<dt>Outputs:</dt><dd><p>Counts of keyword matches</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="features.politeness_v2_helper.count_spacy_matches">
+<span class="sig-prename descclassname"><span class="pre">features.politeness_v2_helper.</span></span><span class="sig-name descname"><span class="pre">count_spacy_matches</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">keywords</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dep_pairs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#features.politeness_v2_helper.count_spacy_matches" title="Link to this definition"></a></dt>
+<dd><p>When searching for key words are not sufficient, we may search for dependency pairs.
+Finds any-prespecified dependency pairs from text string and outputs the counts</p>
+<dl class="simple">
+<dt>Inputs:</dt><dd><p>Dependency pairs from text
+Predefined tokens for search in dependency heads</p>
+</dd>
+<dt>Output:</dt><dd><p>Count of dependency pair matches</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="features.politeness_v2_helper.feat_counts">
+<span class="sig-prename descclassname"><span class="pre">features.politeness_v2_helper.</span></span><span class="sig-name descname"><span class="pre">feat_counts</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kw</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#features.politeness_v2_helper.feat_counts" title="Link to this definition"></a></dt>
+<dd><p>Main function for getting the features from text input.
+Calls other functions to load dataset, clean text, counts features,
+removes negation phrases.</p>
+<dl class="simple">
+<dt>Input:</dt><dd><p>Text string
+Saved data of keywords and dependency pairs from pickle files</p>
+</dd>
+<dt>Output:</dt><dd><p>Feature counts</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="features.politeness_v2_helper.get_dep_pairs">
+<span class="sig-prename descclassname"><span class="pre">features.politeness_v2_helper.</span></span><span class="sig-name descname"><span class="pre">get_dep_pairs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doc</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#features.politeness_v2_helper.get_dep_pairs" title="Link to this definition"></a></dt>
+<dd><p>Uses spaCy to find list of dependency pairs from text.
+Performs negation handling where by any dependency pairs related to a negated term is removed</p>
+<dl class="simple">
+<dt>Input:</dt><dd><p>Text</p>
+</dd>
+<dt>Outputs:</dt><dd><p>Dependency pairs from text that do not have ROOT as the head token or is a negated term</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="features.politeness_v2_helper.get_dep_pairs_noneg">
+<span class="sig-prename descclassname"><span class="pre">features.politeness_v2_helper.</span></span><span class="sig-name descname"><span class="pre">get_dep_pairs_noneg</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doc</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#features.politeness_v2_helper.get_dep_pairs_noneg" title="Link to this definition"></a></dt>
+<dd><p>No negation is done as we are only searching ‘hits’</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="features.politeness_v2_helper.load_saved_data">
+<span class="sig-prename descclassname"><span class="pre">features.politeness_v2_helper.</span></span><span class="sig-name descname"><span class="pre">load_saved_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path_in</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">folders</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#features.politeness_v2_helper.load_saved_data" title="Link to this definition"></a></dt>
+<dd><p>Loads predefined keywords and dependency pairs</p>
+<dl class="simple">
+<dt>Input:</dt><dd><p>Pickle files of dictionaries saved in directory</p>
+</dd>
+<dt>Output:</dt><dd><p>Python dictionaries</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="features.politeness_v2_helper.load_to_dict">
+<span class="sig-prename descclassname"><span class="pre">features.politeness_v2_helper.</span></span><span class="sig-name descname"><span class="pre">load_to_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">words</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#features.politeness_v2_helper.load_to_dict" title="Link to this definition"></a></dt>
+<dd><p>Main function for taking raw .txt files and generates a python dictionary
+Used in conjunction with committ_data function</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="features.politeness_v2_helper.load_to_lists">
+<span class="sig-prename descclassname"><span class="pre">features.politeness_v2_helper.</span></span><span class="sig-name descname"><span class="pre">load_to_lists</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">words</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#features.politeness_v2_helper.load_to_lists" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="features.politeness_v2_helper.phrase_split">
+<span class="sig-prename descclassname"><span class="pre">features.politeness_v2_helper.</span></span><span class="sig-name descname"><span class="pre">phrase_split</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#features.politeness_v2_helper.phrase_split" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="features.politeness_v2_helper.prep_simple">
+<span class="sig-prename descclassname"><span class="pre">features.politeness_v2_helper.</span></span><span class="sig-name descname"><span class="pre">prep_simple</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#features.politeness_v2_helper.prep_simple" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="features.politeness_v2_helper.prep_whole">
+<span class="sig-prename descclassname"><span class="pre">features.politeness_v2_helper.</span></span><span class="sig-name descname"><span class="pre">prep_whole</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#features.politeness_v2_helper.prep_whole" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="features.politeness_v2_helper.punctuation_seperator">
+<span class="sig-prename descclassname"><span class="pre">features.politeness_v2_helper.</span></span><span class="sig-name descname"><span class="pre">punctuation_seperator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#features.politeness_v2_helper.punctuation_seperator" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="features.politeness_v2_helper.sentence_pad">
+<span class="sig-prename descclassname"><span class="pre">features.politeness_v2_helper.</span></span><span class="sig-name descname"><span class="pre">sentence_pad</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doc</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#features.politeness_v2_helper.sentence_pad" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="features.politeness_v2_helper.sentence_split">
+<span class="sig-prename descclassname"><span class="pre">features.politeness_v2_helper.</span></span><span class="sig-name descname"><span class="pre">sentence_split</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doc</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#features.politeness_v2_helper.sentence_split" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="features.politeness_v2_helper.sentenciser">
+<span class="sig-prename descclassname"><span class="pre">features.politeness_v2_helper.</span></span><span class="sig-name descname"><span class="pre">sentenciser</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#features.politeness_v2_helper.sentenciser" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="features.politeness_v2_helper.token_count">
+<span class="sig-prename descclassname"><span class="pre">features.politeness_v2_helper.</span></span><span class="sig-name descname"><span class="pre">token_count</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doc</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#features.politeness_v2_helper.token_count" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="features.politeness_v2_helper.word_start">
+<span class="sig-prename descclassname"><span class="pre">features.politeness_v2_helper.</span></span><span class="sig-name descname"><span class="pre">word_start</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">keywords</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">doc</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#features.politeness_v2_helper.word_start" title="Link to this definition"></a></dt>
+<dd><p>Find first words in text such as conjunctions and affirmations</p>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Xinlan Emily Hu and the Team Communication Toolkit Research Group.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

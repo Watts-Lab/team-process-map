@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>calculate_chat_level_features module &mdash; Team Communication Toolkit 0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=837179f8"></script>
+        <script src="../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="calculate_conversation_level_features module" href="calculate_conversation_level_features.html" />
+    <link rel="prev" title="Utilities" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Team Communication Toolkit
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../feature_builder.html">feature_builder module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../features/index.html">Features: Technical Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../features_conceptual/index.html">Features: Conceptual Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples.html">Examples</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Utilities</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="index.html#driver-classes-utterance-conversation-and-speaker-level-features">“Driver” Classes: Utterance-, Conversation-, and Speaker-Level Features</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">calculate_chat_level_features module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#utils.calculate_chat_level_features.ChatLevelFeaturesCalculator"><code class="docutils literal notranslate"><span class="pre">ChatLevelFeaturesCalculator</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="calculate_conversation_level_features.html">calculate_conversation_level_features module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="calculate_user_level_features.html">calculate_user_level_features module</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#other-utilities">Other Utilities</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Team Communication Toolkit</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Utilities</a></li>
+      <li class="breadcrumb-item active">calculate_chat_level_features module</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/utils/calculate_chat_level_features.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-utils.calculate_chat_level_features">
+<span id="calculate-chat-level-features-module"></span><span id="chat-level-features"></span><h1>calculate_chat_level_features module<a class="headerlink" href="#module-utils.calculate_chat_level_features" title="Link to this heading"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="utils.calculate_chat_level_features.ChatLevelFeaturesCalculator">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">utils.calculate_chat_level_features.</span></span><span class="sig-name descname"><span class="pre">ChatLevelFeaturesCalculator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chat_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vect_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bert_sentiment_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ner_training</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ner_cutoff</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.calculate_chat_level_features.ChatLevelFeaturesCalculator" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Initialize variables and objects used by the ChatLevelFeaturesCalculator class.</p>
+<p>This class uses various feature modules to define chat-level features. It reads input data and
+initializes variables required to compute the features.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>chat_data</strong> (<em>pd.DataFrame</em>) – Pandas dataframe of chat-level features read from the input dataset</p></li>
+<li><p><strong>vect_data</strong> (<em>pd.DataFrame</em>) – Pandas dataframe containing vector data</p></li>
+<li><p><strong>bert_sentiment_data</strong> (<em>pd.DataFrame</em>) – Pandas dataframe containing BERT sentiment data</p></li>
+<li><p><strong>ner_training_df</strong> (<em>pd.DataFrame</em>) – This is a pandas dataframe of training data for named entity recognition feature</p></li>
+<li><p><strong>ner_cutoff</strong> (<em>int</em>) – This is the cutoff value for the confidence of prediction for each named entity</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.calculate_chat_level_features.ChatLevelFeaturesCalculator.calculate_chat_level_features">
+<span class="sig-name descname"><span class="pre">calculate_chat_level_features</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="headerlink" href="#utils.calculate_chat_level_features.ChatLevelFeaturesCalculator.calculate_chat_level_features" title="Link to this definition"></a></dt>
+<dd><p>Main driver function for creating chat-level features.</p>
+<p>This function computes various chat-level features using different modules and appends
+them as new columns to the input chat data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The chat-level dataset with new columns for each chat-level feature</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.calculate_chat_level_features.ChatLevelFeaturesCalculator.calculate_hedge_features">
+<span class="sig-name descname"><span class="pre">calculate_hedge_features</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#utils.calculate_chat_level_features.ChatLevelFeaturesCalculator.calculate_hedge_features" title="Link to this definition"></a></dt>
+<dd><p>Calculate features related to expressing hesitation (or ‘hedge’).</p>
+<p>This function identifies whether a message contains hedge words using a naive approach and appends this
+information as a new column to the chat data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.calculate_chat_level_features.ChatLevelFeaturesCalculator.calculate_politeness_sentiment">
+<span class="sig-name descname"><span class="pre">calculate_politeness_sentiment</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#utils.calculate_chat_level_features.ChatLevelFeaturesCalculator.calculate_politeness_sentiment" title="Link to this definition"></a></dt>
+<dd><p>Calculate politeness strategies using the Politeness module from Convokit.</p>
+<p>This function applies the Convokit politeness strategies to the chat messages and
+appends all outputted features to the chat data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.calculate_chat_level_features.ChatLevelFeaturesCalculator.calculate_politeness_v2">
+<span class="sig-name descname"><span class="pre">calculate_politeness_v2</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#utils.calculate_chat_level_features.ChatLevelFeaturesCalculator.calculate_politeness_v2" title="Link to this definition"></a></dt>
+<dd><p>Calculate politeness features using the System for Encouraging Conversational Receptiveness (SECR).</p>
+<p>Source: <a class="reference external" href="https://www.mikeyeomans.info/papers/receptiveness.pdf">https://www.mikeyeomans.info/papers/receptiveness.pdf</a></p>
+<p>This function applies the SECR module to the chat messages and appends the calculated
+politeness features to the chat data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.calculate_chat_level_features.ChatLevelFeaturesCalculator.calculate_textblob_sentiment">
+<span class="sig-name descname"><span class="pre">calculate_textblob_sentiment</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#utils.calculate_chat_level_features.ChatLevelFeaturesCalculator.calculate_textblob_sentiment" title="Link to this definition"></a></dt>
+<dd><p>Calculate features related to sentiment using TextBlob.</p>
+<p>This function calculates and appends the following TextBlob sentiment features to the chat data:
+- Subjectivity score
+- Polarity score</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.calculate_chat_level_features.ChatLevelFeaturesCalculator.calculate_word_mimicry">
+<span class="sig-name descname"><span class="pre">calculate_word_mimicry</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#utils.calculate_chat_level_features.ChatLevelFeaturesCalculator.calculate_word_mimicry" title="Link to this definition"></a></dt>
+<dd><p>Calculate features related to word mimicry.</p>
+<p>This function calculates the number of function words and the sum of inverse frequency of content words
+that also appear in the other’s prior turn. It also computes mimicry using SBERT vectors.</p>
+<ul class="simple">
+<li><p>Extracts function and content words from a message</p></li>
+<li><p>Identifies mimicry of function and content words from the immediate previous turn</p></li>
+<li><p>Computes function word accommodation (number of mimicked function words)</p></li>
+<li><p>Computes content word accommodation (sum of inverse frequency of mimicked content words)</p></li>
+<li><p>Computes mimicry relative to the previous chat or messages using SBERT vectors</p></li>
+</ul>
+<p>Drops the intermediate columns related to function and content words after calculation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.calculate_chat_level_features.ChatLevelFeaturesCalculator.concat_bert_features">
+<span class="sig-name descname"><span class="pre">concat_bert_features</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#utils.calculate_chat_level_features.ChatLevelFeaturesCalculator.concat_bert_features" title="Link to this definition"></a></dt>
+<dd><p>Concatenate RoBERTa sentiment features to the chat data.</p>
+<p>This function appends RoBERTa sentiment data (which are pre-processed beforehand to save computation)
+as new columns to the existing chat data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.calculate_chat_level_features.ChatLevelFeaturesCalculator.get_certainty_score">
+<span class="sig-name descname"><span class="pre">get_certainty_score</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#utils.calculate_chat_level_features.ChatLevelFeaturesCalculator.get_certainty_score" title="Link to this definition"></a></dt>
+<dd><p>Calculate the certainty score of a statement.</p>
+<p>This function uses the formula published in Rocklage et al. (2023) to calculate
+the certainty score of a chat message and appends it to the chat data.</p>
+<p>Source: <a class="reference external" href="https://journals.sagepub.com/doi/pdf/10.1177/00222437221134802">https://journals.sagepub.com/doi/pdf/10.1177/00222437221134802</a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.calculate_chat_level_features.ChatLevelFeaturesCalculator.get_dale_chall_score_and_classfication">
+<span class="sig-name descname"><span class="pre">get_dale_chall_score_and_classfication</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#utils.calculate_chat_level_features.ChatLevelFeaturesCalculator.get_dale_chall_score_and_classfication" title="Link to this definition"></a></dt>
+<dd><p>Calculate the readability of a text according to its Dale-Chall score.</p>
+<p>This function calculates and appends the following Dale-Chall readability features to the chat data:
+- Dale-Chall score
+- Dale-Chall classification</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.calculate_chat_level_features.ChatLevelFeaturesCalculator.get_forward_flow">
+<span class="sig-name descname"><span class="pre">get_forward_flow</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#utils.calculate_chat_level_features.ChatLevelFeaturesCalculator.get_forward_flow" title="Link to this definition"></a></dt>
+<dd><p>Calculate the chat-level forward flow.</p>
+<p>This function compares the current chat to the average of the previous chats
+and appends the forward flow score to the chat data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.calculate_chat_level_features.ChatLevelFeaturesCalculator.get_named_entity">
+<span class="sig-name descname"><span class="pre">get_named_entity</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#utils.calculate_chat_level_features.ChatLevelFeaturesCalculator.get_named_entity" title="Link to this definition"></a></dt>
+<dd><p>This function calculates the number of named entities in a chat.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.calculate_chat_level_features.ChatLevelFeaturesCalculator.get_reddit_features">
+<span class="sig-name descname"><span class="pre">get_reddit_features</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#utils.calculate_chat_level_features.ChatLevelFeaturesCalculator.get_reddit_features" title="Link to this definition"></a></dt>
+<dd><p>Calculate a suite of features common in online communication.</p>
+<p>This function calculates and appends the following features to the chat data:
+- Number of all caps words
+- Number of links
+- Number of user references (Reddit format)
+- Number of emphases (bold, italics)
+- Number of bullet points
+- Number of numbered points
+- Number of line breaks
+- Number of quotes
+- Number of responses to someone else (using “&gt;”)
+- Number of ellipses
+- Number of parentheses
+- Number of emojis</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.calculate_chat_level_features.ChatLevelFeaturesCalculator.get_temporal_features">
+<span class="sig-name descname"><span class="pre">get_temporal_features</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#utils.calculate_chat_level_features.ChatLevelFeaturesCalculator.get_temporal_features" title="Link to this definition"></a></dt>
+<dd><p>Calculate features relevant to the timestamps of each chat.</p>
+<p>This function calculates and appends the following temporal feature to the chat data:
+- Time difference between messages sent</p>
+<p>It checks whether the ‘timestamp’ column is available. If not, it tries to calculate
+using ‘timestamp_start’ and ‘timestamp_end’ columns.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.calculate_chat_level_features.ChatLevelFeaturesCalculator.info_exchange">
+<span class="sig-name descname"><span class="pre">info_exchange</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#utils.calculate_chat_level_features.ChatLevelFeaturesCalculator.info_exchange" title="Link to this definition"></a></dt>
+<dd><p>Extract different types of z-scores from the chats.</p>
+<p>This function calculates and appends the following info exchange features to the chat data:
+- Modified word count (total word count minus first singular pronouns)
+- Z-score of the modified word count across all chats
+- Z-score of the modified word count within each conversation</p>
+<p>It then drops the intermediate <cite>info_exchange_wordcount</cite> column as it is a linear combination of the z-score columns.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.calculate_chat_level_features.ChatLevelFeaturesCalculator.lexical_features">
+<span class="sig-name descname"><span class="pre">lexical_features</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#utils.calculate_chat_level_features.ChatLevelFeaturesCalculator.lexical_features" title="Link to this definition"></a></dt>
+<dd><p>Implement lexical features.</p>
+<p>This driver function calls relevant functions to compute lexical features and appends them to the chat data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.calculate_chat_level_features.ChatLevelFeaturesCalculator.other_lexical_features">
+<span class="sig-name descname"><span class="pre">other_lexical_features</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#utils.calculate_chat_level_features.ChatLevelFeaturesCalculator.other_lexical_features" title="Link to this definition"></a></dt>
+<dd><p>Extract various lexical features from the chats.</p>
+<p>This function calculates and appends the following lexical features to the chat data:
+- Number of questions (naive approach using question marks and question words)
+- Classification of whether the message contains clarification questions
+- Word type-to-token ratio (TTR)
+- Proportion of first-person pronouns</p>
+<p>It also drops the raw number of first-person pronouns from the chat data as it is proportional to other columns.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.calculate_chat_level_features.ChatLevelFeaturesCalculator.positivity_zscore">
+<span class="sig-name descname"><span class="pre">positivity_zscore</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#utils.calculate_chat_level_features.ChatLevelFeaturesCalculator.positivity_zscore" title="Link to this definition"></a></dt>
+<dd><p>Calculate the z-score of a message’s positivity (as measured by RoBERTa).</p>
+<p>This function calculates and appends the following positivity z-score features to the chat data:
+- Z-score of the positivity across all chats
+- Z-score of the positivity within each conversation</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.calculate_chat_level_features.ChatLevelFeaturesCalculator.text_based_features">
+<span class="sig-name descname"><span class="pre">text_based_features</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#utils.calculate_chat_level_features.ChatLevelFeaturesCalculator.text_based_features" title="Link to this definition"></a></dt>
+<dd><p>Implement common text-based features.</p>
+<p>This function calculates and appends the following text-based features to the chat data:
+- Number of words
+- Number of characters
+- Number of messages</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="Utilities" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="calculate_conversation_level_features.html" class="btn btn-neutral float-right" title="calculate_conversation_level_features module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Xinlan Emily Hu and the Team Communication Toolkit Research Group.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

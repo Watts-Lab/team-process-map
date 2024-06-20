@@ -8,21 +8,23 @@ import pandas as pd
 from collections import defaultdict
 from utils.preprocess import *
 
-"""
-file: named_entity_recognition_features.py
----
-Detects whether a user is talking about (or to) someone else in a conversation.
-"""
+#Detects whether a user is talking about (or to) someone else in a conversation.
 
 nlp = spacy.load("en_core_web_sm")
 named_entities_list=[]
 
-"""
-function: num_named_entity
-
-Returns the number of named-entities in a message
-"""
 def num_named_entity(text, cutoff):
+    """ Returns the number of named entities in a message.
+
+    Args:
+        text (str): The message (utterance) for which we are counting named entities.
+        cutoff (int): The confidence threshold for each named entity.
+
+    Returns: 
+        int: Number of named entities in a message
+
+    """
+
     if (len(named_entities_list) > 0):
         named_entities_list.clear()
 
@@ -31,12 +33,17 @@ def num_named_entity(text, cutoff):
     # number of named entities
     return (len(named_entities_list))
 
-"""
-function: named_entities
-
-Returns a tuple of all (named-entities, confidence score) in a message
-""" 
 def named_entities(text, cutoff):
+    """ Returns a tuple of all (named-entities, confidence score) in a message
+    
+    Args:
+        text (str): The message (utterance) for which we are counting named entities.
+        cutoff (int): The confidence threshold for each named entity.
+
+    Returns:
+        tuple: A tuple of tuples that contains the (named entity, confidence score)
+
+    """ 
     if (len(named_entities_list) > 0):
         named_entities_list.clear()
 
@@ -44,15 +51,20 @@ def named_entities(text, cutoff):
 
     # number of named entities
     return(tuple(named_entities_list))
-
-"""
-function: calculate_named_entities
-
-Appends (named-entities, confidence score) to a list of all named entities in a message
-
-Inspired by https://support.prodi.gy/t/accessing-probabilities-in-ner/94
-"""    
+  
 def calculate_named_entities(text, cutoff):
+    """ Counts the number of named entities in a message in which their confidence scores 
+    exceed the cutoff.
+
+    Inspired by https://support.prodi.gy/t/accessing-probabilities-in-ner/94
+    
+    Args:
+        text (str): The message (utterance) for which we are counting named entities.
+        cutoff (int): The confidence threshold for each named entity.
+
+    Returns:
+        List: The list of all named entities in a message and their confidence scores
+    """  
     docs = list(nlp.pipe([text], disable=['ner']))
 
     # beam search parsing for ner
@@ -73,29 +85,36 @@ def calculate_named_entities(text, cutoff):
         # checks if confidence is above the cutoff and if named entity is a PERSON
         if score > cutoff and label == "PERSON":
             named_entities_list.append((doc[start:end], score))
-
-"""
-function: built_spacy_ner
-
-Returns a tuple of sentences, the named entity and its position in the sentence, and its label for training
-
-Inspired by https://dataknowsall.com/blog/ner.html
-"""     
+   
 def built_spacy_ner(text, target, type):
+    """ Returns a tuple of sentences, the named entity and its position in the sentence, and its label for training
+
+    Inspired by https://dataknowsall.com/blog/ner.html
+
+    Args:
+        text (str): The message (utterance) for which we are counting named entities.
+        target (str): The named entity.
+        type (str): The entity type (e.g. PERSON, ORG, LOC, PRODUCT, LANGUAGE, etc.)
+
+    Returns:
+        Tuple: The message and a dictionary of its identified named entities associated with
+        the start and end characters and the type of named entity
+    """  
     start = str.find(text, target)
     end = start + len(target)
 
     return (text, {"entities": [(start, end, type)]})
-
-"""
-function: train_spacy_ner
-
-Trains model based on user inputted file that provides example sentences and the named entity that appears
-
-Inspired by https://dataknowsall.com/blog/ner.html
-"""   
+ 
 def train_spacy_ner(training):
+    """ Trains model based on user inputted dataframe that provides example sentences and the named entity that appears in each sentence.
 
+    Inspired by https://dataknowsall.com/blog/ner.html
+
+    Args:
+        training (pd.DataFrame): The user inputted training dataframe 
+
+    Returns:
+    """  
     # takes training data from user inputted file
     training["sentence_to_train"] = training["sentence_to_train"].astype(str).apply(preprocess_text)
     training["name_to_train"] = training["name_to_train"].astype(str).apply(preprocess_text)

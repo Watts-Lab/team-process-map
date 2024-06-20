@@ -17,7 +17,28 @@ with open(certainty_file_pkl_path, 'rb') as f:
     certainty = certainty.sort_values(["NumWords", "NumCharacters"], ascending=False)
 master_regex = certainty["Word"].str.cat(sep='\\b|') + "\\b"
 
-def get_certainty(chat): 
+def get_certainty(chat):
+    """ Calculates a score of how "certain" a given expression is, using the Certainty Lexicon.
+
+    Source: Rocklage et al. (2023): https://journals.sagepub.com/doi/pdf/10.1177/00222437221134802?casa_token=teghxGBQDHgAAAAA:iby1S-4piT4bQZ6-1lPNGOKUJsx-Ep8DaURu1OGvjuRWDbOf5h6AyfbSLVUgHjyIv31D_aS6PPbT
+
+    Certainty is an individual’s subjective sense of confidence or
+    conviction (Petrocelli, Tormala, and Rucker 2007).
+
+    The score is computed by using a regular expression match from the lexicon published in Rocklage et al. (2023);
+    the method was developed in consultation with the original author.
+
+    The score ranges from 0 ("very uncertain") to 9 ("very certain").
+
+    If a match is not found, the default value is 4.5 (which we take to be neutral). The default value is the only deviation
+    that we make from the main paper, as the original paper simply returns NA.
+    
+    Args:
+        chat (str): The message (utterance) for which we are seeking to evaluate certainty.
+    
+    Returns:
+        float: The certainty score of the utterance.
+    """
     
     # default certainty value is 4.5; aka a "neutral" statement in the event we don't find anything
     DEFAULT_CERTAINTY = 4.5

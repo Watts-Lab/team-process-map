@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>question_num module &mdash; Team Communication Toolkit 0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=837179f8"></script>
+        <script src="../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="politeness_features module" href="politeness_features.html" />
+    <link rel="prev" title="info_exchange_zscore module" href="info_exchange_zscore.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Team Communication Toolkit
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../feature_builder.html">feature_builder module</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Features: Technical Documentation</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="index.html#utterance-chat-level-features">Utterance- (Chat) Level Features</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="basic_features.html">basic_features module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="certainty.html">certainty module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="lexical_features_v2.html">lexical_features_v2 module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="other_lexical_features.html">other_lexical_features module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="info_exchange_zscore.html">info_exchange_zscore module</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">question_num module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#features.question_num.calculate_num_question_naive"><code class="docutils literal notranslate"><span class="pre">calculate_num_question_naive()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="politeness_features.html">politeness_features module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hedge.html">hedge module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="temporal_features.html">temporal_features module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="readability.html">readability module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="textblob_sentiment_analysis.html">textblob_sentiment_analysis module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="named_entity_recognition_features.html">named_entity_recognition_features module</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#conversation-level-features">Conversation-Level Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#speaker-user-level-features">Speaker- (User) Level Features</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../features_conceptual/index.html">Features: Conceptual Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../utils/index.html">Utilities</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Team Communication Toolkit</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Features: Technical Documentation</a></li>
+      <li class="breadcrumb-item active">question_num module</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/features/question_num.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-features.question_num">
+<span id="question-num-module"></span><h1>question_num module<a class="headerlink" href="#module-features.question_num" title="Link to this heading"></a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="features.question_num.calculate_num_question_naive">
+<span class="sig-prename descclassname"><span class="pre">features.question_num.</span></span><span class="sig-name descname"><span class="pre">calculate_num_question_naive</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">question_words</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#features.question_num.calculate_num_question_naive" title="Link to this definition"></a></dt>
+<dd><p>Get the number of sentences that either end with a question mark or start with a
+question word (e.g., “who,” “what,” “when,” “where,” “why”).
+This is a naive measure of the number of questions asked.</p>
+<p>Note that this function requires the data to <em>retain</em> punctuation as input.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>text</strong> (<em>str</em>) – The message (utterance) being analyzed.</p></li>
+<li><p><strong>question_words</strong> (<em>list</em>) – The list of question words.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The number of questions (Sentences ending with question marks or starting with question words) in the text.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="info_exchange_zscore.html" class="btn btn-neutral float-left" title="info_exchange_zscore module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="politeness_features.html" class="btn btn-neutral float-right" title="politeness_features module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Xinlan Emily Hu and the Team Communication Toolkit Research Group.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

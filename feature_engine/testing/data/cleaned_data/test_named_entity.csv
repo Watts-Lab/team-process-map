@@ -43,7 +43,7 @@ conversation_num,speaker_nickname,message,expected_value
 1,test_B,"Yes, Damien, I submitted it yesterday.",damien
 1,test_A,"Rose, are you busy this weekend?",rose
 1,test_B,"Not really, Seth, just some errands to run.",seth
-1,test_A,"Rayleen, have you heard from Sarah lately?","Rayleen, Sarah"
+1,test_A,"Rayleen, have you heard from Sarah lately?","rayleen, sarah"
 1,test_A,"No, Ashten, I haven't heard from her in a while.",ashten
 1,test_B,"Oren, are you free for dinner tonight?",oren
 1,test_A,"Sorry, Sharon, I already have plans.",sharon

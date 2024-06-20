@@ -21,7 +21,13 @@ from gensim.models.ldamodel import LdaModel
 
 def get_info_diversity(df):
     """
-    Computes information diversity (value between 0 and 1 inclusive) for all conversations
+    Computes information diversity (value between 0 and 1 inclusive) for all conversations.
+
+    Args:
+        df (pd.DataFrame): The utterance (chat)-level dataframe.
+    
+    Returns:
+        pd.DataFrame: the grouped conversational dataframe, with a new column ("info_diversity") representing the conversation's information diversity score.
     """
     info_div_score = df.groupby("conversation_num").apply(lambda x : info_diversity(x)).reset_index().rename(columns={0: "info_diversity"})
     return info_div_score
@@ -30,6 +36,12 @@ def info_diversity(df):
     """
     Preprocess data and then create numeric mapping of words in dataset to pass into LDA model
     Uses square root of number of rows as number of topics
+
+    Args:
+        df (pd.DataFrame): The input dataframe, grouped by the conversation index, to which this function is being applied.
+    
+    Returns:
+        float: The information diversity score, obtained from calling calculate_ID_score on the chat's topics; defaults to zero in case of empty data
     """
     num_rows = len(df)
     num_topics = int(math.sqrt(num_rows))
@@ -52,6 +64,12 @@ def info_diversity(df):
 def preprocessing(data):
         """
         Preprocesses the data by lowercasing, lemmatizing, and removing words of size less than 4
+
+        Args:
+            data (str): The utterance being analyzed (in this case, preprocessed for the LDA model.)
+
+        Returns:
+            list: A list of lemmatized text with stopwords and shorter words removed.
         """
         le=WordNetLemmatizer()
         word_tokens=word_tokenize(data.lower())
@@ -60,9 +78,19 @@ def preprocessing(data):
 
 def calculate_ID_score(doc_topics, num_topics):
         """
-        Computes info diversity score as suggested in Reidl & Woolley (2017); determine a topic vector 
-        for every message, then compute a mean topic vector across all messages, and measure the average 
-        cosine similarity between the message vectors and the mean vector
+        Computes info diversity score as suggested in Reidl & Woolley (2017); determines a topic vector 
+        for every message using an LDA Model, computes a mean topic vector across all messages, and measures the average 
+        cosine similarity between the message vectors and the mean vector.
+
+        Source: https://www.circlelytics.com/wp-content/uploads/2022/05/Riedl-Woolley-2017-Teams-vs-Crowds-A-field-test-of-the-realitive-contribution-of-incentives-member-abilities.pdf
+
+        Args:
+            doc_topics (list): the list of topic vectors from the team's chat messages that comes from the LDA model.
+            num_topics (int): the number of topics; set to be the square root of the number of rows, rounded to the nearest integer (this is a design decision on our part to be robust to datasets of varying sizes).
+        
+        Returns:
+            float: The information diversity score, given the list of topics vectors and the number of topics
+            
         """
         topic_matrix = []
         for doc in doc_topics:

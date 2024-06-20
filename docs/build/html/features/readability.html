@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>readability module &mdash; Team Communication Toolkit 0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=837179f8"></script>
+        <script src="../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="textblob_sentiment_analysis module" href="textblob_sentiment_analysis.html" />
+    <link rel="prev" title="temporal_features module" href="temporal_features.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Team Communication Toolkit
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../feature_builder.html">feature_builder module</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Features: Technical Documentation</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="index.html#utterance-chat-level-features">Utterance- (Chat) Level Features</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="basic_features.html">basic_features module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="certainty.html">certainty module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="lexical_features_v2.html">lexical_features_v2 module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="other_lexical_features.html">other_lexical_features module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="info_exchange_zscore.html">info_exchange_zscore module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="question_num.html">question_num module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="politeness_features.html">politeness_features module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hedge.html">hedge module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="temporal_features.html">temporal_features module</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">readability module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#features.readability.classify_text_dalechall"><code class="docutils literal notranslate"><span class="pre">classify_text_dalechall()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#features.readability.count_difficult_words"><code class="docutils literal notranslate"><span class="pre">count_difficult_words()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#features.readability.count_syllables"><code class="docutils literal notranslate"><span class="pre">count_syllables()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#features.readability.dale_chall_helper"><code class="docutils literal notranslate"><span class="pre">dale_chall_helper()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="textblob_sentiment_analysis.html">textblob_sentiment_analysis module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="named_entity_recognition_features.html">named_entity_recognition_features module</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#conversation-level-features">Conversation-Level Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#speaker-user-level-features">Speaker- (User) Level Features</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../features_conceptual/index.html">Features: Conceptual Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../utils/index.html">Utilities</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Team Communication Toolkit</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Features: Technical Documentation</a></li>
+      <li class="breadcrumb-item active">readability module</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/features/readability.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-features.readability">
+<span id="readability-module"></span><h1>readability module<a class="headerlink" href="#module-features.readability" title="Link to this heading"></a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="features.readability.classify_text_dalechall">
+<span class="sig-prename descclassname"><span class="pre">features.readability.</span></span><span class="sig-name descname"><span class="pre">classify_text_dalechall</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">score</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#features.readability.classify_text_dalechall" title="Link to this definition"></a></dt>
+<dd><p>Classifies the Dale-Chall score into a category of “easy,” “medium,” or “difficult”:</p>
+<ul class="simple">
+<li><p>A score is easy if it is below 4.9 (readable by a 4th grader or below)</p></li>
+<li><p>A score is medium if is is between 4.9 and 5.9 (readable by a middle school student)</p></li>
+<li><p>A score is difficult if it is above 5.9</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>score</strong> – the Dale-Chall readability score.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The label/classification associated with the text.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="features.readability.count_difficult_words">
+<span class="sig-prename descclassname"><span class="pre">features.readability.</span></span><span class="sig-name descname"><span class="pre">count_difficult_words</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">easy_words</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#features.readability.count_difficult_words" title="Link to this definition"></a></dt>
+<dd><p>Count the number of difficult words in a text. The difficult words are those that are not in
+an “easy words” list (passed in from the ChatLevelFeaturesCalculator, and originating in the get_dale_chall_easy_words() in Utilities).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>text</strong> (<em>str</em>) – The message (utterance) being analyzed.</p></li>
+<li><p><strong>easy_words</strong> (<em>list</em>) – A list of “easy” words according to Dale-Chall. This comes from the Utilities.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The number of difficult words.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="features.readability.count_syllables">
+<span class="sig-prename descclassname"><span class="pre">features.readability.</span></span><span class="sig-name descname"><span class="pre">count_syllables</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">word</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#features.readability.count_syllables" title="Link to this definition"></a></dt>
+<dd><p>Count the number of syllables in a word.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>word</strong> (<em>str</em>) – The input word.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The number of syllables in the word.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="features.readability.dale_chall_helper">
+<span class="sig-prename descclassname"><span class="pre">features.readability.</span></span><span class="sig-name descname"><span class="pre">dale_chall_helper</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">easy_words</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#features.readability.dale_chall_helper" title="Link to this definition"></a></dt>
+<dd><p>Calculate the Dale-Chall readability score of a text. The Dale-Chall score are defined as:</p>
+<blockquote>
+<div><p>0.1579 * ((difficult_words / words) * 100) + 0.0496 * (words / sentences)</p>
+<p>If the percentage of difficult words is above 5%, then add 3.6365 to the raw score to get the adjusted score, otherwise the adjusted score is equal to the raw score.</p>
+</div></blockquote>
+<p>In general, lower scores mean that a text is easier to read, and higher scores indicate that a text is harder to read.</p>
+<p>Because of the need to split up sentences, this function requires the version of pre-processed text WITH punctuation retained.</p>
+<p>Source: <a class="reference external" href="https://en.wikipedia.org/wiki/Dale%E2%80%93Chall_readability_formula">https://en.wikipedia.org/wiki/Dale%E2%80%93Chall_readability_formula</a>
+Citation (of example usage) in Cao et al. (2020): <a class="reference external" href="https://dl.acm.org/doi/pdf/10.1145/3432929">https://dl.acm.org/doi/pdf/10.1145/3432929</a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>text</strong> (<em>str</em>) – The message (utterance) being analyzed.</p></li>
+<li><p><strong>easy_words</strong> (<em>list</em>) – A list of “easy” words according to Dale-Chall. This comes from the Utilities.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The Dale-Chall Readability Score.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="temporal_features.html" class="btn btn-neutral float-left" title="temporal_features module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="textblob_sentiment_analysis.html" class="btn btn-neutral float-right" title="textblob_sentiment_analysis module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Xinlan Emily Hu and the Team Communication Toolkit Research Group.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -21,11 +21,22 @@ model_bert = AutoModelForSequenceClassification.from_pretrained(MODEL)
 
 # Check if embeddings exist
 def check_embeddings(chat_data, vect_path, bert_path):
-    
-    # vect_output_path = re.sub('./feature_engine', '', vect_path)
-    # bert_output_path = re.sub('./feature_engine', '', bert_path)
+    """
+    Check if embeddings and required lexicons exist, and generate them if they don't.
 
-    # ../feature_engine/embeddings --> ../embeddings
+    This function ensures the necessary vector and BERT embeddings are available. 
+    It also checks for the presence of certainty and lexicon files, generating them if needed.
+
+    :param chat_data: Dataframe containing chat data
+    :type chat_data: pd.DataFrame
+    :param vect_path: Path to the vector embeddings file
+    :type vect_path: str
+    :param bert_path: Path to the BERT embeddings file
+    :type bert_path: str
+
+    :return: None
+    :rtype: None
+    """
     if (not os.path.isfile(vect_path)):
         generate_vect(chat_data, vect_path)
     if (not os.path.isfile(bert_path)):
@@ -34,8 +45,6 @@ def check_embeddings(chat_data, vect_path, bert_path):
         # unpickle certainty
         unpickle_certainty()
 
-
-    ### TODO --- TEST THIS!
     current_script_directory = Path(__file__).resolve().parent
     LEXICON_PATH_STATIC = current_script_directory.parent/"features/lexicons_dict.pkl"
     if (not os.path.isfile(LEXICON_PATH_STATIC)):
@@ -64,8 +73,21 @@ def read_in_lexicons(directory, lexicons_dict):
         clean_name = re.sub('.txt', '', filename)
         lexicons_dict[clean_name] = "|".join(lines)
 
-# Generate the lexicon .pkl file
 def generate_lexicon_pkl():
+    """
+    Helper function for generating the pickle file containing lexicons.
+
+    This function reads in lexicon files from a specified directory, processes the content, 
+    and appends the cleaned lexicon patterns to a dictionary.
+
+    :param directory: The directory containing the lexicon files
+    :type directory: Path
+    :param lexicons_dict: Dictionary to store the processed lexicon patterns
+    :type lexicons_dict: dict
+
+    :return: None
+    :rtype: None
+    """
     print("Generating Lexicon pickle...")
     lexicons_dict = {}
     current_script_directory = Path(__file__).resolve().parent
@@ -76,23 +98,40 @@ def generate_lexicon_pkl():
     with open(current_script_directory.parent/"features/lexicons_dict.pkl", "wb") as lexicons_pickle_file:
         pickle.dump(lexicons_dict, lexicons_pickle_file)
 
-# Generate sentence vectors
 def generate_vect(chat_data, output_path):
+    """
+    Generates sentence vectors for the given chat data and saves them to a CSV file.
+
+    :param chat_data: Contains message data to be vectorized.
+    :type chat_data: pd.DataFrame
+    :param output_path: Path to save the CSV file containing message embeddings.
+    :type output_path: str
+    :raises FileNotFoundError: If the output path is invalid.
+    :return: None
+    :rtype: None
+    """
 
     print(f"Generating sentence vectors....")
-    # print(f"This is the current filepath: {os. getcwd()}")
-    # print(f"And we want to get to {output_path}")
+
     embedding_arr = [row.tolist() for row in model_vect.encode(chat_data.message)]
     embedding_df = pd.DataFrame({'message': chat_data.message, 'message_embedding': embedding_arr})
-
 
     # Create directories along the path if they don't exist
     Path(output_path).parent.mkdir(parents=True, exist_ok=True)
     embedding_df.to_csv(output_path, index=False)
 
-# Generate BERT sentiments 
 def generate_bert(chat_data, output_path):
-    
+    """
+    Generates RoBERTa sentiment scores for the given chat data and saves them to a CSV file.
+
+    :param chat_data: Contains message data to be analyzed for sentiments.
+    :type chat_data: pd.DataFrame
+    :param output_path: Path to save the CSV file containing sentiment scores.
+    :type output_path: str
+    :raises FileNotFoundError: If the output path is invalid.
+    :return: None
+    :rtype: None
+    """
     print(f"Generating BERT sentiments....")
 
     messages = chat_data['message']
@@ -107,6 +146,14 @@ def generate_bert(chat_data, output_path):
     sent_df.to_csv(output_path, index=False)
 
 def get_sentiment(text):
+    """
+    Analyzes the sentiment of the given text using a BERT model and returns the scores for positive, negative, and neutral sentiments.
+
+    :param text: The input text to analyze.
+    :type text: str or None
+    :return: A dictionary with sentiment scores.
+    :rtype: dict
+    """
 
     if (pd.isnull(text)):
         return({'positive': np.nan, 'negative': np.nan, 'neutral': np.nan})
@@ -123,6 +170,14 @@ def get_sentiment(text):
 
 
 def unpickle_certainty():
+    """
+    Unpickles the certainty data from a '.pkl' file and writes it to a '.txt' file.
+
+    :raises FileNotFoundError: If the '.pkl' file is not found.
+    :raises IOError: If there is an issue reading from the '.pkl' file or writing to the '.txt' file.
+    :return: None
+    :rtype: None
+    """
     current_script_directory = Path(__file__).resolve().parent
 
     with open(current_script_directory.parent/ "features/lexicons/certainty.pkl", "rb") as file:

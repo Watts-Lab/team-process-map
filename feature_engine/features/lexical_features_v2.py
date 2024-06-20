@@ -10,10 +10,20 @@ import pandas as pd
 import os
 from pathlib import Path
 
-# Store the LIWC features as a RATE per 100 words, per best practice (cite: https://www.mikeyeomans.info/papers/PGCR_yeomans.pdf, p. 42)
-# len(re.findall(regex, chat)) is the raw count
-# Formula: count / chat length * (chat length / 100) -> count / 100
 def get_liwc_rate(regex, chat):
+	""""
+	Computes the LIWC features as a rate per 100 words, per best practice (Yeomans et al. 2023; https://www.mikeyeomans.info/papers/PGCR_yeomans.pdf, p. 42)
+
+	We apply the following formula:
+	Rate of word use / 100 words = count / chat length * (chat length / 100)
+
+	Args:
+		regex (str): The regular expression for the lexicon.
+		chat(str): The message (utterance) being analyzed.
+
+	Returns:
+		float: The rate at which the message uses words from a given lexicon.
+	"""
 	if(len(chat) > 0):
 		return (len(re.findall(regex, chat))/(len(chat)))*(len(chat)/100)
 	else:
@@ -21,15 +31,14 @@ def get_liwc_rate(regex, chat):
 
 def liwc_features(chat_df: pd.DataFrame) -> pd.DataFrame:
 	"""
-		This function takes in the chat level input dataframe and computes the lexicon feautres for the 'message' column.
-		TODO: The current implementation assumes presence of 'message' column. 
-			  Might need to abstract this in order to make this generalizable for all datasets.
+		This function takes in the chat level input dataframe and computes lexical features 
+		(rates at which the message contains contains words from a given lexicon, such as LIWC).
 			  
-	PARAMETERS:
-		@param chat_df (pd.DataFrame): This is a pandas dataframe of the chat level features. Should contain 'message' column.
+	Args:
+		chat_df (pd.DataFrame): This is a pandas dataframe of the chat level features. Should contain 'message' column.
 
-	RETURNS:
-		(pd.DataFrame): Dataframe of the lexical features stacked as columns.
+	Returns:
+		pd.DataFrame: Dataframe of the lexical features stacked as columns.
 	"""
 	# Load the preprocessed lexical regular expressions
 	current_script_directory = Path(__file__).resolve().parent

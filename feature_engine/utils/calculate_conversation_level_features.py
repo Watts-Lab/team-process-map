@@ -1,14 +1,6 @@
-"""
-file: calculate_conversation_level_features.py
----
-This file defines the ConvLevelFeaturesCalculator class using the modules defined in "features".
-The intention behind this class is to use these modules and define any and all conv level features here. 
-"""
-
 # Importing modules from features
 from utils.gini_coefficient import *
 from features.basic_features import *
-# from utils.summarize_chat_level_features import *
 from utils.summarize_features import *
 from utils.preprocess import *
 from features.get_all_DD_features import *
@@ -18,27 +10,32 @@ from features.information_diversity import *
 
 
 class ConversationLevelFeaturesCalculator:
+    """
+    Initialize variables and objects used by the ConversationLevelFeaturesCalculator class.
+
+    This class uses various feature modules to define conversation-level features. It reads input data and
+    initializes variables required to compute the features.
+
+    :param chat_data: Pandas dataframe of chat-level features read from the input dataset
+    :type chat_data: pd.DataFrame
+    :param user_data: Pandas dataframe of user-level features derived from the chat-level dataframe
+    :type user_data: pd.DataFrame
+    :param conv_data: Pandas dataframe of conversation-level features derived from the chat-level dataframe
+    :type conv_data: pd.DataFrame
+    :param vect_data: Pandas dataframe of processed vectors derived from the chat-level dataframe
+    :type vect_data: pd.DataFrame
+    :param vector_directory: Directory where vector files are stored
+    :type vector_directory: str
+    :param input_columns: List of columns in the chat-level features dataframe that should not be summarized
+    :type input_columns: list
+        """
     def __init__(self, chat_data: pd.DataFrame, 
                         user_data: pd.DataFrame, 
                         conv_data: pd.DataFrame, 
                         vect_data: pd.DataFrame, 
                         vector_directory: str, 
                         input_columns:list) -> None:
-        """
-            This function is used to initialize variables and objects that can be used by all functions of this class.
-
-		PARAMETERS:
-			@param chat_data (pd.DataFrame): This is a pandas dataframe of the chat level features read in from the input dataset.
-            @param user_data (pd.DataFrame): This is a pandas dataframe of the user level features derived from the 
-                                             chat level dataframe.
-            @param conv_data (pd.DataFrame): This is a pandas dataframe of the conversation level features derived from the 
-                                             chat level dataframe.
-            @param vect_data (pd.DataFrame): This is a pandas dataframe of the processed vectors derived from the 
-                                             chat level dataframe.
-            @param vector_directory (str): This is a string containing the directory where the vectors live.
-            @param input_columns (list): This is a list containing all the columns in the chat level features dataframe that 
-                                         should not be summarized.
-        """
+    
         # Initializing variables
         self.chat_data = chat_data
         self.user_data = user_data
@@ -54,12 +51,13 @@ class ConversationLevelFeaturesCalculator:
         
     def calculate_conversation_level_features(self) -> pd.DataFrame:
         """
-			This is the main driver function for this class.
+        Main driver function for creating conversation-level features.
 
-		RETURNS:
-			(pd.DataFrame): The conversation level dataset given to this class during initialization along with 
-							new columns for each conv level feature.
+        This function computes various conversation-level features by aggregating chat-level and user-level features,
+        and appends them as new columns to the input conversation-level data.
 
+        :return: The conversation-level dataset with new columns for each conversation-level feature
+        :rtype: pd.DataFrame
         """
 
         # Get turn taking index by aggregating chat level totals, pass in CHAT LEVEL FEATURES
@@ -91,7 +89,12 @@ class ConversationLevelFeaturesCalculator:
 
     def get_turn_taking_features(self) -> None:
         """
-            This function is used to calculate the turn taking index in the conversation.
+        Calculate the turn-taking index in the conversation.
+
+        This function merges turn-taking features into the conversation-level data.
+
+        :return: None
+        :rtype: None
         """
 
         self.conv_data = pd.merge(
@@ -103,17 +106,19 @@ class ConversationLevelFeaturesCalculator:
 
     def get_gini_features(self) -> None:
         """
-            This function is used to calculate the gini index for features in the conversation.
+        Calculate the Gini index for relevant features in the conversation.
 
-            Note that Gini matters only when "amount" is involved. Thus, we should only calculate this for:
-            - word count (e.g., total number of words)
-            - character count
-            - message count
-            - function_word_accommodation
+        This function computes the Gini index for features involving counts, such as:
+        - Word count
+        - Character count
+        - Message count
+        - Function word accommodation
 
-            (In essence, these all represent _counts_ of something, for which it makes sense to get a "total")
+        The Gini index is then merged into the conversation-level data.
+
+        :return: None
+        :rtype: None
         """
-
         for column in self.summable_columns:
             
             self.conv_data = pd.merge(
@@ -125,10 +130,18 @@ class ConversationLevelFeaturesCalculator:
 
     def get_conversation_level_aggregates(self) -> None:
         """
-            This function is used to aggregate the summary statistics from 
-            chat level features to conversation level features.
+        Aggregate summary statistics from chat-level features to conversation-level features.
 
-            Specifically, it looks at 4 aggregation functions: Max, Min, Mean, Standard Deviation.
+        This function calculates and merges the following aggregation functions for each summarizable feature:
+        - Average/Mean
+        - Standard Deviation
+        - Minimum
+        - Maximum
+
+        For countable features (e.g., num_words, num_chars, num_messages), it also calculates and merges the sum.
+
+        :return: None
+        :rtype: None
         """
 
         # For each summarizable feature
@@ -178,9 +191,20 @@ class ConversationLevelFeaturesCalculator:
     
     def get_user_level_aggregates(self) -> None:
         """
-            This function is used to aggregate the summary statistics from 
-            chat level features to conversation level features.
-            Specifically, it looks at the mean and standard deviations at message and word level.
+        Aggregate summary statistics from user-level features to conversation-level features.
+
+        This function calculates and merges the following aggregation functions for each user-level feature:
+        - Average/Mean of summed user-level features
+        - Standard Deviation of summed user-level features
+        - Minimum of summed user-level features
+        - Maximum of summed user-level features
+        - Average/Mean of averaged user-level features
+        - Standard Deviation of averaged user-level features
+        - Minimum of averaged user-level features
+        - Maximum of averaged user-level features
+
+        :return: None
+        :rtype: None
         """
 
         # Sum Columns were created using self.get_user_level_summed_features()
@@ -256,8 +280,13 @@ class ConversationLevelFeaturesCalculator:
     
     def get_discursive_diversity_features(self) -> None:
         """
-            This function is used to calculate the discursive diversity for each conversation 
-            based on the word embeddings (SBERT) and chat level information.
+        Calculate discursive diversity features for each conversation.
+
+        This function computes discursive diversity based on the word embeddings (SBERT) 
+        and chat-level information, and merges the features into the conversation-level data.
+
+        :return: None
+        :rtype: None
         """
         self.conv_data = pd.merge(
             left=self.conv_data,
@@ -269,8 +298,14 @@ class ConversationLevelFeaturesCalculator:
       
     def calculate_team_burstiness(self) -> None:
         """
-        Calculates team burstiness coefficient by looking at differences in std dev and mean of 
-        times in between chats
+        Calculate the team burstiness coefficient.
+
+        This function computes the team burstiness coefficient by looking at the differences 
+        in standard deviation and mean of the time intervals between chats, and merges the 
+        results into the conversation-level data.
+
+        :return: None
+        :rtype: None
         """
         if {'time_diff'}.issubset(self.chat_data.columns):
             self.conv_data = pd.merge(
@@ -282,8 +317,14 @@ class ConversationLevelFeaturesCalculator:
     
     def calculate_info_diversity(self) -> None:
         """
-        Calculates an information diversity score for overall team by looking at cosine similarity between 
-        mean topic vector of team and each message's topic vectors
+        Calculate an information diversity score for the team.
+
+        This function computes the information diversity score by looking at the cosine 
+        similarity between the mean topic vector of the team and each message's topic vectors, 
+        and merges the results into the conversation-level data.
+
+        :return: None
+        :rtype: None
         """
         self.conv_data = pd.merge(
             left = self.conv_data,

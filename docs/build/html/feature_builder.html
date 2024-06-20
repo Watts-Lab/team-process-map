@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>feature_builder module &mdash; Team Communication Toolkit 0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=837179f8"></script>
+        <script src="_static/doctools.js?v=9a2dae69"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Features: Technical Documentation" href="features/index.html" />
+    <link rel="prev" title="Introduction" href="intro.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Team Communication Toolkit
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">feature_builder module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#feature_builder.FeatureBuilder"><code class="docutils literal notranslate"><span class="pre">FeatureBuilder</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#feature_builder.FeatureBuilder.chat_level_features"><code class="docutils literal notranslate"><span class="pre">FeatureBuilder.chat_level_features()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#feature_builder.FeatureBuilder.conv_level_features"><code class="docutils literal notranslate"><span class="pre">FeatureBuilder.conv_level_features()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#feature_builder.FeatureBuilder.featurize"><code class="docutils literal notranslate"><span class="pre">FeatureBuilder.featurize()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#feature_builder.FeatureBuilder.get_first_pct_of_chat"><code class="docutils literal notranslate"><span class="pre">FeatureBuilder.get_first_pct_of_chat()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#feature_builder.FeatureBuilder.merge_conv_data_with_original"><code class="docutils literal notranslate"><span class="pre">FeatureBuilder.merge_conv_data_with_original()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#feature_builder.FeatureBuilder.preprocess_chat_data"><code class="docutils literal notranslate"><span class="pre">FeatureBuilder.preprocess_chat_data()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#feature_builder.FeatureBuilder.save_features"><code class="docutils literal notranslate"><span class="pre">FeatureBuilder.save_features()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#feature_builder.FeatureBuilder.set_self_conv_data"><code class="docutils literal notranslate"><span class="pre">FeatureBuilder.set_self_conv_data()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#feature_builder.FeatureBuilder.user_level_features"><code class="docutils literal notranslate"><span class="pre">FeatureBuilder.user_level_features()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="features/index.html">Features: Technical Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="features_conceptual/index.html">Features: Conceptual Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utils/index.html">Utilities</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Team Communication Toolkit</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">feature_builder module</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/feature_builder.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-feature_builder">
+<span id="feature-builder-module"></span><span id="feature-builder"></span><h1>feature_builder module<a class="headerlink" href="#module-feature_builder" title="Link to this heading"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="feature_builder.FeatureBuilder">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">feature_builder.</span></span><span class="sig-name descname"><span class="pre">FeatureBuilder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vector_directory</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_file_path_chat_level</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_file_path_user_level</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_file_path_conv_level</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">analyze_first_pct</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">[1.0]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">turns</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">conversation_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cumulative_grouping</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">within_task</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ner_cutoff</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.9</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ner_training_df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#feature_builder.FeatureBuilder" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>The FeatureBuilder is the main engine that reads in the user’s inputs and specifications and generates
+conversational features. The FeatureBuilder separately calls the classes (the ChatLevelFeaturesCalculator,
+ConversationLevelFeaturesCalculator, and UserLevelFeaturesCalculator) to generate conversational features at
+different levels.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>input_df</strong> (<em>pd.DataFrame</em>) – A pandas DataFrame containing the conversation data that you wish to featurize.</p></li>
+<li><p><strong>vector_directory</strong> (<em>str</em>) – Directory path where the vectors are to be cached.</p></li>
+<li><p><strong>output_file_path_chat_level</strong> (<em>str</em>) – Path where the output csv file is to be generated (assumes that the ‘.csv’ suffix is added).</p></li>
+<li><p><strong>analyze_first_pct</strong> (<em>list</em><em>(</em><em>float</em><em>)</em><em>, </em><em>optional</em>) – Analyze the first X% of the data. This parameter is useful because the earlier stages of the conversation may be more predictive than the later stages. Thus, researchers may wish to analyze only the first X% of the conversation data and compare the performance with using the full dataset. Defaults to [1.0].</p></li>
+<li><p><strong>conversation_id</strong> (<em>str</em><em>, </em><em>optional</em>) – A string representing the column name that should be selected as the conversation ID. Defaults to None.</p></li>
+<li><p><strong>cumulative_grouping</strong> (<em>bool</em><em>, </em><em>optional</em>) – If true, uses a cumulative way of grouping chats (not just looking within a single ID, but also at what happened before.) NOTE: This parameter and the following one (<cite>within_grouping</cite>) was created in the context of a multi-stage Empirica game (see: <a class="reference external" href="https://github.com/Watts-Lab/multi-task-empirica">https://github.com/Watts-Lab/multi-task-empirica</a>). It may not be generalizable to other conversational data, and will likely be deprecated in future versions. Defaults to False.</p></li>
+<li><p><strong>within_task</strong> (<em>bool</em><em>, </em><em>optional</em>) – If true, groups cumulatively in such a way that we only look at prior chats that are of the same task. Defaults to False.</p></li>
+<li><p><strong>ner_training_df</strong> (<em>pd.DataFrame</em>) – This is a pandas dataframe of training data for named entity recognition feature</p></li>
+<li><p><strong>ner_cutoff</strong> (<em>int</em>) – This is the cutoff value for the confidence of prediction for each named entity</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The FeatureBuilder doesn’t return anything; instead, it writes the generated features to files in the specified paths. It will also print out its progress, so you should see “All Done!” in the terminal, which will indicate that the features have been generated.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="feature_builder.FeatureBuilder.chat_level_features">
+<span class="sig-name descname"><span class="pre">chat_level_features</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#feature_builder.FeatureBuilder.chat_level_features" title="Link to this definition"></a></dt>
+<dd><p>Instantiate and use the ChatLevelFeaturesCalculator to create chat-level features.</p>
+<p>This function creates chat-level features using the ChatLevelFeaturesCalculator
+and adds them to the <cite>self.chat_data</cite> dataframe. It also removes special
+characters from the column names.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="feature_builder.FeatureBuilder.conv_level_features">
+<span class="sig-name descname"><span class="pre">conv_level_features</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#feature_builder.FeatureBuilder.conv_level_features" title="Link to this definition"></a></dt>
+<dd><p>Instantiate and use the ConversationLevelFeaturesCalculator to create conversation-level features.</p>
+<p>This function preprocesses conversation-level data, creates conversation-level features using
+the ConversationLevelFeaturesCalculator, and adds them to the <cite>self.conv_data</cite> dataframe.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="feature_builder.FeatureBuilder.featurize">
+<span class="sig-name descname"><span class="pre">featurize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">col</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'message'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#feature_builder.FeatureBuilder.featurize" title="Link to this definition"></a></dt>
+<dd><p>Main driver function for feature generation.</p>
+<p>This function creates chat-level features, generates features for different
+truncation percentages of the data if specified, and produces user-level and
+conversation-level features. Finally, the features are saved into the
+designated output files.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>col</strong> (<em>str</em><em>, </em><em>optional</em>) – Column to preprocess, defaults to “message”</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="feature_builder.FeatureBuilder.get_first_pct_of_chat">
+<span class="sig-name descname"><span class="pre">get_first_pct_of_chat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">percentage</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#feature_builder.FeatureBuilder.get_first_pct_of_chat" title="Link to this definition"></a></dt>
+<dd><p>Truncate each conversation to the first X% of rows.</p>
+<p>This function groups the chat data by <cite>conversation_num</cite> and retains only
+the first X% of rows for each conversation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>percentage</strong> (<em>float</em>) – Percentage of rows to retain in each conversation</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="feature_builder.FeatureBuilder.merge_conv_data_with_original">
+<span class="sig-name descname"><span class="pre">merge_conv_data_with_original</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#feature_builder.FeatureBuilder.merge_conv_data_with_original" title="Link to this definition"></a></dt>
+<dd><p>Merge conversation-level data with the original dataset.</p>
+<p>If <cite>conversation_id</cite> is defined and “conversation_num” is not already a column in the original dataset,
+the function renames the <cite>conversation_id</cite> column to “conversation_num”. Otherwise, it retains the original dataset.</p>
+<p>The function groups the original conversation data by “conversation_num” and merges it with the
+conversation-level data (<cite>conv_data</cite>). It drops duplicate rows and removes the ‘index’ column if present.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="feature_builder.FeatureBuilder.preprocess_chat_data">
+<span class="sig-name descname"><span class="pre">preprocess_chat_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">col</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'message'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">turns</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">conversation_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cumulative_grouping</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">within_task</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#feature_builder.FeatureBuilder.preprocess_chat_data" title="Link to this definition"></a></dt>
+<dd><p>Call all preprocessing modules needed to clean the chat text.</p>
+<p>This function groups the chat data as specified, verifies column presence, creates original and lowercased columns, preprocesses text, and optionally processes chat turns.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>col</strong> (<em>str</em><em>, </em><em>optional</em>) – Column to preprocess, defaults to “message”</p></li>
+<li><p><strong>turns</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to preprocess naive turns, defaults to False</p></li>
+<li><p><strong>conversation_id</strong> (<em>str</em><em>, </em><em>optional</em>) – Identifier for conversation grouping, defaults to None</p></li>
+<li><p><strong>cumulative_grouping</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to use cumulative grouping, defaults to False</p></li>
+<li><p><strong>within_task</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to group within tasks, defaults to False</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="feature_builder.FeatureBuilder.save_features">
+<span class="sig-name descname"><span class="pre">save_features</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#feature_builder.FeatureBuilder.save_features" title="Link to this definition"></a></dt>
+<dd><p>Save the feature dataframes to their respective output file paths.</p>
+<p>This function saves the <cite>chat_data</cite>, <cite>user_data</cite>, and <cite>conv_data</cite> dataframes
+to the respective CSV files specified in the output file paths provided during initialization.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="feature_builder.FeatureBuilder.set_self_conv_data">
+<span class="sig-name descname"><span class="pre">set_self_conv_data</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#feature_builder.FeatureBuilder.set_self_conv_data" title="Link to this definition"></a></dt>
+<dd><p>Derives the base conversation level dataframe.</p>
+<p>Set Conversation Data around <cite>conversation_num</cite> once preprocessing completes.
+We need to select the first TWO columns, as column 1 is the ‘index’ and column 2 is ‘conversation_num’.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="feature_builder.FeatureBuilder.user_level_features">
+<span class="sig-name descname"><span class="pre">user_level_features</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#feature_builder.FeatureBuilder.user_level_features" title="Link to this definition"></a></dt>
+<dd><p>Instantiate and use the UserLevelFeaturesCalculator to create user-level features.</p>
+<p>This function preprocesses conversation-level data, creates user-level features using
+the UserLevelFeaturesCalculator, and adds them to the <cite>self.user_data</cite> dataframe.
+It also removes special characters from the column names.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="intro.html" class="btn btn-neutral float-left" title="Introduction" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="features/index.html" class="btn btn-neutral float-right" title="Features: Technical Documentation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Xinlan Emily Hu and the Team Communication Toolkit Research Group.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Named Entity Recognition &mdash; Team Communication Toolkit 0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=837179f8"></script>
+        <script src="../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="FEATURE NAME" href="TEMPLATE.html" />
+    <link rel="prev" title="Features: Conceptual Documentation" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Team Communication Toolkit
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../feature_builder.html">feature_builder module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../features/index.html">Features: Technical Documentation</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Features: Conceptual Documentation</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="index.html#utterance-chat-level-features">Utterance- (Chat) Level Features</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Named Entity Recognition</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#high-level-intuition">High-Level Intuition</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#citation">Citation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#implementation-basics">Implementation Basics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#implementation-notes-caveats">Implementation Notes/Caveats</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#interpreting-the-feature">Interpreting the Feature</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#related-features">Related Features</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="TEMPLATE.html">FEATURE NAME</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#conversation-level-features">Conversation-Level Features</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../utils/index.html">Utilities</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Team Communication Toolkit</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Features: Conceptual Documentation</a></li>
+      <li class="breadcrumb-item active">Named Entity Recognition</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/features_conceptual/named_entity_recognition.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="named-entity-recognition">
+<span id="id1"></span><h1>Named Entity Recognition<a class="headerlink" href="#named-entity-recognition" title="Link to this heading"></a></h1>
+<section id="high-level-intuition">
+<h2>High-Level Intuition<a class="headerlink" href="#high-level-intuition" title="Link to this heading"></a></h2>
+<p>This feature detects whether a user is talking about (or to) someone else in a conversation.</p>
+</section>
+<section id="citation">
+<h2>Citation<a class="headerlink" href="#citation" title="Link to this heading"></a></h2>
+<p>N/A</p>
+</section>
+<section id="implementation-basics">
+<h2>Implementation Basics<a class="headerlink" href="#implementation-basics" title="Link to this heading"></a></h2>
+<p>In conversations, named entities often matter: angry statements mean something different when they are directed at no one in particular, versus when they are directed at someone (e.g., who is being blamed for something).
+This feature uses a named entity recognizer (<a class="reference external" href="https://spacy.io/api/entityrecognizer">https://spacy.io/api/entityrecognizer</a>) to identify whether someone is talking about (or to) someone else in a conversation.</p>
+</section>
+<section id="implementation-notes-caveats">
+<h2>Implementation Notes/Caveats<a class="headerlink" href="#implementation-notes-caveats" title="Link to this heading"></a></h2>
+<p>Users should pass in a training file and a threshold for confidence in the FeatureBuilder constructor. The parameter names are as follows:</p>
+<ol class="arabic simple">
+<li><p>‘ner_training_df’: This parameter expects a pandas DataFrame that contains the training data for named entity recognition.</p></li>
+</ol>
+<table class="docutils align-default" id="id2">
+<caption><span class="caption-text">Named Entity Training Examples</span><a class="headerlink" href="#id2" title="Link to this table"></a></caption>
+<colgroup>
+<col style="width: 66.7%" />
+<col style="width: 33.3%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>sentence_to_train</p></th>
+<th class="head"><p>name_to_train</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Helena’s idea sounds great!</p></td>
+<td><p>Helena</p></td>
+</tr>
+<tr class="row-odd"><td><p>I agree with Emily, what does everyone else think?</p></td>
+<td><p>Emily</p></td>
+</tr>
+<tr class="row-even"><td><p>I think we can also work with Shruti’s idea.</p></td>
+<td><p>Shruti</p></td>
+</tr>
+<tr class="row-odd"><td><p>Maybe we should also ask Amy about this</p></td>
+<td><p>Amy</p></td>
+</tr>
+</tbody>
+</table>
+<p>The feature will not run without a provided training file. The file should contain ¼ of the quantity of named entities you expect to see as examples. For example, in a dataset with 100 named entities, the training file should provide 25 examples.</p>
+<ol class="arabic simple" start="2">
+<li><p>‘ner_cutoff’: This integer parameter specifies the threshold for confidence score for each prediction.</p></li>
+</ol>
+<p>Each predicted named entity is associated with a confidence score that evaluates the probability of prediction of each entity. Users can pass in a cutoff value for the confidence scores. If this value is not provided, the default value is 0.9.</p>
+<p>The model was tested on a dataset of 100 sentences with 50 unique names. Here are the following evaluation metrics:</p>
+<p>Precision: 0.9855072464
+Recall: 0.68</p>
+</section>
+<section id="interpreting-the-feature">
+<h2>Interpreting the Feature<a class="headerlink" href="#interpreting-the-feature" title="Link to this heading"></a></h2>
+<p>This feature will output the number of named entities in a message, the named entity, and its confidence scores. This is an example output format:</p>
+<table class="docutils align-default" id="id3">
+<caption><span class="caption-text">Output File</span><a class="headerlink" href="#id3" title="Link to this table"></a></caption>
+<colgroup>
+<col style="width: 33.3%" />
+<col style="width: 16.7%" />
+<col style="width: 16.7%" />
+<col style="width: 33.3%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>message</p></th>
+<th class="head"><p>expected_value</p></th>
+<th class="head"><p>num_named_entity</p></th>
+<th class="head"><p>named_entities</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Helena’s idea sounds great!</p></td>
+<td><p>Helena</p></td>
+<td><p>1</p></td>
+<td><p>((Helena, 1.0))</p></td>
+</tr>
+<tr class="row-odd"><td><p>Sounds great, Emily</p></td>
+<td><p>Emily</p></td>
+<td><p>1</p></td>
+<td><p>((Emily, 0.95))</p></td>
+</tr>
+<tr class="row-even"><td><p>See you next week, Shruti!</p></td>
+<td><p>Shruti</p></td>
+<td><p>1</p></td>
+<td><p>((Shruti, 0.9992))</p></td>
+</tr>
+<tr class="row-odd"><td><p>Priya, did you see Amy today?</p></td>
+<td><p>Priya, Amy</p></td>
+<td><p>2</p></td>
+<td><p>((Priya, 0.99954), (Amy, 0.9123))</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="related-features">
+<h2>Related Features<a class="headerlink" href="#related-features" title="Link to this heading"></a></h2>
+<p>N/A</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="Features: Conceptual Documentation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="TEMPLATE.html" class="btn btn-neutral float-right" title="FEATURE NAME" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Xinlan Emily Hu and the Team Communication Toolkit Research Group.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

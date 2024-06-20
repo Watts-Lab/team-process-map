@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Introduction &mdash; Team Communication Toolkit 0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=837179f8"></script>
+        <script src="_static/doctools.js?v=9a2dae69"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="feature_builder module" href="feature_builder.html" />
+    <link rel="prev" title="The Team Communication Toolkit" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Team Communication Toolkit
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#motivation">Motivation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#the-featurebuilder">The FeatureBuilder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#generating-features-utterance-speaker-and-conversation-level">Generating Features: Utterance-, Speaker-, and Conversation-Level</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#feature-documentation">Feature Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#our-team">Our Team</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="feature_builder.html">feature_builder module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="features/index.html">Features: Technical Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="features_conceptual/index.html">Features: Conceptual Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utils/index.html">Utilities</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Team Communication Toolkit</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Introduction</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/intro.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="introduction">
+<span id="intro"></span><h1>Introduction<a class="headerlink" href="#introduction" title="Link to this heading"></a></h1>
+<div class="line-block">
+<div class="line">“Language most showeth a man; speak that I may see thee.”</div>
+<div class="line">— Johnson, qtd. in Matarazzo &amp; Wiens (1977)</div>
+</div>
+<p>The Team Communication Toolkit is a Python package that makes it easy for social scientists to analyze and understand <em>text-based communication data</em>. Our aim is to facilitate seamless analyses of conversational data — especially among groups and teams! — by providing a single interface for researchers to generate and explore dozens of research-backed conversational features.</p>
+<p><strong>Don’t reinvent the wheel</strong>: bootstrap analyses and build models with just a few lines of code.</p>
+<section id="motivation">
+<h2>Motivation<a class="headerlink" href="#motivation" title="Link to this heading"></a></h2>
+<p>Conversations are at the center of nearly every human interaction. For social scientists, conversational data is a rich resource for unpacking a person’s cognitive process, demystifying a team’s problem-solving procedures, and providing important clues for downstream outcomes, such as whether a negotiation is likely to succeed, whether a conflict will be resolved amicably, and whether a group of collaborators is likely to achieve their goals.</p>
+<p>But all too often, exploring conversational data involves heavy computational lift and ad-hoc design decisions. To even begin studying conversations, researchers must decide what aspect of conversations to study: should they examine how much was said, who said the content, or the manner in which it was said? What should they measure — the sentiment? The number of words? The similarity between speakers? A thorough review of the conversational literature reveals a veritable rabbit-hole of possibilities. And even when a researcher has decided on a particular dimension (or a collection of dimensions to study), they must go through the non-trivial process of defining a measurement for the dimension and building it out in software.</p>
+<p>Finally, even when researchers build and measure their own features, what happens when other researchers need to study a similar concept in a different area? Each person needs to “reinvent the wheel,” creating redundant work and opening the possibility of making slightly different design decisions that make the study of conversations less reproducible.</p>
+<p>What if there existed a single package did it all for you? What if, instead of combing through the literature, deciding on constructs of interest, and putting together packages to build out features on your own, a vast (and ever-increasing!) collection of conversational attributes was readily available at your fingertips?</p>
+<p>We introduce the <strong>Team Communication Toolkit</strong>: a “one-stop shop” for exploring conversational data. Our framework is a single package encompassing a variety of common, research-backed measures of communication. These include tools like <a class="reference external" href="https://www.liwc.app/">LIWC</a>, <a class="reference external" href="https://convokit.cornell.edu/">Convokit</a>, <a class="reference external" href="https://www.mikeyeomans.info/papers/receptiveness.pdf">The Conversational Receptiveness Package</a>, <a class="reference external" href="https://www.lexicalsuite.com/">The Lexical Suite</a> and much more. If you are working with conversational data for the first time, or just seeking to understand what you can possibly learn from open-ended conversations, this is the right place for you. We have collected over 100 features that you can explore, so that researchers can spend more time learning from conversations and less time worrying about how to begin studying them.</p>
+</section>
+<section id="the-featurebuilder">
+<h2>The FeatureBuilder<a class="headerlink" href="#the-featurebuilder" title="Link to this heading"></a></h2>
+<p>The heart of our tool is a class called the <a class="reference internal" href="feature_builder.html#feature-builder"><span class="std std-ref">FeatureBuilder</span></a>. This is the main way that you (as a user) should interact with the Toolkit. After you install the package, simply declare a FeatureBuilder object with the specifications you want — which dataframe you want to analyze, any custom features you need, and so on — and voila! We will generate conversational features from your data and return them to you in a CSV.</p>
+</section>
+<section id="generating-features-utterance-speaker-and-conversation-level">
+<h2>Generating Features: Utterance-, Speaker-, and Conversation-Level<a class="headerlink" href="#generating-features-utterance-speaker-and-conversation-level" title="Link to this heading"></a></h2>
+<p>Notably, not all communication features are made equal, as they can be defined at different levels of analysis. For example, a single utterance (“you are great!”) may be described as a “positive statement.” An individual who makes many such utterances may be described as a “positive person.” Finally, the entire team may enjoy a “positive conversation,” an interaction in which everyone speaks positively to each other. In this way, the same concept of positivity can be applied to three levels: the utterance, the speaker, and the conversation.</p>
+<p>The table below provides a simple illustrative example of two conversations, presented in the Toolkit’s required input format. We require only three columns: a conversation ID, a speaker ID, and a message/text input. The timestamp column is optional, but behaviors related to the conversation’s pace cannot be measured without it.</p>
+<a class="reference internal image-reference" href="_images/sample_convo.png"><img alt="A simple example of two conversations, as they would be formatted for input into the toolkit." src="_images/sample_convo.png" style="width: 80%;" /></a>
+<p>We therefore generate features at three different levels of analysis: the utterance, speaker, and conversation level. The examples below describe these features in the context of the sample table:</p>
+<ul class="simple">
+<li><p><strong>Utterance-level features</strong> apply to a single message within a conversation. The message, “Research is awesome!” by Speaker C is far more positive than the message, “I am not good at all,” by Speaker B.</p></li>
+<li><p><strong>Speaker-level features</strong> apply to a specific individual. Speaker A is more talkative than Speaker B — A speaks three times, while B speaks only once. Speaker-level features can be used to analyze patterns both within and across conversations. For example, if A participated in multiple conversations, one can aggregate A’s behavior across all of them (“what kind of person is A in general?”) as well as filter to A’s behavior within a specific conversation (“how did A speak during Conversation 1?”)</p></li>
+<li><p><strong>Conversation-level features</strong> apply to a single team conversation. Conversation 1 is longer (4 messages) than Conversation 2 (2 messages), while Conversation 2 is more positive (containing more positive than negative messages) than Conversation 1.</p></li>
+</ul>
+<a class="reference internal image-reference" href="_images/feature_aggregation.png"><img alt="A diagram showing how features are generated at different levels of analysis (utterance, speaker, and conversation level)." src="_images/feature_aggregation.png" style="width: 80%;" /></a>
+<p>The three levels of analysis are closely interconnected. In the Toolkit, Utterance-level features are calculated first. Features of utterances can then be “aggregated” into features at both the speaker and conversation level: by making more positive statements, you become a more positive person; the conversation as a whole also becomes more positive. While the positivity feature can be aggregated using a simple function (such as the mean), other utterance- and speaker-level features require more complex aggregation methods. The Gini coefficient is one such example, and it is applied to speaker level characteristics (the total number of messages, words, and characters uttered by each speaker). This aggregation generates a conversation-level feature that quantifies the “equality” in airtime during a conversation.</p>
+<p>The driving functions for generating features at different levels are located in the <a class="reference internal" href="utils/index.html#utils"><span class="std std-ref">Utilities</span></a>. In general, you do not have to directly interact with these utilties, as the Toolkit generates utterance-, speaker-, and conversational-level features by default. However, you (as a researcher) may only only be interested a subset of the outputs, and customizable options will be made avilable in the FeatureBuilder soon.</p>
+</section>
+<section id="feature-documentation">
+<h2>Feature Documentation<a class="headerlink" href="#feature-documentation" title="Link to this heading"></a></h2>
+<p>For technical information on the features generated by our Toolkit, please refer to the <a class="reference internal" href="features/index.html#features-technical"><span class="std std-ref">Features: Technical Documentation</span></a> page.</p>
+<p>For conceptual documentation on how our features relate to social science research, please refer to <a class="reference internal" href="features_conceptual/index.html#features-conceptual"><span class="std std-ref">Features: Conceptual Documentation</span></a> page.</p>
+</section>
+<section id="our-team">
+<h2>Our Team<a class="headerlink" href="#our-team" title="Link to this heading"></a></h2>
+<p>This tool is developed by <a class="reference external" href="https://xinlanemilyhu.com">Xinlan Emily Hu</a> at the Wharton School, University of Pennyslvania, with generous funding from <a class="reference external" href="https://ai-analytics.wharton.upenn.edu/about/">Wharton AI &amp; Analytics Initiative (WAIAI)</a>.</p>
+<p>This tool is a project of the <a class="reference external" href="https://css.seas.upenn.edu/">Computational Social Science Lab</a> at the University of Pennyslvania, led by Professor Duncan Watts.</p>
+<p>We are deeply grateful to the many people who have directly contributed to this tool’s development. Without them, creating this resource would not be possible:</p>
+<ul class="simple">
+<li><p>Shruti Agarwal</p></li>
+<li><p>Yuluan Cao</p></li>
+<li><p>Gina Chen</p></li>
+<li><p>Priya DCosta</p></li>
+<li><p>Nikhil Kumar</p></li>
+<li><p>Evan Rowbotham</p></li>
+<li><p>Yashveer Singh Sohi</p></li>
+<li><p>Yuxuan Zhang</p></li>
+<li><p>Amy Zheng</p></li>
+<li><p>Eric Zhong</p></li>
+<li><p>Helena Zhou</p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="The Team Communication Toolkit" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="feature_builder.html" class="btn btn-neutral float-right" title="feature_builder module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Xinlan Emily Hu and the Team Communication Toolkit Research Group.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

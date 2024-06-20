@@ -1,16 +1,4 @@
-"""
-file: feature_builder.py
----
-This file defines the FeatureBuilder class using the modules defined in "utils" and "features".
-The intention behind this class is to use these modules and:
-- Preprocess the incoming dataset defined in an input file path.
-- Create chat level features -> Use the moduled in "utils" and "features" to create features 
-                                on each chat message in the dataset (like word count, character count etc.).
-- Create conversation level features -> These can come from 2 sources:
-                                        - By aggregating the chat level features
-                                        - By defining new features specifically applicable for conversations
-- Save the chat and conversation level features in the output path specified.
-"""
+# feature_builder.py
 
 # 3rd Party Imports
 import pandas as pd
@@ -21,7 +9,6 @@ from pathlib import Path
 import time
 
 # Imports from feature files and classes
-# from utils.summarize_chat_level_features import *
 from utils.calculate_chat_level_features import ChatLevelFeaturesCalculator
 from utils.calculate_user_level_features import UserLevelFeaturesCalculator
 from utils.calculate_conversation_level_features import ConversationLevelFeaturesCalculator
@@ -29,6 +16,42 @@ from utils.preprocess import *
 from utils.check_embeddings import *
 
 class FeatureBuilder:
+    """The FeatureBuilder is the main engine that reads in the user's inputs and specifications and generates 
+    conversational features. The FeatureBuilder separately calls the classes (the ChatLevelFeaturesCalculator,
+    ConversationLevelFeaturesCalculator, and UserLevelFeaturesCalculator) to generate conversational features at
+    different levels.
+
+    :param input_df: A pandas DataFrame containing the conversation data that you wish to featurize.
+    :type input_df: pd.DataFrame 
+    
+    :param vector_directory: Directory path where the vectors are to be cached.
+    :type vector_directory: str
+    
+    :param output_file_path_chat_level: Path where the output csv file is to be generated (assumes that the '.csv' suffix is added).
+    :type output_file_path_chat_level: str
+    
+    :param analyze_first_pct: Analyze the first X% of the data. This parameter is useful because the earlier stages of the conversation may be more predictive than the later stages. Thus, researchers may wish to analyze only the first X% of the conversation data and compare the performance with using the full dataset. Defaults to [1.0].
+    :type analyze_first_pct: list(float), optional
+    
+    :param conversation_id: A string representing the column name that should be selected as the conversation ID. Defaults to None.
+    :type conversation_id: str, optional
+    
+    :param cumulative_grouping: If true, uses a cumulative way of grouping chats (not just looking within a single ID, but also at what happened before.) NOTE: This parameter and the following one (`within_grouping`) was created in the context of a multi-stage Empirica game (see: https://github.com/Watts-Lab/multi-task-empirica). It may not be generalizable to other conversational data, and will likely be deprecated in future versions. Defaults to False.
+    :type cumulative_grouping: bool, optional
+    
+    :param within_task: If true, groups cumulatively in such a way that we only look at prior chats that are of the same task. Defaults to False.
+    :type within_task: bool, optional
+    
+    :param ner_training_df: This is a pandas dataframe of training data for named entity recognition feature
+    :type ner_training_df: pd.DataFrame
+    
+    :param ner_cutoff: This is the cutoff value for the confidence of prediction for each named entity
+    :type ner_cutoff: int
+
+    :return: The FeatureBuilder doesn't return anything; instead, it writes the generated features to files in the specified paths. It will also print out its progress, so you should see "All Done!" in the terminal, which will indicate that the features have been generated.
+    :rtype: None
+
+    """
     def __init__(
             self, 
             input_df: pd.DataFrame, 
@@ -44,30 +67,7 @@ class FeatureBuilder:
             ner_cutoff: int = 0.9,
             ner_training_df: pd.DataFrame = None
         ) -> None:
-        """
-            This function is used to define variables used throughout the class.
 
-        PARAMETERS:
-            @param input_file_path (str): File path of the input csv dataset (assumes that the '.csv' suffix is added)
-            @param ner_training_df (str): File path of the training csv dataset for named entity recognition feature
-            @param vector_directory (str): Directory path where the vectors are to be cached.
-            @param output_file_path_chat_level (str): Path where the output csv file is to be generated 
-                                                      (assumes that the '.csv' suffix is added)
-            @param output_file_path_conv_level (str): Path where the output csv file is to be generated 
-                                                      (assumes that the '.csv' suffix is added)
-            @param analyze_first_pct (list of floats): Analyze the first X% of the data.
-                This parameter is useful because the earlier stages of the conversation may be more predictive than
-                the later stages. Thus, researchers may wish to analyze only the first X% of the conversation data
-                and compare the performance with using the full dataset.
-                This defaults to a single list containing the full dataset.
-            @param conversation_id: A string representing the column name that should be selected as the conversation ID.
-                This defaults to None.
-            @param cumulative_grouping: If true, uses a cumulative way of grouping chats (not just looking within a single ID, 
-                but also at what happened before.) This defaults to False.
-            @param within_task: If true, groups cumulatively in such a way that we only look at prior chats that are of the same task. 
-                This defaults to False.
-            @param ner_cutoff (int): Cutoff value for confidence in prediction for named entity recognition feature. This defaults to 0.9
-        """
         #  Defining input and output paths.
         self.chat_data = input_df
         self.ner_training = ner_training_df
@@ -124,13 +124,29 @@ class FeatureBuilder:
 
     def set_self_conv_data(self) -> None:
         """
-        Deriving the base conversation level dataframe.
+        Derives the base conversation level dataframe.
+
         Set Conversation Data around `conversation_num` once preprocessing completes.
-        We need to select the first TWO columns, as column 1 is the 'index' and column 2 is 'conversation_num'
-        """        
+        We need to select the first TWO columns, as column 1 is the 'index' and column 2 is 'conversation_num'.
+
+        :return: None
+        :rtype: None
+        """     
         self.conv_data = self.chat_data[['conversation_num']].drop_duplicates()
 
     def merge_conv_data_with_original(self) -> None:
+        """
+        Merge conversation-level data with the original dataset.
+
+        If `conversation_id` is defined and "conversation_num" is not already a column in the original dataset,
+        the function renames the `conversation_id` column to "conversation_num". Otherwise, it retains the original dataset.
+
+        The function groups the original conversation data by "conversation_num" and merges it with the
+        conversation-level data (`conv_data`). It drops duplicate rows and removes the 'index' column if present.
+
+        :return: None
+        :rtype: None
+        """
 
         if(self.conversation_id is not None and "conversation_num" not in self.orig_data.columns):
             # Set the `conversation_num` to the indicated variable
@@ -156,13 +172,20 @@ class FeatureBuilder:
 
     def featurize(self, col: str="message") -> None:
         """
-            This is the main driver function of this class.
-        
-        PARAMETERS:
-            @param col (str): (Default value: "message")
-                              This is a parameter passed onto the preprocessing modules 
-                              so as to identify the columns to preprocess.
+        Main driver function for feature generation.
+
+        This function creates chat-level features, generates features for different 
+        truncation percentages of the data if specified, and produces user-level and 
+        conversation-level features. Finally, the features are saved into the 
+        designated output files.
+
+        :param col: Column to preprocess, defaults to "message"
+        :type col: str, optional
+
+        :return: None
+        :rtype: None
         """
+
         # Step 1. Create chat level features.
         print("Chat Level Features ...")
         self.chat_level_features()
@@ -215,12 +238,25 @@ class FeatureBuilder:
 
     def preprocess_chat_data(self, col: str="message", turns=False, conversation_id=None, cumulative_grouping = False, within_task = False) -> None:
         """
-            This function is used to call all the preprocessing modules needed to clean the text.
+        Call all preprocessing modules needed to clean the chat text.
+
+        This function groups the chat data as specified, verifies column presence, creates original and lowercased columns, preprocesses text, and optionally processes chat turns.
+
+        :param col: Column to preprocess, defaults to "message"
+        :type col: str, optional
+        :param turns: Whether to preprocess naive turns, defaults to False
+        :type turns: bool, optional
+        :param conversation_id: Identifier for conversation grouping, defaults to None
+        :type conversation_id: str, optional
+        :param cumulative_grouping: Whether to use cumulative grouping, defaults to False
+        :type cumulative_grouping: bool, optional
+        :param within_task: Whether to group within tasks, defaults to False
+        :type within_task: bool, optional
         
-        PARAMETERS:
-            @param col (str): (Default value: "message")
-                              This is used to identify the columns to preprocess.
+        :return: None
+        :rtype: None
         """
+
         # create the appropriate grouping variables and assert the columns are present
         self.chat_data = preprocess_conversation_columns(self.chat_data, conversation_id, cumulative_grouping, within_task)
         assert_key_columns_present(self.chat_data)
@@ -243,8 +279,14 @@ class FeatureBuilder:
 
     def chat_level_features(self) -> None:
         """
-            This function instantiates and uses the ChatLevelFeaturesCalculator to create the chat level features 
-            and add them into the `self.chat_data` dataframe.
+        Instantiate and use the ChatLevelFeaturesCalculator to create chat-level features.
+
+        This function creates chat-level features using the ChatLevelFeaturesCalculator 
+        and adds them to the `self.chat_data` dataframe. It also removes special 
+        characters from the column names.
+
+        :return: None
+        :rtype: None
         """
         # Instantiating.
         chat_feature_builder = ChatLevelFeaturesCalculator(
@@ -261,7 +303,16 @@ class FeatureBuilder:
 
     def get_first_pct_of_chat(self, percentage) -> None:
         """
-            This function truncates each conversation to the first X% of rows.
+        Truncate each conversation to the first X% of rows.
+
+        This function groups the chat data by `conversation_num` and retains only 
+        the first X% of rows for each conversation.
+
+        :param percentage: Percentage of rows to retain in each conversation
+        :type percentage: float
+
+        :return: None
+        :rtype: None
         """
         chat_grouped = self.chat_data.groupby('conversation_num')
         num_rows_to_retain = pd.DataFrame(np.ceil(chat_grouped.size() * percentage)).reset_index()
@@ -273,10 +324,15 @@ class FeatureBuilder:
 
     def user_level_features(self) -> None:
         """
-            This function instantiates and uses the UserLevelFeaturesCalculator to create the 
-            user level features and add them into the `self.user_data` dataframe.
+        Instantiate and use the UserLevelFeaturesCalculator to create user-level features.
+
+        This function preprocesses conversation-level data, creates user-level features using 
+        the UserLevelFeaturesCalculator, and adds them to the `self.user_data` dataframe.
+        It also removes special characters from the column names.
+
+        :return: None
+        :rtype: None
         """
-        # Instantiating.
         self.user_data = preprocess_conversation_columns(self.user_data, self.conversation_id, self.cumulative_grouping, self.within_task)
         user_feature_builder = UserLevelFeaturesCalculator(
             chat_data = self.chat_data, 
@@ -284,18 +340,20 @@ class FeatureBuilder:
             vect_data= self.vect_data,
             input_columns = self.input_columns
         )
-        
-        # Calling the driver inside this class to create the features.
         self.user_data = user_feature_builder.calculate_user_level_features()
         # Remove special characters in column names
         self.user_data.columns = ["".join(c for c in col if c.isalnum() or c == '_') for col in self.user_data.columns]
 
     def conv_level_features(self) -> None:
         """
-            This function instantiates and uses the ConversationLevelFeaturesCalculator to create the 
-            conversation level features and add them into the `self.conv_data` dataframe.
+        Instantiate and use the ConversationLevelFeaturesCalculator to create conversation-level features.
+
+        This function preprocesses conversation-level data, creates conversation-level features using 
+        the ConversationLevelFeaturesCalculator, and adds them to the `self.conv_data` dataframe.
+
+        :return: None
+        :rtype: None
         """
-        # Instantiating.
         self.conv_data = preprocess_conversation_columns(self.conv_data, self.conversation_id)
         conv_feature_builder = ConversationLevelFeaturesCalculator(
             chat_data = self.chat_data, 
@@ -305,15 +363,18 @@ class FeatureBuilder:
             vector_directory = self.vector_directory,
             input_columns = self.input_columns
         )
-        # Calling the driver inside this class to create the features.
         self.conv_data = conv_feature_builder.calculate_conversation_level_features()
 
     def save_features(self) -> None:
         """
-            This function simply saves the files in the respective output file paths provided during initialization.
+        Save the feature dataframes to their respective output file paths.
+
+        This function saves the `chat_data`, `user_data`, and `conv_data` dataframes 
+        to the respective CSV files specified in the output file paths provided during initialization.
+
+        :return: None
+        :rtype: None
         """
-        # TODO: For now this function is very trivial. We will finalize the output formats (with date-time info etc) 
-        # and control the output mechanism through this function.
         self.chat_data.to_csv(self.output_file_path_chat_level, index=False)
         self.user_data.to_csv(self.output_file_path_user_level, index=False)
         self.conv_data.to_csv(self.output_file_path_conv_level, index=False)

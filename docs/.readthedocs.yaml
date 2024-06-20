@@ -14,6 +14,10 @@ build:
     # nodejs: "19"
     # rust: "1.64"
     # golang: "1.19"
+  jobs:
+    pre_install: # Stuff in feature_engine/requirements.txt dependso on en_core_web_sm, which in turn depends on spacy
+      - pip install spacy==3.7.2 
+      - bash -c "python3 -m spacy download en_core_web_sm"
 
 # Build documentation in the "docs/" directory with Sphinx
 sphinx:
@@ -27,6 +31,7 @@ sphinx:
 # Optional but recommended, declare the Python requirements required
 # to build your documentation
 # See https://docs.readthedocs.io/en/stable/guides/reproducible-builds.html
-# python:
-#    install:
-#    - requirements: feature_engine/requirements.txt
+python:
+   install:
+    - requirements: ./docs/requirements.txt
+    - requirements: ./feature_engine/requirements.txt

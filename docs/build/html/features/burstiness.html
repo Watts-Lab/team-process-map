@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>burstiness module &mdash; Team Communication Toolkit 0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=837179f8"></script>
+        <script src="../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="information_diversity module" href="information_diversity.html" />
+    <link rel="prev" title="named_entity_recognition_features module" href="named_entity_recognition_features.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Team Communication Toolkit
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../feature_builder.html">feature_builder module</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Features: Technical Documentation</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="index.html#utterance-chat-level-features">Utterance- (Chat) Level Features</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html#conversation-level-features">Conversation-Level Features</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">burstiness module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#features.burstiness.burstiness"><code class="docutils literal notranslate"><span class="pre">burstiness()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#features.burstiness.get_team_burstiness"><code class="docutils literal notranslate"><span class="pre">get_team_burstiness()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="information_diversity.html">information_diversity module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../utils/gini_coefficient.html">gini_coefficient module</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#speaker-user-level-features">Speaker- (User) Level Features</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../features_conceptual/index.html">Features: Conceptual Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../utils/index.html">Utilities</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Team Communication Toolkit</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Features: Technical Documentation</a></li>
+      <li class="breadcrumb-item active">burstiness module</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/features/burstiness.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-features.burstiness">
+<span id="burstiness-module"></span><h1>burstiness module<a class="headerlink" href="#module-features.burstiness" title="Link to this heading"></a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="features.burstiness.burstiness">
+<span class="sig-prename descclassname"><span class="pre">features.burstiness.</span></span><span class="sig-name descname"><span class="pre">burstiness</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timediff</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#features.burstiness.burstiness" title="Link to this definition"></a></dt>
+<dd><p>Computes the level of “burstiness” in a conversation, or the extent to which messages in a
+conversation occur periodically (e.g., every X seconds), versus in a “bursty” pattern
+(e.g., with long pauses and many messages in rapid succession.)</p>
+<p>The coefficient of variation, B, is sourced from Reidl and Wooley (2016): <a class="reference external" href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2384068">https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2384068</a></p>
+<p>B = (standard deviation of wait times - mean of wait times) / (standard deviation of wait times + mean of wait times)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>pd.DataFrame</em>) – The input dataframe, grouped by the conversation index, to which this function is being applied.</p></li>
+<li><p><strong>timediff</strong> (<em>str</em>) – The column name associated with the time differences between messages in a conversation (computed in a pre-processing step.)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The team burstiness score (B)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="features.burstiness.get_team_burstiness">
+<span class="sig-prename descclassname"><span class="pre">features.burstiness.</span></span><span class="sig-name descname"><span class="pre">get_team_burstiness</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timediff</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#features.burstiness.get_team_burstiness" title="Link to this definition"></a></dt>
+<dd><p>Applies the burstiness coefficient to each conversation in the utterance (chat)-level dataframe and returns a conversation-level dataframe.
+The Burstiness feature takes advantage of the fact that we already compute the time difference between messages
+as one of the utterance (chat)-level features.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>pd.DataFrame</em>) – The utterance (chat)-level dataframe.</p></li>
+<li><p><strong>timediff</strong> (<em>str</em>) – The column name associated with the time differences between messages in a conversation (computed by the utterance-level feature, get_temporal_features.)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>a grouped dataframe that contains the conversation identifier as the key, and contains a new column (“team_burstiness”) for each group’s burstiness coefficient.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="named_entity_recognition_features.html" class="btn btn-neutral float-left" title="named_entity_recognition_features module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="information_diversity.html" class="btn btn-neutral float-right" title="information_diversity module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Xinlan Emily Hu and the Team Communication Toolkit Research Group.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

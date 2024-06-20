@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>preprocess module &mdash; Team Communication Toolkit 0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=837179f8"></script>
+        <script src="../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="summarize_features module" href="summarize_features.html" />
+    <link rel="prev" title="preload_word_lists module" href="preload_word_lists.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Team Communication Toolkit
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../feature_builder.html">feature_builder module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../features/index.html">Features: Technical Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../features_conceptual/index.html">Features: Conceptual Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples.html">Examples</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Utilities</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="index.html#driver-classes-utterance-conversation-and-speaker-level-features">“Driver” Classes: Utterance-, Conversation-, and Speaker-Level Features</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html#other-utilities">Other Utilities</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="preload_word_lists.html">preload_word_lists module</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">preprocess module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#utils.preprocess.assert_key_columns_present"><code class="docutils literal notranslate"><span class="pre">assert_key_columns_present()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.preprocess.compress"><code class="docutils literal notranslate"><span class="pre">compress()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.preprocess.create_cumulative_rows"><code class="docutils literal notranslate"><span class="pre">create_cumulative_rows()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.preprocess.get_turn_id"><code class="docutils literal notranslate"><span class="pre">get_turn_id()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.preprocess.preprocess_conversation_columns"><code class="docutils literal notranslate"><span class="pre">preprocess_conversation_columns()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.preprocess.preprocess_naive_turns"><code class="docutils literal notranslate"><span class="pre">preprocess_naive_turns()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.preprocess.preprocess_text"><code class="docutils literal notranslate"><span class="pre">preprocess_text()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.preprocess.preprocess_text_lowercase_but_retain_punctuation"><code class="docutils literal notranslate"><span class="pre">preprocess_text_lowercase_but_retain_punctuation()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="summarize_features.html">summarize_features module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="zscore_chats_and_conversation.html">zscore_chats_and_conversation module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="assign_chunk_nums.html">assign_chunk_nums module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="check_embeddings.html">check_embeddings module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gini_coefficient.html">gini_coefficient module</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Team Communication Toolkit</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Utilities</a></li>
+      <li class="breadcrumb-item active">preprocess module</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/utils/preprocess.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-utils.preprocess">
+<span id="preprocess-module"></span><h1>preprocess module<a class="headerlink" href="#module-utils.preprocess" title="Link to this heading"></a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.preprocess.assert_key_columns_present">
+<span class="sig-prename descclassname"><span class="pre">utils.preprocess.</span></span><span class="sig-name descname"><span class="pre">assert_key_columns_present</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.preprocess.assert_key_columns_present" title="Link to this definition"></a></dt>
+<dd><p>Ensure that the DataFrame has essential columns and handle missing values.</p>
+<p>This function removes all special characters from the DataFrame column names
+and checks if the essential columns <cite>conversation_num</cite>, <cite>message</cite>, and
+<cite>speaker_nickname</cite> are present. If any of these columns are missing, a
+KeyError is raised. It also fills missing values in the essential columns
+with default values.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>df</strong> (<em>pandas.DataFrame</em>) – The DataFrame to check and process.</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>KeyError</strong> – If one of <cite>conversation_num</cite>, <cite>message</cite>, or <cite>speaker_nickname</cite> columns is missing.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.preprocess.compress">
+<span class="sig-prename descclassname"><span class="pre">utils.preprocess.</span></span><span class="sig-name descname"><span class="pre">compress</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">turn_df</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.preprocess.compress" title="Link to this definition"></a></dt>
+<dd><p>Combine messages in the same turn into a single message.</p>
+<p>This function takes a DataFrame representing messages in a single turn and
+concatenates their ‘message’ and ‘message_lower_with_punc’ columns into
+single strings if there are multiple messages in the same turn.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>turn_df</strong> (<em>pandas.DataFrame</em>) – The DataFrame containing messages in a single turn.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A Series with combined messages for the turn.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pandas.Series</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.preprocess.create_cumulative_rows">
+<span class="sig-prename descclassname"><span class="pre">utils.preprocess.</span></span><span class="sig-name descname"><span class="pre">create_cumulative_rows</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">conversation_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">within_task</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.preprocess.create_cumulative_rows" title="Link to this definition"></a></dt>
+<dd><p>Generate cumulative rows for chat data to analyze conversations in context.</p>
+<p>This function takes chat-level data and duplicates rows to facilitate the analysis of conversations
+in the context of preceding chats. It enables the inclusion of chats from previous stages or tasks within
+the same conversation.</p>
+<p>NOTE: This function was created in the context of a multi-stage Empirica game (see: <a class="reference external" href="https://github.com/Watts-Lab/multi-task-empirica">https://github.com/Watts-Lab/multi-task-empirica</a>).
+It may not be generalizable to other conversational data, and will likely be deprecated in future versions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>input_df</strong> (<em>pandas.DataFrame</em>) – The DataFrame containing chat data.</p></li>
+<li><p><strong>conversation_id</strong> (<em>str</em>) – The ID (e.g., stage or round) used for grouping the data.</p></li>
+<li><p><strong>within_task</strong> (<em>bool</em><em>, </em><em>optional</em>) – Flag to determine whether to restrict the analysis to the same task (<cite>roundId</cite>), defaults to False.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The processed DataFrame with cumulative rows added.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pandas.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.preprocess.get_turn_id">
+<span class="sig-prename descclassname"><span class="pre">utils.preprocess.</span></span><span class="sig-name descname"><span class="pre">get_turn_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.preprocess.get_turn_id" title="Link to this definition"></a></dt>
+<dd><p>Generate turn IDs for a conversation to identify turns taken by speakers.</p>
+<p>This function compares the current speaker with the previous one to identify when a change in speaker occurs,
+and then assigns a unique ‘turn_id’ that increments whenever the speaker changes within the conversation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>df</strong> (<em>pandas.DataFrame</em>) – The DataFrame containing chat data for a single conversation.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A Series containing the turn IDs.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pandas.Series</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.preprocess.preprocess_conversation_columns">
+<span class="sig-prename descclassname"><span class="pre">utils.preprocess.</span></span><span class="sig-name descname"><span class="pre">preprocess_conversation_columns</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">conversation_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cumulative_grouping</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">within_task</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.preprocess.preprocess_conversation_columns" title="Link to this definition"></a></dt>
+<dd><p>Preprocesses conversation data by removing special characters from column names and assigning a conversation number.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>pd.DataFrame</em>) – The DataFrame containing conversation data.</p></li>
+<li><p><strong>conversation_id</strong> (<em>str</em><em>, </em><em>optional</em>) – The column name to use for assigning conversation numbers. Must be one of {‘gameId’, ‘roundId’, ‘stageId’}.</p></li>
+<li><p><strong>cumulative_grouping</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to group data cumulatively based on the conversation_id.</p></li>
+<li><p><strong>within_task</strong> (<em>bool</em><em>, </em><em>optional</em>) – Used only if cumulative_grouping is True, to specify if grouping is within the task.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The preprocessed DataFrame with a conversation number column.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.preprocess.preprocess_naive_turns">
+<span class="sig-prename descclassname"><span class="pre">utils.preprocess.</span></span><span class="sig-name descname"><span class="pre">preprocess_naive_turns</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chat_data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.preprocess.preprocess_naive_turns" title="Link to this definition"></a></dt>
+<dd><p>Combine adjacent rows of the same speaker in the same conversation and compress messages into a “turn”.</p>
+<p>This function first generates a ‘turn_id’ for each chat message within the same conversation,
+indicating turns taken by the active speaker. It then combines messages with the same ‘turn_id’
+within each conversation to compress repeated messages from the same speaker.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>chat_data</strong> (<em>pandas.DataFrame</em>) – The chat data to process.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The processed chat data with combined message turns.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pandas.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.preprocess.preprocess_text">
+<span class="sig-prename descclassname"><span class="pre">utils.preprocess.</span></span><span class="sig-name descname"><span class="pre">preprocess_text</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.preprocess.preprocess_text" title="Link to this definition"></a></dt>
+<dd><p>Preprocess text by removing non-alphanumeric characters and converting to lowercase.</p>
+<p>This function takes a string, removes any characters that are not letters, numbers, or spaces,
+and converts the remaining text to lowercase.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>text</strong> (<em>str</em>) – The input text to process.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The processed text containing only alphanumeric characters and spaces in lowercase.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.preprocess.preprocess_text_lowercase_but_retain_punctuation">
+<span class="sig-prename descclassname"><span class="pre">utils.preprocess.</span></span><span class="sig-name descname"><span class="pre">preprocess_text_lowercase_but_retain_punctuation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.preprocess.preprocess_text_lowercase_but_retain_punctuation" title="Link to this definition"></a></dt>
+<dd><p>Convert the input text to lowercase while retaining punctuation.</p>
+<p>This function takes a string and converts all characters to lowercase,
+keeping any punctuation marks intact.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>text</strong> (<em>str</em>) – The input text to process.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The processed text with all characters in lowercase.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="preload_word_lists.html" class="btn btn-neutral float-left" title="preload_word_lists module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="summarize_features.html" class="btn btn-neutral float-right" title="summarize_features module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Xinlan Emily Hu and the Team Communication Toolkit Research Group.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
