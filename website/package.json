@@ -1,8 +1,7 @@
 {
   "homepage": "https://watts-lab.github.io/team-process-map/",
-  "name": "tpm-website",
+  "name": "website",
   "version": "0.1.0",
-  "homepage": "https://watts-lab.github.io/team-process-map/",
   "private": true,
   "dependencies": {
     "react": "^18.3.1",
