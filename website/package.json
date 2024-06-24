@@ -1,11 +1,10 @@
 {
-  "name": "website",
+  "homepage": "https://watts-lab.github.io/team-process-map/",
+  "name": "tpm-website",
   "version": "0.1.0",
+  "homepage": "https://watts-lab.github.io/team-process-map/",
   "private": true,
   "dependencies": {
-    "@testing-library/jest-dom": "^5.17.0",
-    "@testing-library/react": "^13.4.0",
-    "@testing-library/user-event": "^13.5.0",
     "react": "^18.3.1",
     "react-burger-menu": "^3.0.9",
     "react-dom": "^18.3.1",

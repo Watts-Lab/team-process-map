@@ -21,3 +21,4 @@ feature_engine/utils/__pycache__/
 feature_engine/data/vectors/sentence
 feature_engine/data/vectors/sentiment
 feature_engine/features/lexicons/certainty.txt
+node_modules
