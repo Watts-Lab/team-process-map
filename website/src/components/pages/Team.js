@@ -8,7 +8,7 @@ function Team() {
         Team
       </h1>
 
-      <img src='/public/xinlan-emily-hu.jpg' alt='emily' />
+      <img src="./team-process-map/xinlan-emily-hu.jpg" alt="emily"/>
     </div>
   );
 }
