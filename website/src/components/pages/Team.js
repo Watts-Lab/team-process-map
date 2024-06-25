@@ -7,6 +7,8 @@ function Team() {
       <h1 className='team'>
         Team
       </h1>
+
+      <img src='/public/xinlan-emily-hu.jpg' alt='emily' />
     </div>
   );
 }

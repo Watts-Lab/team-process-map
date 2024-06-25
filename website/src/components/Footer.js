@@ -8,12 +8,14 @@ function Footer() {
         <div className='footer-container'>
             <div className='logo-links'>
                 <a href='https://css.seas.upenn.edu/'>
-                    <img src='csslab_logo.png' alt='csslabLogo' />
+                    <img src='/public/csslab_logo.png' alt='csslabLogo' />
                 </a>
                 <a href='https://ai-analytics.wharton.upenn.edu/'>
-                    <img src='wharton_logo_white.png' alt='whartonLogo' />
+                    <img src='/public/wharton_logo_white.png' alt='whartonLogo' />
                 </a>
             </div>
+
+            <p style={{color: 'white'}}> &copy; Copyright 2024, Xinlan Emily Hu and the Team Communication Toolkit Research Group</p>
         </div>
     );
 }
