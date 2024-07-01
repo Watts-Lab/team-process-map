@@ -1,0 +1,50 @@
+conversation_num, speaker_nickname, timestamp, message,feature
+A, John, 2020-04-20T18:27:20.125Z, I'm curious how do you all feel about using flashcards?,team_burstiness
+A, Mary, 2020-04-20T18:27:40.125Z, I think flashcards are a great way to memorize information.,team_burstiness
+A, John, 2020-04-20T18:28:00.125Z, I agree I've found them to be really helpful.,team_burstiness
+A, Jessica, 2020-04-20T18:28:20.125Z, I'm not a big fan of flashcards I find them to be boring and ineffective.,team_burstiness
+A, Mary, 2020-04-20T18:28:40.125Z, I think it really depends on the individual and how they learn best.,team_burstiness
+A, John, 2020-04-20T18:29:00.125Z, That's true I know some people who prefer to use other methods like spaced repetition.,team_burstiness
+A, Jessica, 2020-04-20T18:29:20.125Z, I've heard of spaced repetition but I've never tried it.,team_burstiness
+A, John, 2020-04-20T18:29:40.125Z, It's a great way to improve your long-term memory.,team_burstiness
+A, Mary, 2020-04-20T18:30:00.125Z, I'll have to give it a try.,team_burstiness
+A, Jessica, 2020-04-20T18:30:20.125Z, Do you have any tips for studying effectively?,team_burstiness
+A, John, 2020-04-20T18:30:40.125Z, I find that studying in short bursts is more effective than trying to cram everything in at once.,team_burstiness
+A, Mary, 2020-04-20T18:31:00.125Z, I agree it's also important to take breaks and get enough sleep.,team_burstiness
+A, Jessica, 2020-04-20T18:31:20.125Z, I'm always struggling to stay motivated any tips?,team_burstiness
+A, John, 2020-04-20T18:31:40.125Z, I find it helpful to set realistic goals and break down large tasks into smaller ones.,team_burstiness
+A, Mary, 2020-04-20T18:32:00.125Z, It's also important to find a study buddy or group to help you stay accountable.,team_burstiness
+A, Jessica, 2020-04-20T18:32:20.125Z, Thanks for the advice I'll definitely try it out.,team_burstiness
+B, A, 2020-04-20T18:27:20.125Z, Hi everyone what are your favorite study habits?,team_burstiness
+B, B, 2020-04-20T18:27:40.956Z, I like to study in a quiet place where I can focus.,team_burstiness
+B, C, 2020-04-20T18:28:01.789Z, I prefer to study with a group of friends so we can help each other.,team_burstiness
+B, D, 2020-04-20T18:28:23.621Z, I like to study by myself so I can go at my own pace.,team_burstiness
+B, A, 2020-04-20T18:28:45.452Z, I think it's important to find a study method that works for you.,team_burstiness
+B, B, 2020-04-20T18:29:07.284Z, I agree.,team_burstiness
+B, C, 2020-04-20T18:29:29.116Z, I also think it's important to take breaks while you're studying.,team_burstiness
+B, D, 2020-04-20T18:29:50.947Z, Yes it's important to give your brain a chance to rest.,team_burstiness
+B, A, 2020-04-20T18:30:12.778Z, I find that it's helpful to set a timer and study for 25 minutes then take a 5 minute break.,team_burstiness
+B, B, 2020-04-20T18:30:34.610Z, That's a good idea I'll try that.,team_burstiness
+B, C, 2020-04-20T18:30:56.441Z, I like to listen to music while I study it helps me to concentrate.,team_burstiness
+B, D, 2020-04-20T18:31:18.273Z, I prefer to study in silence so I can focus on the material.,team_burstiness
+B, A, 2020-04-20T18:31:40.105Z, I find that it's helpful to create a study schedule and stick to it.,team_burstiness
+B, B, 2020-04-20T18:32:01.936Z, I agree it's important to be consistent with your studying.,team_burstiness
+B, C, 2020-04-20T18:32:23.768Z, I also think it's important to reward yourself for your hard work.,team_burstiness
+B, D, 2020-04-20T18:32:45.599Z, Yes it's important to stay motivated while you're studying.,team_burstiness
+C, A, 2020-04-20T18:27:20.125Z, I'm really struggling to stay focused when I study,team_burstiness
+C, B, 2020-04-20T18:27:32.456Z, I know what you mean. I have the same problem.,team_burstiness
+C, C, 2020-04-20T18:27:44.567Z, I've been trying to find a study method that works for me but I haven't had much luck. Do you have any tips?,team_burstiness
+C, B, 2020-04-20T18:29:22.456Z, I've found that it helps to break down my study material into smaller chunks.,team_burstiness
+C, C, 2020-04-20T18:29:44.567Z, That's a good idea. I'll try that.,team_burstiness
+C, A, 2020-04-20T18:29:52.456Z, I've also found that it helps to study in a quiet place where I can focus.,team_burstiness
+C, D, 2020-04-20T18:31:24.567Z, I agree. It's hard to concentrate when there's a lot of noise around.,team_burstiness
+C, A, 2020-04-20T19:31:32.456Z, Another thing that I've found helpful is to set a timer for myself when I study.,team_burstiness
+C, B, 2020-04-20T19:31:34.567Z, That's a good idea. It helps me to stay on task.,team_burstiness
+C, C, 2020-04-20T19:33:22.456Z, I'm going to try that too.,team_burstiness
+C, D, 2020-04-20T19:33:24.567Z, I've also found that it helps to reward myself when I finish a study session.,team_burstiness
+C, A, 2020-04-20T19:33:32.456Z, That's a good idea. It gives me something to look forward to.,team_burstiness
+C, B, 2020-04-20T19:33:44.567Z, I agree. It helps me to stay motivated.,team_burstiness
+C, C, 2020-04-20T20:35:32.456Z, I've found that it's also important to take breaks when you're studying.,team_burstiness
+C, D, 2020-04-20T20:35:44.567Z, I agree. It helps me to stay focused and avoid burnout.,team_burstiness
+C, A, 2020-04-20T20:35:52.456Z, I've also found that it helps to study with a friend or classmate.,team_burstiness
+C, B, 2020-04-20T20:35:56.567Z, That's a good idea. It can help you to stay motivated and on track.,team_burstiness

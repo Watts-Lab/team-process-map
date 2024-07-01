@@ -1,0 +1,19 @@
+conversation_num, speaker_nickname, message,feature
+A,A,The food was delicious and the service was great.,positive_bert
+A,A,The food was excellent and the service was impeccable.,positive_bert
+A,A,The food was terrible and the service was awful.,negative_bert
+A,A,The movie was very entertaining and I highly recommend it.,positive_bert
+A,A,The movie was engaging and I would definitely recommend it.,positive_bert
+A,A,The movie was awful and I wouldn't recommend it to anyone.,negative_bert
+A,A,The weather was beautiful today.,positive_bert
+A,A,The weather was perfect today.,positive_bert
+A,A,The weather was terrible today.,negative_bert
+A,A,I'm really enjoying this book.,positive_bert
+A,A,I'm captivated by this book.,positive_bert
+A,A,I'm not enjoying this book at all.,negative_bert
+A,A,I love spending time with my family.,positive_bert
+A,A,I cherish the time I spend with my family.,positive_bert
+A,A,I hate spending time with my family.,negative_bert
+A,A,I'm so happy to see you.,positive_bert
+A,A,I'm overjoyed to see you.,positive_bert
+A,A,I'm not happy to see you at all.,negative_bert
