@@ -4,13 +4,22 @@ from .discursive_diversity import get_cosine_similarity
 import os
 from pathlib import Path
 
-'''
-This is a conversation level feature, which computes the semantic modulation that 
-individuals experience with respect to themselves across each chunk transition. 
-Incongruent modulation measures the variance of the rates of shifting, 
-while within person discursive range measures the average amount of shifting. 
 
-'''
+"""
+Computes within-person discursive metrics, i.e., metrics that relies on users' semantic modulation across chunks, with respect to themselves. 
+
+Incongruent modulation measures the variance of the rates of shifting, while within person discursive range measures the average amount of shifting.
+
+These features leverages inverse cosine similarity to measure the semantic modulation that individuals experience with respect to themselves across each chunk transition.
+
+
+Args:
+    chat_data(pd.DataFrame): The chat data, which includes the conversation number, chunk number, and message embeddings.
+
+Returns:
+    pd.DataFrame: A grouped DataFrame that contains the conversation identifier as the key, and contains two new columns ("incongruent_modulation" and "within_person_disc_range") for each conversation's variance and average deviation in cross-chunk semantics, respectively.
+
+"""
 
 def get_nan_vector():
     current_script_directory = Path(__file__).resolve().parent
@@ -22,7 +31,7 @@ def get_nan_vector():
     return np.array(nan_vector_list)
 
 
-def get_within_person_disc_range(chat_data, num_chunks):
+def get_within_person_disc_range(chat_data):
 
     # Get nan vector 
     nan_vector = get_nan_vector()
